@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vision Dental &mdash; Website Redesign | 7Seas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --white: #FFFFFF;
+      --off-white: #F5F5F7;
+      --gray-100: #F0F0F2;
+      --gray-200: #E5E5EA;
+      --gray-300: #D1D1D6;
+      --gray-500: #86868B;
+      --gray-700: #424245;
+      --black: #1D1D1F;
+      --accent: #3a9ad9;
+    }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--black); background: var(--white); line-height: 1.5; overflow-x: hidden; }
+    ::selection { background: var(--accent); color: white; }
+
+    /* ===== NAV ===== */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 52px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: rgba(255,255,255,0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid rgba(0,0,0,0.08); transition: transform .35s cubic-bezier(.4,0,.2,1); }
+    .nav.hide { transform: translateY(-100%); }
+    .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--black); }
+    .nav-logo-mark { width: 24px; height: 24px; background: var(--black); border-radius: 5px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; line-height: 1; }
+    .nav-logo-text { font-weight: 600; font-size: 13px; letter-spacing: .04em; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { font-size: 12px; font-weight: 500; color: var(--gray-500); text-decoration: none; letter-spacing: .01em; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--black); }
+    .nav-bar { position: absolute; bottom: 0; left: 0; height: 1.5px; background: var(--black); transition: width .4s cubic-bezier(.4,0,.2,1); }
+
+    /* ===== SECTIONS ===== */
+    .s { padding: 160px 80px 120px; position: relative; }
+    .s-gray { background: var(--off-white); }
+    .s-inner { max-width: 1120px; margin: 0 auto; }
+    .s-label { font-size: 13px; font-weight: 500; color: var(--gray-500); letter-spacing: .02em; margin-bottom: 16px; }
+    .s-hero-title { font-size: clamp(48px, 6vw, 80px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; color: var(--black); }
+    .s-title { font-size: clamp(36px, 4.5vw, 56px); font-weight: 600; letter-spacing: -0.025em; line-height: 1.1; color: var(--black); }
+    .s-sub { font-size: 19px; font-weight: 400; color: var(--gray-500); line-height: 1.6; max-width: 560px; margin-top: 20px; }
+
+    /* ===== COVER ===== */
+    .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 40px; position: relative; }
+    .cover-top { font-size: 13px; font-weight: 500; color: var(--gray-500); margin-bottom: 32px; letter-spacing: .02em; }
+    .cover-title { font-size: clamp(56px, 8vw, 96px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.02; color: var(--black); margin-bottom: 24px; }
+    .cover-sub { font-size: 21px; font-weight: 400; color: var(--gray-500); max-width: 480px; line-height: 1.5; margin-bottom: 48px; }
+    .cover-meta { font-size: 13px; color: var(--gray-300); font-weight: 400; }
+    .cover-scroll { position: absolute; bottom: 40px; width: 24px; height: 40px; border: 1.5px solid var(--gray-300); border-radius: 12px; display: flex; align-items: flex-start; justify-content: center; padding-top: 8px; }
+    .cover-scroll-dot { width: 3px; height: 8px; background: var(--gray-500); border-radius: 2px; animation: scrollPulse 2s ease infinite; }
+    @keyframes scrollPulse { 0%,100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(8px); opacity: .3; } }
+
+    /* ===== REVEAL ===== */
+    .rv { opacity: 0; transform: translateY(24px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+    .rv.vis { opacity: 1; transform: none; }
+    .rv-d1 { transition-delay: .08s; }
+    .rv-d2 { transition-delay: .16s; }
+    .rv-d3 { transition-delay: .24s; }
+    .rv-d4 { transition-delay: .32s; }
+
+    /* ===== AGENDA ===== */
+    .agenda { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gray-200); border-radius: 16px; overflow: hidden; margin-top: 56px; }
+    .agenda-item { background: var(--white); padding: 40px 36px; }
+    .agenda-num { font-size: 48px; font-weight: 300; color: var(--gray-300); letter-spacing: -0.03em; margin-bottom: 12px; line-height: 1; }
+    .agenda-title { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+    .agenda-desc { font-size: 14px; color: var(--gray-500); line-height: 1.5; }
+
+    /* ===== KEYWORDS ===== */
+    .kw-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px; }
+    .kw { padding: 10px 24px; border-radius: 100px; font-size: 15px; font-weight: 500; border: 1px solid var(--gray-200); color: var(--gray-700); background: var(--white); transition: all .2s; cursor: default; }
+    .kw:hover { border-color: var(--gray-300); background: var(--off-white); }
+    .kw-accent { border-color: var(--accent); color: var(--accent); background: rgba(58,154,217,.04); }
+
+    /* ===== COLOR CHIPS ===== */
+    .chips { display: flex; gap: 16px; margin-top: 48px; flex-wrap: wrap; }
+    .chip { flex: 1; min-width: 180px; border-radius: 16px; overflow: hidden; background: var(--white); border: 1px solid var(--gray-200); }
+    .chip-color { height: 80px; }
+    .chip-info { padding: 16px 18px; }
+    .chip-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .chip-desc { font-size: 12px; color: var(--gray-500); line-height: 1.5; }
+    .chip-hex { font-size: 11px; color: var(--gray-500); font-family: 'SF Mono', monospace; margin-top: 6px; }
+
+    /* ===== REFERENCES ===== */
+    .ref-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+    .ref-card { padding: 28px; border-radius: 16px; background: var(--white); border: 1px solid var(--gray-200); text-decoration: none; color: inherit; transition: all .25s; display: block; }
+    .ref-card:hover { border-color: var(--gray-300); box-shadow: 0 4px 24px rgba(0,0,0,.06); transform: translateY(-2px); }
+    .ref-name { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+    .ref-url { font-size: 12px; color: var(--gray-500); margin-bottom: 10px; }
+    .ref-desc { font-size: 14px; color: var(--gray-700); line-height: 1.6; }
+    .ref-tags { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+    .ref-tag { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 100px; background: var(--off-white); color: var(--gray-500); }
+    .ref-tier { margin-bottom: 48px; }
+    .ref-tier-label { font-size: 13px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+    .ref-tier-note { font-size: 14px; color: var(--gray-500); margin-bottom: 16px; padding-left: 16px; border-left: 2px solid var(--gray-200); font-style: italic; }
+
+    /* ===== SITEMAP ===== */
+    .sitemap-frame { width: 100%; height: 72vh; border-radius: 16px; overflow: hidden; border: 1px solid var(--gray-200); background: var(--white); margin-top: 40px; position: relative; }
+    .sitemap-frame iframe { width: 100%; height: 100%; border: none; }
+    .sitemap-hint { position: absolute; bottom: 16px; left: 16px; font-size: 12px; color: var(--gray-500); background: rgba(255,255,255,.9); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 8px; border: 1px solid var(--gray-200); }
+
+    /* ===== STRATEGY SECTION ===== */
+    .strat-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-bottom: 48px; }
+    .strat-badge { display: inline-block; font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 100px; margin-bottom: 16px; }
+    .strat-palette { display: flex; height: 64px; border-radius: 12px; overflow: hidden; margin-bottom: 32px; cursor: pointer; }
+    .strat-swatch { flex: 1; position: relative; transition: flex .35s cubic-bezier(.4,0,.2,1); }
+    .strat-swatch:hover { flex: 2; }
+    .strat-swatch-label { position: absolute; bottom: 6px; left: 8px; font-size: 10px; font-weight: 600; color: white; text-shadow: 0 1px 3px rgba(0,0,0,.4); opacity: 0; transition: opacity .2s; }
+    .strat-swatch:hover .strat-swatch-label { opacity: 1; }
+    .strat-fonts { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+    .strat-font-label { font-size: 11px; font-weight: 600; color: var(--gray-500); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 8px; }
+    .strat-keywords { display: flex; flex-wrap: wrap; gap: 8px; }
+    .strat-kw { font-size: 13px; padding: 5px 14px; border-radius: 100px; border: 1px solid var(--gray-200); color: var(--gray-500); }
+
+    /* ===== BROWSER MOCKUP ===== */
+    .mockup { border-radius: 12px; overflow: hidden; border: 1px solid var(--gray-200); background: white; transition: box-shadow .3s, transform .3s; cursor: pointer; }
+    .mockup:hover { box-shadow: 0 12px 48px rgba(0,0,0,.1); }
+    .mockup-bar { height: 32px; background: var(--off-white); border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; padding: 0 12px; gap: 6px; }
+    .mockup-bar-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .mockup-bar-dot:nth-child(1) { background: #FF5F57; }
+    .mockup-bar-dot:nth-child(2) { background: #FFBD2E; }
+    .mockup-bar-dot:nth-child(3) { background: #28CA41; }
+    .mockup-bar-url { flex: 1; text-align: center; font-size: 11px; color: var(--gray-500); }
+    .mockup-body { overflow: hidden; position: relative; }
+    .mockup-body iframe { width: 100%; border: none; pointer-events: none; }
+    .mockup-body:hover iframe { pointer-events: auto; }
+    .mockup-body.scrollable { overflow-y: auto; }
+    .mockup-body.scrollable iframe { pointer-events: auto; height: 3000px !important; }
+    .mockup-expand { position: absolute; top: 8px; right: 8px; width: 32px; height: 32px; border-radius: 8px; background: rgba(0,0,0,.5); backdrop-filter: blur(8px); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .2s; z-index: 5; }
+    .mockup-body:hover .mockup-expand { opacity: 1; }
+    .mockup-expand svg { width: 16px; height: 16px; stroke: white; fill: none; stroke-width: 2; }
+    .mockup-caption { padding: 20px 24px; border-top: 1px solid var(--gray-200); }
+    .mockup-caption-title { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+    .mockup-caption-desc { font-size: 13px; color: var(--gray-500); }
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox { position: fixed; inset: 0; z-index: 9000; background: rgba(0,0,0,.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; padding: 40px; }
+    .lightbox.open { display: flex; animation: lbIn .3s ease; }
+    @keyframes lbIn { from { opacity: 0; } to { opacity: 1; } }
+    .lightbox-frame { width: 90vw; max-width: 1200px; height: 85vh; border-radius: 16px; overflow: hidden; background: white; box-shadow: 0 32px 80px rgba(0,0,0,.3); display: flex; flex-direction: column; }
+    .lightbox-bar { height: 40px; background: var(--off-white); border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; padding: 0 16px; gap: 8px; flex-shrink: 0; }
+    .lightbox-bar-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .lightbox-bar-dot:nth-child(1) { background: #FF5F57; }
+    .lightbox-bar-dot:nth-child(2) { background: #FFBD2E; }
+    .lightbox-bar-dot:nth-child(3) { background: #28CA41; }
+    .lightbox-url { flex: 1; text-align: center; font-size: 13px; color: var(--gray-500); }
+    .lightbox-close { width: 28px; height: 28px; border-radius: 6px; background: var(--gray-200); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+    .lightbox-close:hover { background: var(--gray-300); }
+    .lightbox-close svg { width: 14px; height: 14px; stroke: var(--gray-700); fill: none; stroke-width: 2; }
+    .lightbox-body { flex: 1; overflow-y: auto; }
+    .lightbox-body iframe { width: 100%; height: 100%; border: none; min-height: 4000px; }
+
+    /* ===== MOCKUP GRID ===== */
+    .mockups-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+    .mockup-featured { grid-column: 1 / -1; }
+    .mockup-featured .mockup-body { height: 600px; }
+    .mockup-small .mockup-body { height: 380px; }
+
+    /* ===== SEO TABLE ===== */
+    .seo-table { width: 100%; border-collapse: collapse; margin-top: 40px; }
+    .seo-table th { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gray-500); text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--gray-200); }
+    .seo-table td { padding: 16px; font-size: 14px; border-bottom: 1px solid var(--gray-100); }
+    .seo-table tr:hover td { background: var(--off-white); }
+    .seo-kw { font-weight: 600; }
+    .seo-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 4px; }
+    .seo-low { background: #E8FAF0; color: #1A7F4B; }
+    .seo-med { background: #FFF4E0; color: #A06B00; }
+    .seo-high { background: #FFE8E7; color: #C13D3A; }
+
+    /* ===== TIMELINE ===== */
+    .timeline { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 48px; }
+    .tl-item { padding: 32px; border-radius: 16px; border: 1px solid var(--gray-200); background: var(--white); transition: all .2s; }
+    .tl-item:hover { border-color: var(--gray-300); background: var(--off-white); }
+    .tl-phase { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
+    .tl-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+    .tl-dur { font-size: 13px; color: var(--gray-500); margin-bottom: 8px; }
+    .tl-desc { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
+
+    /* ===== CTA ===== */
+    .cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; background: var(--black); color: white; font-size: 15px; font-weight: 500; border-radius: 980px; text-decoration: none; transition: all .2s; border: none; cursor: pointer; }
+    .cta-btn:hover { background: #333; transform: scale(1.02); }
+    .cta-btn svg { width: 16px; height: 16px; }
+
+    /* ===== NEXT STEPS ===== */
+    .next-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; margin-bottom: 56px; }
+    .next-card { padding: 40px 32px; border-radius: 20px; background: var(--off-white); }
+    .next-num { font-size: 56px; font-weight: 600; color: var(--gray-200); letter-spacing: -.03em; line-height: 1; margin-bottom: 20px; }
+    .next-title { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+    .next-desc { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
+
+    /* ===== DIVIDER ===== */
+    .divider { height: 1px; background: var(--gray-200); margin: 48px 0; }
+
+    /* ===== LOADER ===== */
+    .loader { position: fixed; inset: 0; z-index: 9999; background: var(--white); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; transition: opacity .6s cubic-bezier(.4,0,.2,1), visibility .6s; }
+    .loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-mark { width: 48px; height: 48px; background: var(--black); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 28px; animation: loaderPulse 1.2s ease infinite; }
+    @keyframes loaderPulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.08); opacity: .7; } }
+    .loader-text { font-size: 13px; color: var(--gray-500); font-weight: 500; letter-spacing: .04em; }
+    body.loading { overflow: hidden; }
+
+    /* ===== COVER LOAD ANIM ===== */
+    .cover-anim > * { opacity: 0; transform: translateY(20px); }
+    .cover-anim.loaded > *:nth-child(1) { animation: coverIn .8s .2s cubic-bezier(.16,1,.3,1) forwards; }
+    .cover-anim.loaded > *:nth-child(2) { animation: coverIn .8s .35s cubic-bezier(.16,1,.3,1) forwards; }
+    .cover-anim.loaded > *:nth-child(3) { animation: coverIn .8s .5s cubic-bezier(.16,1,.3,1) forwards; }
+    .cover-anim.loaded > *:nth-child(4) { animation: coverIn .8s .65s cubic-bezier(.16,1,.3,1) forwards; }
+    .cover-anim.loaded > .cover-scroll { animation: coverIn .8s .9s cubic-bezier(.16,1,.3,1) forwards; }
+    @keyframes coverIn { to { opacity: 1; transform: none; } }
+
+    /* ===== TILT (removed) ===== */
+
+    /* ===== PARALLAX ===== */
+    .parallax-slow { will-change: transform; }
+
+    /* ===== COUNTERS ===== */
+    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--gray-200); border-radius: 16px; overflow: hidden; margin-top: 48px; }
+    .stat-item { background: var(--white); padding: 40px 32px; text-align: center; }
+    .stat-num { font-size: 56px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; color: var(--black); margin-bottom: 8px; }
+    .stat-label { font-size: 14px; color: var(--gray-500); }
+
+    /* ===== COMPARISON ===== */
+    .cmp-tabs { display: flex; gap: 4px; padding: 4px; background: var(--off-white); border-radius: 12px; margin-bottom: 40px; width: fit-content; }
+    .cmp-tab { padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--gray-500); cursor: pointer; transition: all .25s; border: none; background: none; }
+    .cmp-tab.active { background: var(--white); color: var(--black); box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    .cmp-panel { display: none; animation: cmpFade .4s ease; }
+    .cmp-panel.active { display: block; }
+    @keyframes cmpFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .cmp-preview { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .cmp-info { display: flex; flex-direction: column; gap: 24px; }
+
+    /* ===== SITEMAP PAGES ===== */
+    .pages-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 48px; }
+    .page-card { padding: 20px; border-radius: 14px; background: var(--white); border: 1px solid var(--gray-200); transition: all .25s; cursor: default; position: relative; overflow: hidden; }
+    .page-card:hover { border-color: var(--gray-300); box-shadow: 0 4px 20px rgba(0,0,0,.05); transform: translateY(-2px); }
+    .page-card-img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; margin-bottom: 14px; display: block; }
+    .page-card-type { font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gray-500); margin-bottom: 6px; }
+    .page-card-name { font-size: 15px; font-weight: 600; color: var(--black); margin-bottom: 4px; }
+    .page-card-desc { font-size: 12px; color: var(--gray-500); line-height: 1.5; }
+    .page-card-sub { grid-column: span 1; padding: 16px 20px; }
+    .page-card-sub .page-card-name { font-size: 13px; }
+    .pages-sub { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+
+    /* ===== PHOTO STRIP ===== */
+    .photo-strip { display: flex; gap: 8px; padding: 0; overflow: hidden; height: 280px; }
+    .photo-strip img { height: 100%; flex: 1; min-width: 0; object-fit: cover; border-radius: 0; }
+    .photo-strip-sm { height: 200px; }
+
+    /* ===== TEAM FACES ===== */
+    .faces { display: flex; gap: -8px; margin-top: 24px; }
+    .face { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2.5px solid white; margin-left: -10px; transition: transform .2s; }
+    .face:first-child { margin-left: 0; }
+    .face:hover { transform: scale(1.15); z-index: 1; }
+    .faces-label { font-size: 13px; color: var(--gray-500); margin-left: 16px; display: flex; align-items: center; }
+
+    /* ===== PROCESS FLOW ===== */
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 56px; position: relative; }
+    .process-item { text-align: center; padding: 0 24px; position: relative; }
+    .process-icon { width: 64px; height: 64px; border-radius: 16px; background: var(--off-white); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 28px; font-weight: 300; color: var(--gray-500); }
+    .process-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .process-desc { font-size: 13px; color: var(--gray-500); line-height: 1.6; }
+    .process-line { position: absolute; top: 32px; left: calc(50% + 40px); right: calc(-50% + 40px); height: 1px; background: var(--gray-200); }
+    .process-item:last-child .process-line { display: none; }
+
+    /* ===== FOOTER ===== */
+    .foot { padding: 24px 80px; border-top: 1px solid var(--gray-200); display: flex; justify-content: space-between; font-size: 12px; color: var(--gray-500); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .s { padding: 120px 40px 80px; }
+      .agenda { grid-template-columns: 1fr; }
+      .ref-grid { grid-template-columns: 1fr 1fr; }
+      .mockups-grid { grid-template-columns: 1fr; }
+      .strat-fonts { grid-template-columns: 1fr; }
+      .next-grid { grid-template-columns: 1fr; }
+      .strat-header { flex-direction: column; align-items: flex-start; }
+      .pages-grid { grid-template-columns: repeat(2, 1fr); }
+      .pages-sub { grid-template-columns: repeat(2, 1fr); }
+      .process-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .process-line { display: none; }
+    }
+    @media (max-width: 768px) {
+      .s { padding: 100px 20px 60px; }
+      .nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .ref-grid, .chips { grid-template-columns: 1fr; }
+      .foot { padding: 20px; flex-direction: column; gap: 8px; }
+      .pages-grid, .pages-sub { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .photo-strip { height: 160px; }
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body class="loading">
+
+<!-- ===== LOADER ===== -->
+<div class="loader" id="loader">
+  <div class="loader-mark">7</div>
+  <div class="loader-text">SEAS</div>
+</div>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <a class="nav-logo" href="#cover">
+    <div class="nav-logo-mark">7</div>
+    <span class="nav-logo-text">SEAS</span>
+  </a>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#discovery">Discovery</a>
+    <a href="#sitemap">Sitemap</a>
+    <a href="#strategies">Branding</a>
+    <a href="#seo">SEO</a>
+    <a href="#next">Next Steps</a>
+  </div>
+  <div class="nav-bar" id="navBar"></div>
+</nav>
+
+<!-- ===== COVER ===== -->
+<section class="cover cover-anim" id="cover">
+  <p class="cover-top">7Seas Agency &mdash; Website Redesign Presentation</p>
+  <h1 class="cover-title">Vision Dental</h1>
+  <p class="cover-sub">Brand strategy, design direction, and a roadmap to a website that feels as good as the care you give.</p>
+  <p class="cover-meta">March 2026</p>
+  <div class="cover-scroll"><div class="cover-scroll-dot"></div></div>
+</section>
+
+<!-- ===== AGENDA ===== -->
+<section class="s s-gray" id="agenda">
+  <div class="s-inner">
+    <p class="s-label rv">Agenda</p>
+    <h2 class="s-title rv rv-d1">What we'll cover</h2>
+    <div class="agenda rv rv-d2">
+      <div class="agenda-item"><div class="agenda-num">01</div><div class="agenda-title">Project Overview</div><div class="agenda-desc">Scope, goals, deliverables</div></div>
+      <div class="agenda-item"><div class="agenda-num">02</div><div class="agenda-title">Brand Discovery</div><div class="agenda-desc">Keywords, mood, references</div></div>
+      <div class="agenda-item"><div class="agenda-num">03</div><div class="agenda-title">Site Architecture</div><div class="agenda-desc">Interactive sitemap</div></div>
+      <div class="agenda-item"><div class="agenda-num">04</div><div class="agenda-title">Brand Strategies</div><div class="agenda-desc">3 directions, 9 homepage concepts</div></div>
+      <div class="agenda-item"><div class="agenda-num">05</div><div class="agenda-title">SEO Keywords</div><div class="agenda-desc">LA dental market opportunities</div></div>
+      <div class="agenda-item"><div class="agenda-num">06</div><div class="agenda-title">Next Steps</div><div class="agenda-desc">Process and how we get started</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OVERVIEW ===== -->
+<section class="s" id="overview">
+  <div class="s-inner">
+    <p class="s-label rv">Project Overview</p>
+    <h2 class="s-hero-title rv rv-d1">Two websites.<br>One elevated brand.</h2>
+    <p class="s-sub rv rv-d2">A full redesign for Vision Dental's primary and secondary locations. Modern, mobile-first, SEO-optimized, and built to convert new patients.</p>
+    <div class="stat-grid rv rv-d2">
+      <div class="stat-item"><div class="stat-num" data-count="2">0</div><div class="stat-label">Websites</div></div>
+      <div class="stat-item"><div class="stat-num" data-count="3">0</div><div class="stat-label">Brand strategies</div></div>
+      <div class="stat-item"><div class="stat-num" data-count="9">0</div><div class="stat-label">Homepage concepts</div></div>
+      <div class="stat-item"><div class="stat-num" data-count="12">0</div><div class="stat-label">Week delivery</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:64px;">
+      <div class="rv rv-d2" style="padding:40px;border-radius:20px;background:var(--off-white);">
+        <p style="font-size:13px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.06em;margin-bottom:20px;">Goals</p>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <p style="font-size:15px;color:var(--gray-700);line-height:1.5;">Modern, professional presence reflecting quality of care</p>
+          <p style="font-size:15px;color:var(--gray-700);line-height:1.5;">Differentiate from competitors through superior design</p>
+          <p style="font-size:15px;color:var(--gray-700);line-height:1.5;">Drive patient inquiries with clear calls-to-action</p>
+          <p style="font-size:15px;color:var(--gray-700);line-height:1.5;">Fast, mobile-friendly, SEO-optimized</p>
+          <p style="font-size:15px;color:var(--gray-700);line-height:1.5;">Scalable CMS for easy content updates</p>
+        </div>
+      </div>
+      <div class="rv rv-d3" style="padding:40px;border-radius:20px;background:var(--off-white);">
+        <p style="font-size:13px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.06em;margin-bottom:20px;">Deliverables</p>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <p style="font-size:15px;color:var(--gray-700);line-height:1.5;">SEO research & keyword strategy</p>
+          <p style="font-size:15px;color:var(--gray-700);line-height:1.5;">Sitemap & information architecture</p>
+          <p style="font-size:15px;color:var(--gray-700);line-height:1.5;">High-fidelity design mockups & prototype</p>
+          <p style="font-size:15px;color:var(--gray-700);line-height:1.5;">2 fully responsive websites</p>
+          <p style="font-size:15px;color:var(--gray-700);line-height:1.5;">CMS setup, QA, training & documentation</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DISCOVERY ===== -->
+<section class="s s-gray" id="discovery">
+  <div class="s-inner">
+    <p class="s-label rv">Brand Discovery</p>
+    <h2 class="s-hero-title rv rv-d1">How it should feel.</h2>
+    <p class="s-sub rv rv-d2">From the discovery workshop &mdash; the exact words used to describe the desired brand experience.</p>
+    <div class="kw-grid rv rv-d3">
+      <span class="kw">Happy</span>
+      <span class="kw">Lighter</span>
+      <span class="kw kw-accent">Anthropologie feel</span>
+      <span class="kw">LA / California</span>
+      <span class="kw">Warm & Welcoming</span>
+      <span class="kw">A touch feminine</span>
+      <span class="kw">Not pink everywhere</span>
+      <span class="kw">Not trying to be cool</span>
+      <span class="kw">Not tech</span>
+      <span class="kw">Not dark</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="s-label rv">Color Direction</p>
+    <p class="rv" style="font-size:17px;color:var(--gray-500);max-width:480px;margin-bottom:8px;">Extracted from client keywords and reference research.</p>
+    <div class="chips rv rv-d1">
+      <div class="chip"><div class="chip-color" style="background:#C8B49A;"></div><div class="chip-info"><p class="chip-name">Warm Linen</p><p class="chip-desc">Primary neutral base. Ivory, not stark white.</p><p class="chip-hex">#C8B49A</p></div></div>
+      <div class="chip"><div class="chip-color" style="background:#B5C4A0;"></div><div class="chip-info"><p class="chip-name">Sage</p><p class="chip-desc">California wellness accent.</p><p class="chip-hex">#B5C4A0</p></div></div>
+      <div class="chip"><div class="chip-color" style="background:#D4A799;"></div><div class="chip-info"><p class="chip-name">Dusty Terracotta</p><p class="chip-desc">Feminine without pink.</p><p class="chip-hex">#D4A799</p></div></div>
+      <div class="chip"><div class="chip-color" style="background:#8C7A6B;"></div><div class="chip-info"><p class="chip-name">Warm Umber</p><p class="chip-desc">Typography accent.</p><p class="chip-hex">#8C7A6B</p></div></div>
+      <div class="chip"><div class="chip-color" style="background:#E8E0D4;"></div><div class="chip-info"><p class="chip-name">Oyster White</p><p class="chip-desc">Backgrounds with warm undertone.</p><p class="chip-hex">#E8E0D4</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REFERENCES ===== -->
+<section class="s" id="references">
+  <div class="s-inner">
+    <p class="s-label rv">Brand Reference Board</p>
+    <h2 class="s-title rv rv-d1">Inspirations & visual DNA</h2>
+    <p class="s-sub rv rv-d2" style="margin-bottom:56px;">Curated references across lifestyle brands, wellness spaces, and dental practices that match the desired energy.</p>
+
+    <div class="ref-tier rv">
+      <p class="ref-tier-label">Tier 1 &mdash; The feel (Lifestyle brands)</p>
+      <p class="ref-tier-note">These aren't dental &mdash; they're the emotional and visual tone.</p>
+      <div class="ref-grid">
+        <a class="ref-card" href="https://www.jennikayne.com" target="_blank"><p class="ref-name">Jenni Kayne</p><p class="ref-url">jennikayne.com</p><p class="ref-desc">The closest single reference. Warm California neutrals, natural textures, easy luxury. Sunday morning in Silver Lake.</p><div class="ref-tags"><span class="ref-tag">California</span><span class="ref-tag">Warm neutrals</span><span class="ref-tag">Softly feminine</span></div></a>
+        <a class="ref-card" href="https://www.anthropologie.com" target="_blank"><p class="ref-name">Anthropologie</p><p class="ref-url">anthropologie.com</p><p class="ref-desc">Client's exact reference. Curated, joyful, layered warmth. Not pink, not pastel overload. Beautiful typography.</p><div class="ref-tags"><span class="ref-tag">Joyful</span><span class="ref-tag">Feminine</span><span class="ref-tag">Layered warmth</span></div></a>
+        <a class="ref-card" href="https://www.parachutehome.com" target="_blank"><p class="ref-name">Parachute Home</p><p class="ref-url">parachutehome.com</p><p class="ref-desc">Venice Beach brand. Honest, warm, clean. White space with warm lifestyle photography. Effortless.</p><div class="ref-tags"><span class="ref-tag">Venice Beach</span><span class="ref-tag">Clean</span><span class="ref-tag">Warm lifestyle</span></div></a>
+      </div>
+    </div>
+
+    <div class="ref-tier rv">
+      <p class="ref-tier-label">Tier 2 &mdash; Wellness & spa</p>
+      <p class="ref-tier-note">How lifestyle feel translates into healthcare without going clinical.</p>
+      <div class="ref-grid">
+        <a class="ref-card" href="https://www.milkandhonespa.com" target="_blank"><p class="ref-name">Milk + Honey Spa</p><p class="ref-url">milkandhonespa.com</p><p class="ref-desc">Sage + cream palette. High-quality imagery. "Treat the whole you" warmth.</p><div class="ref-tags"><span class="ref-tag">Soft + warm</span><span class="ref-tag">Quietly feminine</span></div></a>
+        <a class="ref-card" href="https://www.flamingoestate.com" target="_blank"><p class="ref-name">Flamingo Estate</p><p class="ref-url">flamingoestate.com</p><p class="ref-desc">LA garden brand. Sun-drenched photography, handwritten-feel type, rich earthy tones. Joy without trying.</p><div class="ref-tags"><span class="ref-tag">LA</span><span class="ref-tag">Joyful</span><span class="ref-tag">Earthy warm</span></div></a>
+        <a class="ref-card" href="https://www.brooklinen.com" target="_blank"><p class="ref-name">Brooklinen</p><p class="ref-url">brooklinen.com</p><p class="ref-desc">Natural light, real people, warm ivory backgrounds. Approachable with restrained feminine softness.</p><div class="ref-tags"><span class="ref-tag">Natural light</span><span class="ref-tag">Ivory tones</span></div></a>
+      </div>
+    </div>
+
+    <div class="ref-tier rv">
+      <p class="ref-tier-label">Tier 3 &mdash; Dental practices that break the mold</p>
+      <p class="ref-tier-note">Proof this is possible in dentistry.</p>
+      <div class="ref-grid">
+        <a class="ref-card" href="https://www.bouldersmilesdental.com" target="_blank"><p class="ref-name">Boulder Smiles</p><p class="ref-url">bouldersmilesdental.com</p><p class="ref-desc">Natural light, lifestyle photography, warm and calm. Feels like a place you want to go.</p><div class="ref-tags"><span class="ref-tag">Warm + natural</span><span class="ref-tag">Approachable</span></div></a>
+        <a class="ref-card" href="https://www.sweetmagnoliadentistry.com" target="_blank"><p class="ref-name">Sweet Magnolia Dentistry</p><p class="ref-url">sweetmagnoliadentistry.com</p><p class="ref-desc">Muted, elegant, calm. Subtle feminine energy without pink overload. Like an Anthropologie editorial.</p><div class="ref-tags"><span class="ref-tag">Elegant</span><span class="ref-tag">Muted warmth</span></div></a>
+        <a class="ref-card" href="https://drmollyrosen.com" target="_blank"><p class="ref-name">Dr. Molly Rosen</p><p class="ref-url">drmollyrosen.com</p><p class="ref-desc">Elevated warmth. Bright, confident. A dental site that feels like a lifestyle brand.</p><div class="ref-tags"><span class="ref-tag">Open + bright</span><span class="ref-tag">Personality</span></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PHOTO BREAK ===== -->
+<div class="photo-strip photo-strip-sm rv">
+  <img src="assets/service-cosmetic.jpg" alt="" loading="lazy">
+  <img src="assets/process.jpg" alt="" loading="lazy">
+  <img src="assets/gallery-4.jpg" alt="" loading="lazy">
+  <img src="assets/gallery-2.jpg" alt="" loading="lazy">
+</div>
+
+<!-- ===== SITEMAP ===== -->
+<section class="s s-gray" id="sitemap">
+  <div class="s-inner">
+    <p class="s-label rv">Site Architecture</p>
+    <h2 class="s-title rv rv-d1">Every page, mapped out.</h2>
+    <p class="s-sub rv rv-d2">8 main pages plus service and team sub-pages. Each built with purpose.</p>
+
+    <div class="pages-grid rv rv-d3">
+      <div class="page-card">
+        <img class="page-card-img" src="assets/hero.jpg" alt="Home">
+        <p class="page-card-type">Main Page</p>
+        <p class="page-card-name">Home</p>
+        <p class="page-card-desc">Hero, services list, featured service, testimonials, about, team grid, locations, gallery, logos, FAQ, blog, CTA</p>
+      </div>
+      <div class="page-card">
+        <img class="page-card-img" src="assets/about.jpg" alt="About Us">
+        <p class="page-card-type">Main Page</p>
+        <p class="page-card-name">About Us</p>
+        <p class="page-card-desc">Practice story, services overview, team section, testimonials, locations, award logos</p>
+      </div>
+      <div class="page-card">
+        <img class="page-card-img" src="assets/service-general.jpg" alt="Services">
+        <p class="page-card-type">Main + 4 Sub-pages</p>
+        <p class="page-card-name">Services</p>
+        <p class="page-card-desc">Featured services hub with all 4 specialties highlighted, CTA to each individual page</p>
+      </div>
+      <div class="page-card">
+        <img class="page-card-img" src="assets/team-william.jpg" alt="Team" style="height:140px; object-position: center 20%;">
+        <p class="page-card-type">Main + Individual Pages</p>
+        <p class="page-card-name">Meet Our Team</p>
+        <p class="page-card-desc">Team profiles, partner logos, testimonials, individual bio pages per provider</p>
+      </div>
+      <div class="page-card">
+        <img class="page-card-img" src="assets/gallery-4.jpg" alt="Testimonials">
+        <p class="page-card-type">Main Page</p>
+        <p class="page-card-name">Testimonials</p>
+        <p class="page-card-desc">Patient reviews collection, featured stories, social proof highlights</p>
+      </div>
+      <div class="page-card">
+        <img class="page-card-img" src="assets/gallery-3.jpg" alt="Gallery">
+        <p class="page-card-type">Main Page</p>
+        <p class="page-card-name">Gallery</p>
+        <p class="page-card-desc">Office photos, smile transformations, testimonial section</p>
+      </div>
+      <div class="page-card">
+        <img class="page-card-img" src="assets/location-la.jpg" alt="Contact">
+        <p class="page-card-type">Main Page</p>
+        <p class="page-card-name">Contact / Appointment Request</p>
+        <p class="page-card-desc">Contact form, FAQ, testimonials, locations map, CTA</p>
+      </div>
+      <div class="page-card">
+        <img class="page-card-img" src="assets/blog-1.jpg" alt="Blog">
+        <p class="page-card-type">Main + Posts</p>
+        <p class="page-card-name">Blog</p>
+        <p class="page-card-desc">Blog listing with categories, individual post pages, CTA section</p>
+      </div>
+    </div>
+
+    <p class="s-label rv" style="margin-top:48px;">Service Sub-pages</p>
+    <div class="pages-sub rv rv-d1">
+      <div class="page-card page-card-sub">
+        <img class="page-card-img" src="assets/service-general.jpg" alt="" style="height:72px;">
+        <p class="page-card-name">General Dentistry & Family</p>
+        <p class="page-card-desc">General services, preventive care, restorative, children's dentistry, features list, testimonial</p>
+      </div>
+      <div class="page-card page-card-sub">
+        <img class="page-card-img" src="assets/service-cosmetic.jpg" alt="" style="height:72px;">
+        <p class="page-card-name">Cosmetic Dentistry</p>
+        <p class="page-card-desc">Features, services list, benefits, how it works, testimonials, before/after gallery</p>
+      </div>
+      <div class="page-card page-card-sub">
+        <img class="page-card-img" src="assets/service-pediatric.jpg" alt="" style="height:72px;">
+        <p class="page-card-name">Pediatric Dentistry</p>
+        <p class="page-card-desc">Highlights, preventive overview, stats, testimonials, FAQ section</p>
+      </div>
+      <div class="page-card page-card-sub">
+        <img class="page-card-img" src="assets/service-orthodontic.jpg" alt="" style="height:72px;">
+        <p class="page-card-name">Orthodontics</p>
+        <p class="page-card-desc">Treatment options, how it works, benefits, testimonials, gallery</p>
+      </div>
+    </div>
+
+    <p class="s-label rv" style="margin-top:32px;">Additional Sub-page</p>
+    <div style="max-width:280px;" class="rv rv-d1">
+      <div class="page-card page-card-sub">
+        <img class="page-card-img" src="assets/team-nicole.jpg" alt="" style="height:100px; object-position: center 20%;">
+        <p class="page-card-name">Team Individual Page</p>
+        <p class="page-card-desc">Provider bio, background, specialties, personal essay, team links, appointment CTA</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <p class="s-label rv">Interactive Sitemap</p>
+    <p class="rv" style="font-size:15px;color:var(--gray-500);margin-bottom:16px;">Pan and zoom to explore the full page hierarchy in Figma.</p>
+    <div class="sitemap-frame rv rv-d1">
+      <iframe src="https://embed.figma.com/design/7OpiHPhNqhlo9fEzvP6qa4/Vision-Dental?node-id=90-4969&embed-host=share" allowfullscreen loading="lazy"></iframe>
+      <div class="sitemap-hint">Drag to pan &middot; Scroll to zoom</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STRATEGY OVERVIEW + COMPARISON ===== -->
+<section class="s" id="strategies">
+  <div class="s-inner">
+    <div style="text-align:center;">
+      <p class="s-label rv" style="text-align:center;">Brand Strategy</p>
+      <h2 class="s-hero-title rv rv-d1">Three directions.</h2>
+      <p class="s-sub rv rv-d2" style="margin:20px auto 0;text-align:center;">Strategy A stays within the current brand. B and C explore new territory. Toggle below to compare.</p>
+    </div>
+
+    <!-- Comparison Tabs -->
+    <div style="display:flex;justify-content:center;margin-top:56px;" class="rv rv-d3">
+      <div class="cmp-tabs">
+        <button class="cmp-tab active" data-tab="cmp-a">A &middot; Refined Vision</button>
+        <button class="cmp-tab" data-tab="cmp-b">B &middot; California Warmth</button>
+        <button class="cmp-tab" data-tab="cmp-c">C &middot; Elevated LA</button>
+      </div>
+    </div>
+
+    <!-- Panel A -->
+    <div class="cmp-panel active rv" id="cmp-a">
+      <div class="cmp-preview">
+        <div class="cmp-info">
+          <div class="strat-badge" style="background:rgba(58,154,217,.08);color:var(--accent);width:fit-content;">Within Brand</div>
+          <p style="font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.15;">Your brand, polished.<br>Patients still recognize it.</p>
+          <p style="font-size:15px;color:var(--gray-500);line-height:1.7;">Keeps the blue, adds California warmth through editorial serif typography and warm white space. Lowest brand equity risk.</p>
+          <div class="strat-palette" style="margin:0;">
+            <div class="strat-swatch" style="background:#3a9ad9;"><span class="strat-swatch-label">#3A9AD9</span></div>
+            <div class="strat-swatch" style="background:#C8B49A;"><span class="strat-swatch-label">#C8B49A</span></div>
+            <div class="strat-swatch" style="background:#FAF7F2;"><span class="strat-swatch-label">#FAF7F2</span></div>
+            <div class="strat-swatch" style="background:#f2f2f2;"><span class="strat-swatch-label">#F2F2F2</span></div>
+            <div class="strat-swatch" style="background:#090202;"><span class="strat-swatch-label">#090202</span></div>
+          </div>
+          <div>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;line-height:1.1;">Cormorant Garamond</p>
+            <p style="font-family:'Lora',serif;font-size:16px;color:var(--gray-500);margin-top:4px;">Lora &mdash; body text</p>
+          </div>
+          <a href="#strategy-a" style="font-size:14px;font-weight:500;color:var(--accent);text-decoration:none;">See all 3 homepage concepts &darr;</a>
+        </div>
+        <div class="tilt-card">
+          <div class="mockup" style="overflow:hidden;">
+            <div class="mockup-bar"><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-url">visiondental.com</div></div>
+            <div class="mockup-body" style="height:400px;overflow:hidden;"><iframe src="index.html" style="height:1200px;width:200%;transform:scale(0.5);transform-origin:top left;" loading="lazy"></iframe></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel B -->
+    <div class="cmp-panel" id="cmp-b">
+      <div class="cmp-preview">
+        <div class="cmp-info">
+          <div class="strat-badge" style="background:rgba(124,154,110,.08);color:#5C8050;width:fit-content;">New Direction</div>
+          <p style="font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.15;">Full lifestyle brand.<br>Anthropologie energy.</p>
+          <p style="font-size:15px;color:var(--gray-500);line-height:1.7;">Drops the blue entirely for sage, sand, and terracotta. The website feels like walking into a warm California home.</p>
+          <div class="strat-palette" style="margin:0;">
+            <div class="strat-swatch" style="background:#7C9A6E;"><span class="strat-swatch-label">#7C9A6E</span></div>
+            <div class="strat-swatch" style="background:#C8B49A;"><span class="strat-swatch-label">#C8B49A</span></div>
+            <div class="strat-swatch" style="background:#C4907E;"><span class="strat-swatch-label">#C4907E</span></div>
+            <div class="strat-swatch" style="background:#F9F5EF;"><span class="strat-swatch-label">#F9F5EF</span></div>
+            <div class="strat-swatch" style="background:#4A3728;"><span class="strat-swatch-label">#4A3728</span></div>
+          </div>
+          <div>
+            <p style="font-family:'DM Serif Display',serif;font-size:32px;line-height:1.1;">DM Serif Display</p>
+            <p style="font-family:'Outfit',sans-serif;font-size:16px;color:var(--gray-500);margin-top:4px;">Outfit &mdash; body text</p>
+          </div>
+          <a href="#strategy-b" style="font-size:14px;font-weight:500;color:#5C8050;text-decoration:none;">See all 3 homepage concepts &darr;</a>
+        </div>
+        <div class="tilt-card">
+          <div class="mockup" data-src="strategy-b.html">
+            <div class="mockup-bar"><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-url">visiondental.com</div></div>
+            <div class="mockup-body scrollable" style="height:400px;"><iframe src="strategy-b.html" style="width:100%;border:none;height:3000px;" loading="lazy"></iframe></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel C -->
+    <div class="cmp-panel" id="cmp-c">
+      <div class="cmp-preview">
+        <div class="cmp-info">
+          <div class="strat-badge" style="background:rgba(45,74,62,.06);color:#2D4A3E;width:fit-content;">Premium</div>
+          <p style="font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.15;">Luxury editorial.<br>Confident and warm.</p>
+          <p style="font-size:15px;color:var(--gray-500);line-height:1.7;">Deep forest green, warm gold, rich cream. The kind of dental brand that belongs in a lifestyle magazine.</p>
+          <div class="strat-palette" style="margin:0;">
+            <div class="strat-swatch" style="background:#2D4A3E;"><span class="strat-swatch-label">#2D4A3E</span></div>
+            <div class="strat-swatch" style="background:#C9A96E;"><span class="strat-swatch-label">#C9A96E</span></div>
+            <div class="strat-swatch" style="background:#E8D5CE;"><span class="strat-swatch-label">#E8D5CE</span></div>
+            <div class="strat-swatch" style="background:#F2EBE0;"><span class="strat-swatch-label">#F2EBE0</span></div>
+            <div class="strat-swatch" style="background:#2C2C2C;"><span class="strat-swatch-label">#2C2C2C</span></div>
+          </div>
+          <div>
+            <p style="font-family:'Playfair Display',serif;font-size:32px;font-weight:500;line-height:1.1;">Playfair Display</p>
+            <p style="font-family:'Raleway',sans-serif;font-size:16px;color:var(--gray-500);margin-top:4px;">Raleway &mdash; body text</p>
+          </div>
+          <a href="#strategy-c" style="font-size:14px;font-weight:500;color:#2D4A3E;text-decoration:none;">See all 3 homepage concepts &darr;</a>
+        </div>
+        <div class="tilt-card">
+          <div class="mockup" data-src="strategy-c.html">
+            <div class="mockup-bar"><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-url">visiondental.com</div></div>
+            <div class="mockup-body scrollable" style="height:400px;"><iframe src="strategy-c.html" style="width:100%;border:none;height:3000px;" loading="lazy"></iframe></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STRATEGY A ===== -->
+<section class="s s-gray" id="strategy-a">
+  <div class="s-inner">
+    <div class="strat-header rv">
+      <div>
+        <div class="strat-badge" style="background:rgba(58,154,217,.08);color:var(--accent);">Strategy A &middot; Within Brand</div>
+        <h2 class="s-title">Refined Vision</h2>
+        <p class="s-sub" style="margin-top:12px;">Your existing brand, polished. Keeps the blue patients recognize, adds California warmth through editorial serif typography and warm white space. Lowest brand equity risk.</p>
+      </div>
+    </div>
+    <div class="strat-palette rv">
+      <div class="strat-swatch" style="background:#3a9ad9;"><span class="strat-swatch-label">#3A9AD9</span></div>
+      <div class="strat-swatch" style="background:#C8B49A;"><span class="strat-swatch-label">#C8B49A</span></div>
+      <div class="strat-swatch" style="background:#FAF7F2;"><span class="strat-swatch-label">#FAF7F2</span></div>
+      <div class="strat-swatch" style="background:#f2f2f2;"><span class="strat-swatch-label">#F2F2F2</span></div>
+      <div class="strat-swatch" style="background:#090202;"><span class="strat-swatch-label">#090202</span></div>
+    </div>
+    <div class="strat-fonts rv">
+      <div><p class="strat-font-label">Heading</p><p style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:500;line-height:1.1;letter-spacing:-.01em;">Cormorant Garamond</p><p style="font-size:13px;color:var(--gray-500);margin-top:4px;">Elegant editorial serif. Warm and timeless.</p></div>
+      <div><p class="strat-font-label">Body</p><p style="font-family:'Lora',serif;font-size:22px;line-height:1.4;">Lora &mdash; The readable serif</p><p style="font-size:13px;color:var(--gray-500);margin-top:4px;">Highly readable with personality and warmth.</p></div>
+    </div>
+    <div class="strat-keywords rv">
+      <span class="strat-kw">Familiar</span><span class="strat-kw">Refined</span><span class="strat-kw">Low risk</span><span class="strat-kw">Trusted blue</span><span class="strat-kw">Editorial serif</span><span class="strat-kw">Warm white space</span>
+    </div>
+
+    <div class="divider"></div>
+    <p class="s-label rv">Homepage Concepts</p>
+
+    <!-- Featured: the REAL existing design -->
+    <div class="mockups-grid rv">
+      <div class="tilt-card mockup-featured">
+        <div class="mockup" data-src="index.html">
+          <div class="mockup-bar"><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-url">visiondental.com</div></div>
+          <div class="mockup-body scrollable" style="height:600px;"><button class="mockup-expand" title="Expand"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button><iframe src="index.html" style="width:100%;border:none;height:3000px;" loading="lazy"></iframe></div>
+          <div class="mockup-caption"><p class="mockup-caption-title">Precision Care &mdash; Current Direction</p><p class="mockup-caption-desc">The homepage we've already designed. Scroll to explore, or click expand to view full screen.</p></div>
+        </div>
+      </div>
+
+      <!-- Variation A2 -->
+      <div class="tilt-card"><div class="mockup mockup-small">
+        <div class="mockup-bar"><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-url">visiondental.com</div></div>
+        <div class="mockup-body" style="height:380px;background:#FAF7F2;padding:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 32px;background:white;border-bottom:1px solid rgba(0,0,0,.06);">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#090202;">Vision Dental</span>
+            <div style="display:flex;gap:24px;font-family:'Lora',serif;font-size:13px;color:#666;align-items:center;">
+              <span>Services</span><span>Team</span><span>About</span>
+              <span style="background:#3a9ad9;color:white;padding:8px 20px;border-radius:10px;font-size:12px;">Book now</span>
+            </div>
+          </div>
+          <div style="padding:56px 32px;text-align:center;background:linear-gradient(180deg,#FAF7F2,#fff);">
+            <p style="font-family:'Lora',serif;font-size:12px;color:#3a9ad9;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;">Los Angeles, CA</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:500;color:#090202;line-height:1.05;letter-spacing:-.01em;margin-bottom:16px;">Your smile,<br>our passion</p>
+            <p style="font-family:'Lora',serif;font-size:14px;color:#666;max-width:360px;margin:0 auto 24px;line-height:1.6;">Comprehensive dental care in the heart of Los Angeles. Where every patient feels like family.</p>
+            <div style="display:inline-flex;gap:12px;">
+              <span style="background:#3a9ad9;color:white;padding:10px 28px;border-radius:10px;font-family:'Lora',serif;font-size:13px;">Schedule Visit</span>
+              <span style="border:1px solid rgba(9,2,2,.15);padding:10px 28px;border-radius:10px;font-family:'Lora',serif;font-size:13px;color:#090202;">Our Team</span>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption"><p class="mockup-caption-title">Centered Welcome</p><p class="mockup-caption-desc">Hero-centered layout. More personal, inviting entry point.</p></div>
+      </div></div>
+
+      <!-- Variation A3 -->
+      <div class="tilt-card"><div class="mockup mockup-small">
+        <div class="mockup-bar"><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-url">visiondental.com</div></div>
+        <div class="mockup-body" style="height:380px;background:white;padding:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 32px;">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#090202;">Vision Dental</span>
+            <span style="font-family:'Lora',serif;font-size:13px;color:#3a9ad9;">(213) 555-0100</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 32px;">
+            <div style="background:#f2f2f2;border-radius:16px;padding:36px 24px;">
+              <p style="font-family:'Lora',serif;font-size:11px;color:#3a9ad9;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;">Welcome</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;color:#090202;line-height:1.1;margin-bottom:12px;">LA's most welcoming dentist</p>
+              <p style="font-family:'Lora',serif;font-size:12px;color:#666;line-height:1.6;margin-bottom:16px;">Where precision meets warmth. 15+ years of trusted care.</p>
+              <span style="background:#3a9ad9;color:white;padding:8px 20px;border-radius:10px;font-family:'Lora',serif;font-size:11px;">Book now</span>
+            </div>
+            <div style="display:grid;grid-template-rows:1fr 1fr;gap:12px;">
+              <div style="border-radius:16px;overflow:hidden;"><img src="assets/gallery-1.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+              <div style="background:#f2f2f2;border-radius:16px;padding:20px;display:flex;flex-direction:column;justify-content:center;">
+                <p style="color:#3a9ad9;font-size:14px;margin-bottom:4px;">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+                <p style="font-family:'Lora',serif;font-size:12px;font-style:italic;color:#090202;line-height:1.5;">"The warmest dental office I've ever been to."</p>
+                <p style="font-family:'Lora',serif;font-size:11px;color:#666;margin-top:6px;">&mdash; Sarah M.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption"><p class="mockup-caption-title">Community Grid</p><p class="mockup-caption-desc">Bento-style layout with testimonial upfront. Neighborhood warmth.</p></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STRATEGY B ===== -->
+<section class="s" id="strategy-b">
+  <div class="s-inner">
+    <div class="strat-header rv">
+      <div>
+        <div class="strat-badge" style="background:rgba(124,154,110,.08);color:#5C8050;">Strategy B &middot; New Direction</div>
+        <h2 class="s-title">California Warmth</h2>
+        <p class="s-sub" style="margin-top:12px;">Full Jenni Kayne + Anthropologie pivot. Drops the blue entirely for sage, sand, and terracotta. The website feels like a lifestyle brand &mdash; which is exactly the point.</p>
+      </div>
+    </div>
+    <div class="strat-palette rv">
+      <div class="strat-swatch" style="background:#7C9A6E;"><span class="strat-swatch-label">#7C9A6E</span></div>
+      <div class="strat-swatch" style="background:#C8B49A;"><span class="strat-swatch-label">#C8B49A</span></div>
+      <div class="strat-swatch" style="background:#C4907E;"><span class="strat-swatch-label">#C4907E</span></div>
+      <div class="strat-swatch" style="background:#F9F5EF;"><span class="strat-swatch-label">#F9F5EF</span></div>
+      <div class="strat-swatch" style="background:#4A3728;"><span class="strat-swatch-label">#4A3728</span></div>
+    </div>
+    <div class="strat-fonts rv">
+      <div><p class="strat-font-label">Heading</p><p style="font-family:'DM Serif Display',serif;font-size:36px;line-height:1.1;">DM Serif Display</p><p style="font-size:13px;color:var(--gray-500);margin-top:4px;">Modern serif with personality. Warm without being fussy.</p></div>
+      <div><p class="strat-font-label">Body</p><p style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:400;line-height:1.4;">Outfit &mdash; Clean & friendly</p><p style="font-size:13px;color:var(--gray-500);margin-top:4px;">Contemporary sans-serif. Human and approachable.</p></div>
+    </div>
+    <div class="strat-keywords rv">
+      <span class="strat-kw">Lifestyle brand</span><span class="strat-kw">Anthropologie</span><span class="strat-kw">Sage + sand</span><span class="strat-kw">Organic warmth</span><span class="strat-kw">Natural textures</span>
+    </div>
+
+    <div class="divider"></div>
+    <p class="s-label rv">Homepage Concepts</p>
+    <div class="mockups-grid rv">
+      <!-- B1 -->
+      <div class="tilt-card mockup-featured"><div class="mockup" data-src="strategy-b.html">
+        <div class="mockup-bar"><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-url">visiondental.com</div></div>
+        <div class="mockup-body scrollable" style="height:600px;"><button class="mockup-expand" title="Expand"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button><iframe src="strategy-b.html" style="width:100%;border:none;height:3000px;" loading="lazy"></iframe></div>
+        <div class="mockup-caption"><p class="mockup-caption-title">Morning Light</p><p class="mockup-caption-desc">Full scrollable page. Sage CTAs, warm linen background, lifestyle imagery. Click to expand.</p></div>
+      </div></div>
+
+      <!-- B2 -->
+      <div class="tilt-card"><div class="mockup mockup-small">
+        <div class="mockup-bar"><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-url">visiondental.com</div></div>
+        <div class="mockup-body" style="height:380px;background:white;overflow:hidden;">
+          <div style="display:flex;align-items:center;justify-content:center;padding:20px 32px;flex-direction:column;gap:8px;">
+            <span style="font-family:'DM Serif Display',serif;font-size:22px;color:#4A3728;">Vision Dental</span>
+            <div style="display:flex;gap:24px;font-family:'Outfit',sans-serif;font-size:12px;color:#8C7A6B;letter-spacing:.04em;">
+              <span>Services</span><span>Team</span><span>Gallery</span><span>Contact</span>
+            </div>
+          </div>
+          <div style="padding:40px 32px;text-align:center;background:#F9F5EF;">
+            <p style="font-family:'DM Serif Display',serif;font-size:40px;color:#4A3728;line-height:1.05;margin-bottom:14px;">Care that feels<br>different</p>
+            <p style="font-family:'Outfit',sans-serif;font-size:14px;color:#8C7A6B;max-width:320px;margin:0 auto 24px;line-height:1.6;">Not your typical dental office. Los Angeles.</p>
+            <span style="background:#7C9A6E;color:white;padding:12px 28px;border-radius:100px;font-family:'Outfit',sans-serif;font-size:13px;display:inline-block;">Discover Our Practice</span>
+          </div>
+          <div style="display:flex;justify-content:center;gap:24px;padding:20px;font-family:'Outfit',sans-serif;font-size:12px;color:#8C7A6B;">
+            <span>15+ Years</span><span style="color:#C8B49A;">|</span><span>5,000+ Patients</span><span style="color:#C8B49A;">|</span><span>4.9 Rating</span>
+          </div>
+        </div>
+        <div class="mockup-caption"><p class="mockup-caption-title">Centered Calm</p><p class="mockup-caption-desc">Centered nav, warm background, trust bar. Minimal and breathing.</p></div>
+      </div></div>
+
+      <!-- B3 -->
+      <div class="tilt-card"><div class="mockup mockup-small">
+        <div class="mockup-bar"><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-url">visiondental.com</div></div>
+        <div class="mockup-body" style="height:380px;background:#F9F5EF;overflow:hidden;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 32px;background:white;">
+            <span style="font-family:'DM Serif Display',serif;font-size:20px;color:#4A3728;">Vision Dental</span>
+            <span style="font-family:'Outfit',sans-serif;font-size:12px;color:#7C9A6E;font-weight:500;">Book a Visit</span>
+          </div>
+          <div style="padding:20px 32px;">
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+              <div style="background:white;border-radius:14px;padding:24px 16px;text-align:center;border:1px solid rgba(74,55,40,.06);">
+                <div style="width:32px;height:32px;border-radius:8px;background:rgba(124,154,110,.1);margin:0 auto 10px;"></div>
+                <p style="font-family:'DM Serif Display',serif;font-size:14px;color:#4A3728;">General</p>
+                <p style="font-family:'Outfit',sans-serif;font-size:11px;color:#8C7A6B;margin-top:4px;">Exams & cleanings</p>
+              </div>
+              <div style="background:white;border-radius:14px;padding:24px 16px;text-align:center;border:1px solid rgba(74,55,40,.06);">
+                <div style="width:32px;height:32px;border-radius:8px;background:rgba(196,144,126,.1);margin:0 auto 10px;"></div>
+                <p style="font-family:'DM Serif Display',serif;font-size:14px;color:#4A3728;">Cosmetic</p>
+                <p style="font-family:'Outfit',sans-serif;font-size:11px;color:#8C7A6B;margin-top:4px;">Veneers & whitening</p>
+              </div>
+              <div style="background:white;border-radius:14px;padding:24px 16px;text-align:center;border:1px solid rgba(74,55,40,.06);">
+                <div style="width:32px;height:32px;border-radius:8px;background:rgba(200,180,154,.15);margin:0 auto 10px;"></div>
+                <p style="font-family:'DM Serif Display',serif;font-size:14px;color:#4A3728;">Pediatric</p>
+                <p style="font-family:'Outfit',sans-serif;font-size:11px;color:#8C7A6B;margin-top:4px;">Gentle kids care</p>
+              </div>
+              <div style="background:white;border-radius:14px;padding:24px 16px;text-align:center;border:1px solid rgba(74,55,40,.06);">
+                <div style="width:32px;height:32px;border-radius:8px;background:rgba(124,154,110,.1);margin:0 auto 10px;"></div>
+                <p style="font-family:'DM Serif Display',serif;font-size:14px;color:#4A3728;">Ortho</p>
+                <p style="font-family:'Outfit',sans-serif;font-size:11px;color:#8C7A6B;margin-top:4px;">Braces & Invisalign</p>
+              </div>
+            </div>
+            <div style="margin-top:20px;background:white;border-radius:14px;padding:32px;border:1px solid rgba(74,55,40,.06);text-align:center;">
+              <p style="font-family:'DM Serif Display',serif;font-size:28px;color:#4A3728;line-height:1.1;margin-bottom:8px;">Thoughtful care,<br>naturally</p>
+              <p style="font-family:'Outfit',sans-serif;font-size:13px;color:#8C7A6B;">Where precision meets California warmth.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption"><p class="mockup-caption-title">Services First</p><p class="mockup-caption-desc">Services grid upfront, hero below. Practical and easy to navigate.</p></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STRATEGY C ===== -->
+<section class="s s-gray" id="strategy-c">
+  <div class="s-inner">
+    <div class="strat-header rv">
+      <div>
+        <div class="strat-badge" style="background:rgba(45,74,62,.06);color:#2D4A3E;">Strategy C &middot; Premium</div>
+        <h2 class="s-title">Elevated LA</h2>
+        <p class="s-sub" style="margin-top:12px;">The editorial route. Deep forest green, warm gold, rich cream. Vision Dental as a premium practice &mdash; the kind of brand that belongs in a lifestyle magazine. Confident but never cold.</p>
+      </div>
+    </div>
+    <div class="strat-palette rv">
+      <div class="strat-swatch" style="background:#2D4A3E;"><span class="strat-swatch-label">#2D4A3E</span></div>
+      <div class="strat-swatch" style="background:#C9A96E;"><span class="strat-swatch-label">#C9A96E</span></div>
+      <div class="strat-swatch" style="background:#E8D5CE;"><span class="strat-swatch-label">#E8D5CE</span></div>
+      <div class="strat-swatch" style="background:#F2EBE0;"><span class="strat-swatch-label">#F2EBE0</span></div>
+      <div class="strat-swatch" style="background:#2C2C2C;"><span class="strat-swatch-label">#2C2C2C</span></div>
+    </div>
+    <div class="strat-fonts rv">
+      <div><p class="strat-font-label">Heading</p><p style="font-family:'Playfair Display',serif;font-size:36px;font-weight:500;line-height:1.1;">Playfair Display</p><p style="font-size:13px;color:var(--gray-500);margin-top:4px;">Editorial serif. Bold, luxurious, confident.</p></div>
+      <div><p class="strat-font-label">Body</p><p style="font-family:'Raleway',sans-serif;font-size:22px;font-weight:400;line-height:1.4;">Raleway &mdash; Elegant sans</p><p style="font-size:13px;color:var(--gray-500);margin-top:4px;">Sophisticated and legible. Perfect editorial pairing.</p></div>
+    </div>
+    <div class="strat-keywords rv">
+      <span class="strat-kw">Luxury editorial</span><span class="strat-kw">Forest + gold</span><span class="strat-kw">Magazine quality</span><span class="strat-kw">Premium confidence</span>
+    </div>
+
+    <div class="divider"></div>
+    <p class="s-label rv">Homepage Concepts</p>
+    <div class="mockups-grid rv">
+      <!-- C1 -->
+      <div class="tilt-card mockup-featured"><div class="mockup" data-src="strategy-c.html">
+        <div class="mockup-bar"><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-url">visiondental.com</div></div>
+        <div class="mockup-body scrollable" style="height:600px;"><button class="mockup-expand" title="Expand"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button><iframe src="strategy-c.html" style="width:100%;border:none;height:3000px;" loading="lazy"></iframe></div>
+        <div class="mockup-caption"><p class="mockup-caption-title">The Standard</p><p class="mockup-caption-desc">Full scrollable page. Forest green, gold accents, editorial serif. Click to expand.</p></div>
+      </div></div>
+
+      <!-- C2 -->
+      <div class="tilt-card"><div class="mockup mockup-small">
+        <div class="mockup-bar"><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-url">visiondental.com</div></div>
+        <div class="mockup-body" style="height:380px;background:#F2EBE0;overflow:hidden;">
+          <div style="display:flex;align-items:center;justify-content:center;padding:24px 32px;flex-direction:column;gap:10px;">
+            <span style="font-family:'Playfair Display',serif;font-size:24px;color:#2C2C2C;font-weight:700;letter-spacing:.06em;">VISION DENTAL</span>
+            <div style="display:flex;gap:24px;font-family:'Raleway',sans-serif;font-size:11px;color:rgba(44,44,44,.4);letter-spacing:.1em;">
+              <span>SERVICES</span><span>TEAM</span><span>GALLERY</span><span>CONTACT</span>
+            </div>
+          </div>
+          <div style="padding:0 32px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;height:220px;">
+              <div style="background:#2D4A3E;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:28px;">
+                <div style="text-align:center;color:#F2EBE0;">
+                  <p style="font-family:'Playfair Display',serif;font-size:24px;line-height:1.1;margin-bottom:8px;">Boutique<br>dental care</p>
+                  <p style="font-family:'Raleway',sans-serif;font-size:11px;opacity:.5;letter-spacing:.08em;">LOS ANGELES, CA</p>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-rows:1fr 1fr;gap:10px;">
+                <div style="border-radius:10px;overflow:hidden;"><img src="assets/gallery-2.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+                <div style="background:#C9A96E;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+                  <p style="font-family:'Raleway',sans-serif;font-size:11px;color:#2D4A3E;letter-spacing:.08em;font-weight:600;">BOOK NOW</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption"><p class="mockup-caption-title">Beverly Hills</p><p class="mockup-caption-desc">Photo-forward grid, centered nav. Intimate, boutique feel.</p></div>
+      </div></div>
+
+      <!-- C3 -->
+      <div class="tilt-card"><div class="mockup mockup-small">
+        <div class="mockup-bar"><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-dot"></div><div class="mockup-bar-url">visiondental.com</div></div>
+        <div class="mockup-body" style="height:380px;background:white;overflow:hidden;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 32px;border-bottom:1px solid rgba(0,0,0,.04);">
+            <span style="font-family:'Playfair Display',serif;font-size:18px;color:#2D4A3E;">Vision Dental</span>
+            <span style="font-family:'Raleway',sans-serif;font-size:11px;color:#C9A96E;letter-spacing:.08em;font-weight:600;">RESERVE</span>
+          </div>
+          <div style="padding:48px 32px;text-align:center;">
+            <p style="font-family:'Raleway',sans-serif;font-size:11px;color:#C9A96E;letter-spacing:.2em;margin-bottom:16px;">LOS ANGELES</p>
+            <p style="font-family:'Playfair Display',serif;font-size:44px;color:#2C2C2C;line-height:1.02;margin-bottom:16px;">Curated<br><span style="font-style:italic;">Care</span></p>
+            <p style="font-family:'Raleway',sans-serif;font-size:14px;color:rgba(44,44,44,.45);max-width:300px;margin:0 auto 28px;line-height:1.7;">Where science meets artistry. A dental experience designed around you.</p>
+            <span style="background:#2D4A3E;color:#F2EBE0;padding:12px 28px;border-radius:4px;font-family:'Raleway',sans-serif;font-size:12px;letter-spacing:.06em;font-weight:600;display:inline-block;">EXPERIENCE</span>
+          </div>
+          <div style="width:60px;height:1px;background:#C9A96E;margin:0 auto;"></div>
+        </div>
+        <div class="mockup-caption"><p class="mockup-caption-title">Curated Care</p><p class="mockup-caption-desc">White editorial. Centered composition. Maximum elegance.</p></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEO ===== -->
+<section class="s" id="seo">
+  <div class="s-inner">
+    <p class="s-label rv">SEO Strategy</p>
+    <h2 class="s-title rv rv-d1">Keyword exploration</h2>
+    <p class="s-sub rv rv-d2">Priority keywords for the Los Angeles dental market. These guide content, page titles, and blog topics.</p>
+
+    <div class="rv rv-d3" style="border-radius:16px;border:1px solid var(--gray-200);overflow:hidden;margin-top:40px;">
+      <table class="seo-table">
+        <thead><tr><th>Keyword</th><th>Volume</th><th>Competition</th><th>Priority</th></tr></thead>
+        <tbody>
+          <tr><td class="seo-kw">dentist los angeles</td><td>8,100</td><td><span class="seo-badge seo-high">High</span></td><td>Core</td></tr>
+          <tr><td class="seo-kw">cosmetic dentist los angeles</td><td>2,900</td><td><span class="seo-badge seo-high">High</span></td><td>Core</td></tr>
+          <tr><td class="seo-kw">dental implants los angeles</td><td>2,400</td><td><span class="seo-badge seo-high">High</span></td><td>Core</td></tr>
+          <tr><td class="seo-kw">pediatric dentist los angeles</td><td>1,600</td><td><span class="seo-badge seo-med">Medium</span></td><td>Core</td></tr>
+          <tr><td class="seo-kw">emergency dentist LA</td><td>1,300</td><td><span class="seo-badge seo-med">Medium</span></td><td>High</td></tr>
+          <tr><td class="seo-kw">teeth whitening los angeles</td><td>1,000</td><td><span class="seo-badge seo-med">Medium</span></td><td>High</td></tr>
+          <tr><td class="seo-kw">best dentist in los angeles</td><td>720</td><td><span class="seo-badge seo-high">High</span></td><td>High</td></tr>
+          <tr><td class="seo-kw">dental veneers cost los angeles</td><td>480</td><td><span class="seo-badge seo-low">Low</span></td><td>High</td></tr>
+          <tr><td class="seo-kw">dental anxiety friendly dentist LA</td><td>170</td><td><span class="seo-badge seo-low">Low</span></td><td>High</td></tr>
+          <tr><td class="seo-kw">sedation dentistry los angeles</td><td>140</td><td><span class="seo-badge seo-low">Low</span></td><td>Medium</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;" class="rv rv-d4">
+      <div style="padding:28px;border-radius:16px;background:var(--off-white);">
+        <p style="font-size:14px;font-weight:600;margin-bottom:6px;">Quick wins</p>
+        <p style="font-size:13px;color:var(--gray-500);line-height:1.6;">Long-tail keywords like "dental veneers cost" and "dental anxiety friendly" have low competition and high conversion intent.</p>
+      </div>
+      <div style="padding:28px;border-radius:16px;background:var(--off-white);">
+        <p style="font-size:14px;font-weight:600;margin-bottom:6px;">Content strategy</p>
+        <p style="font-size:13px;color:var(--gray-500);line-height:1.6;">Blog topics around care tips, procedure guides, and patient stories build authority and capture informational traffic.</p>
+      </div>
+      <div style="padding:28px;border-radius:16px;background:var(--off-white);">
+        <p style="font-size:14px;font-weight:600;margin-bottom:6px;">Local SEO</p>
+        <p style="font-size:13px;color:var(--gray-500);line-height:1.6;">Google Business Profile, local citations, and location schema markup. Multi-location strategy for both sites.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PHOTO STRIP ===== -->
+<div class="photo-strip rv">
+  <img src="assets/hero.jpg" alt="Vision Dental" loading="lazy">
+  <img src="assets/gallery-1.jpg" alt="Office" loading="lazy">
+  <img src="assets/about.jpg" alt="Team" loading="lazy">
+  <img src="assets/gallery-3.jpg" alt="Care" loading="lazy">
+  <img src="assets/location-la.jpg" alt="Los Angeles" loading="lazy">
+</div>
+
+<!-- ===== NEXT STEPS ===== -->
+<section class="s" id="next">
+  <div class="s-inner" style="text-align:center;">
+    <p class="s-label rv" style="text-align:center;">Next Steps</p>
+    <h2 class="s-hero-title rv rv-d1">Let's build<br>something beautiful.</h2>
+    <p class="s-sub rv rv-d2" style="margin:20px auto 0;text-align:center;">Choose a direction, and we'll take it from concept to launch.</p>
+
+    <!-- Process flow -->
+    <div class="process-grid rv rv-d3">
+      <div class="process-item">
+        <div class="process-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="process-line"></div>
+        <p class="process-title">Choose a direction</p>
+        <p class="process-desc">Pick strategy A, B, or C &mdash; or mix elements from each to create something entirely yours.</p>
+      </div>
+      <div class="process-item">
+        <div class="process-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <div class="process-line"></div>
+        <p class="process-title">Design & prototype</p>
+        <p class="process-desc">High-fidelity mockups, real content, interactive Figma prototype for review and feedback.</p>
+      </div>
+      <div class="process-item">
+        <div class="process-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg></div>
+        <div class="process-line"></div>
+        <p class="process-title">Build & optimize</p>
+        <p class="process-desc">Responsive development, CMS integration, SEO optimization, performance tuning.</p>
+      </div>
+      <div class="process-item">
+        <div class="process-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+        <p class="process-title">Launch & train</p>
+        <p class="process-desc">QA, go-live for both locations, team training, and ongoing support documentation.</p>
+      </div>
+    </div>
+
+    <!-- The team -->
+    <div class="rv rv-d4" style="margin-top:64px;display:flex;align-items:center;justify-content:center;">
+      <div class="faces">
+        <img class="face" src="assets/team-william.jpg" alt="Dr. William Cheng">
+        <img class="face" src="assets/team-rogelio.jpg" alt="Rogelio Garcia">
+        <img class="face" src="assets/team-nicole.jpg" alt="Nicole Cheng">
+        <img class="face" src="assets/team-andrew.jpg" alt="Andrew Huynh">
+        <img class="face" src="assets/team-chris.jpg" alt="Chris Strandburg">
+        <img class="face" src="assets/team-john.jpg" alt="John Gonzales">
+        <img class="face" src="assets/team-kevin-lu.jpg" alt="Kevin Lu">
+        <img class="face" src="assets/team-kevin-kang.jpg" alt="Kevin Kang">
+        <img class="face" src="assets/team-aaron.jpg" alt="Aaron Ochoco">
+      </div>
+      <span class="faces-label">9 team members, 2 locations, 1 elevated brand</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="rv rv-d4">
+      <a href="mailto:raphael@7seas.co" class="cta-btn">
+        Get started
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p style="margin-top:20px;font-size:13px;color:var(--gray-500);">7Seas Agency &middot; www.7seas.co &middot; raphael@7seas.co</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-frame">
+    <div class="lightbox-bar">
+      <div class="lightbox-bar-dot"></div><div class="lightbox-bar-dot"></div><div class="lightbox-bar-dot"></div>
+      <span class="lightbox-url" id="lightboxUrl">visiondental.com</span>
+      <button class="lightbox-close" id="lightboxClose"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="lightbox-body" id="lightboxBody"></div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="foot">
+  <span>&copy; 2026 7Seas Agency LLC</span>
+  <span>Confidential &mdash; Prepared for Vision Dental</span>
+</footer>
+
+<!-- ===== JS ===== -->
+<script>
+/* ===== LOADER ===== */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('done');
+    document.body.classList.remove('loading');
+    document.querySelector('.cover-anim').classList.add('loaded');
+  }, 600);
+});
+
+/* ===== REVEAL ON SCROLL ===== */
+const rvs = document.querySelectorAll('.rv');
+const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); }), { threshold: .08, rootMargin: '0px 0px -40px 0px' });
+rvs.forEach(el => obs.observe(el));
+
+/* ===== NAV + PROGRESS BAR ===== */
+const secs = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.nav-links a');
+const bar = document.getElementById('navBar');
+const nav = document.getElementById('nav');
+let lastY = 0;
+
+function tick() {
+  const y = window.scrollY;
+  const h = document.documentElement.scrollHeight - innerHeight;
+  bar.style.width = (y / h * 100) + '%';
+  nav.classList.toggle('hide', y > lastY && y > 200);
+  lastY = y;
+  let cur = '';
+  secs.forEach(s => { if (y >= s.offsetTop - 240) cur = s.id; });
+  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}
+addEventListener('scroll', tick, { passive: true });
+tick();
+
+/* ===== KEYBOARD NAV ===== */
+document.addEventListener('keydown', e => {
+  const ids = [...secs].map(s => s.id);
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); const i = ids.findIndex(id => document.getElementById(id).offsetTop > scrollY + 60); if (i !== -1) document.getElementById(ids[i]).scrollIntoView({ behavior: 'smooth' }); }
+  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); const i = ids.findIndex(id => document.getElementById(id).offsetTop >= scrollY - 60); if (i > 0) document.getElementById(ids[i - 1]).scrollIntoView({ behavior: 'smooth' }); }
+});
+
+/* ===== COMPARISON TABS ===== */
+document.querySelectorAll('.cmp-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.cmp-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.cmp-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
+  });
+});
+
+/* ===== ANIMATED COUNTERS ===== */
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const nums = entry.target.querySelectorAll('[data-count]');
+    nums.forEach(el => {
+      const target = +el.dataset.count;
+      const duration = 1200;
+      const start = performance.now();
+      function update(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * eased);
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    });
+    counterObs.unobserve(entry.target);
+  });
+}, { threshold: .3 });
+document.querySelectorAll('.stat-grid').forEach(g => counterObs.observe(g));
+
+/* 3D tilt removed */
+
+/* ===== PARALLAX ===== */
+const parallaxEls = document.querySelectorAll('.parallax-slow');
+if (parallaxEls.length) {
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        parallaxEls.forEach(el => {
+          const speed = 0.15;
+          const rect = el.getBoundingClientRect();
+          const offset = (rect.top + scrollY - window.innerHeight / 2) * speed;
+          el.style.transform = `translateY(${-offset}px)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+}
+
+/* ===== LIGHTBOX ===== */
+const lightbox = document.getElementById('lightbox');
+const lightboxBody = document.getElementById('lightboxBody');
+const lightboxUrl = document.getElementById('lightboxUrl');
+
+function openLightbox(src) {
+  lightboxBody.innerHTML = `<iframe src="${src}" style="width:100%;height:100%;border:none;min-height:4000px;"></iframe>`;
+  lightboxUrl.textContent = 'visiondental.com';
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => { lightboxBody.innerHTML = ''; }, 300);
+}
+
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox(); });
+
+/* Expand buttons */
+document.querySelectorAll('.mockup-expand').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const mockup = btn.closest('.mockup');
+    const src = mockup?.dataset.src;
+    if (src) openLightbox(src);
+  });
+});
+
+/* Click mockup to expand (for mockups with data-src) */
+document.querySelectorAll('.mockup[data-src]').forEach(mockup => {
+  mockup.addEventListener('dblclick', () => {
+    openLightbox(mockup.dataset.src);
+  });
+});
+</script>
+</body>
+</html>

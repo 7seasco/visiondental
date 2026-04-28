@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vision Dental &mdash; Elevated LA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --forest: #2D4A3E;
+      --gold: #C9A96E;
+      --blush: #E8D5CE;
+      --cream: #F2EBE0;
+      --dark: #2C2C2C;
+      --white: #FFFFFF;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Raleway', sans-serif; color: var(--dark); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 500; }
+    img { display: block; max-width: 100%; }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; background: rgba(242,235,224,.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(44,44,44,.04); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--dark); text-decoration: none; font-weight: 700; letter-spacing: .04em; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { font-size: 12px; color: rgba(44,44,44,.5); text-decoration: none; letter-spacing: .08em; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-cta { background: var(--forest); color: var(--cream); padding: 10px 24px; border-radius: 4px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-decoration: none; transition: background .2s; }
+    .nav-cta:hover { background: #1F3A2E; }
+
+    /* HERO */
+    .hero { display: flex; min-height: 600px; background: var(--cream); }
+    .hero-content { flex: 1.1; display: flex; flex-direction: column; justify-content: center; padding: 60px 48px; }
+    .hero-tag { font-size: 12px; color: var(--gold); letter-spacing: .15em; font-weight: 600; margin-bottom: 28px; }
+    .hero h1 { font-size: 48px; color: var(--dark); line-height: 1.02; margin-bottom: 24px; }
+    .hero h1 em { color: var(--forest); font-style: italic; }
+    .hero-desc { font-size: 16px; color: rgba(44,44,44,.5); max-width: 400px; line-height: 1.8; margin-bottom: 40px; }
+    .btn-gold { background: var(--gold); color: var(--forest); padding: 14px 32px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-decoration: none; transition: all .2s; display: inline-block; font-family: 'Raleway', sans-serif; align-self: flex-start; }
+    .btn-gold:hover { background: #B8984E; transform: translateY(-1px); }
+    .hero-img { flex: 0.9; position: relative; overflow: hidden; }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* TRUST BAR */
+    .trust { display: flex; align-items: center; justify-content: center; gap: 56px; padding: 36px 48px; background: var(--forest); }
+    .trust span { font-size: 12px; color: rgba(242,235,224,.6); letter-spacing: .1em; font-weight: 500; }
+    .trust-sep { width: 24px; height: 1px; background: var(--gold); opacity: .4; }
+
+    /* SERVICES */
+    .services { padding: 100px 48px; background: var(--white); }
+    .section-tag { font-size: 11px; color: var(--gold); letter-spacing: .15em; font-weight: 600; margin-bottom: 16px; }
+    .section-title { font-size: 40px; color: var(--dark); margin-bottom: 16px; line-height: 1.05; }
+    .section-desc { font-size: 15px; color: rgba(44,44,44,.45); max-width: 480px; margin-bottom: 56px; line-height: 1.7; }
+    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .service-card { display: flex; border-radius: 12px; overflow: hidden; border: 1px solid rgba(44,44,44,.06); transition: all .3s; cursor: pointer; background: var(--white); }
+    .service-card:hover { box-shadow: 0 12px 40px rgba(44,44,44,.08); transform: translateY(-3px); }
+    .service-card img { width: 200px; height: 200px; object-fit: cover; flex-shrink: 0; }
+    .service-card-body { padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+    .service-card h3 { font-size: 22px; color: var(--dark); margin-bottom: 8px; }
+    .service-card p { font-size: 14px; color: rgba(44,44,44,.5); line-height: 1.6; }
+    .service-card-link { margin-top: 14px; font-size: 12px; color: var(--gold); font-weight: 600; text-decoration: none; letter-spacing: .06em; }
+
+    /* ABOUT */
+    .about { display: flex; min-height: 480px; }
+    .about-img { flex: 1; position: relative; overflow: hidden; }
+    .about-img img { width: 100%; height: 100%; object-fit: cover; }
+    .about-content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 80px 64px; background: var(--cream); }
+    .about h2 { font-size: 36px; color: var(--dark); margin-bottom: 20px; line-height: 1.05; }
+    .about h2 em { color: var(--forest); font-style: italic; }
+    .about p { font-size: 15px; color: rgba(44,44,44,.5); line-height: 1.8; margin-bottom: 16px; max-width: 420px; }
+    .about-detail { display: flex; gap: 40px; margin-top: 32px; padding-top: 32px; border-top: 1px solid rgba(44,44,44,.06); }
+    .about-detail div { }
+    .about-detail strong { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--dark); display: block; line-height: 1; }
+    .about-detail span { font-size: 12px; color: rgba(44,44,44,.4); letter-spacing: .06em; }
+
+    /* TEAM */
+    .team { padding: 100px 48px; background: var(--white); text-align: center; }
+    .team-grid { display: flex; justify-content: center; gap: 40px; margin-top: 56px; flex-wrap: wrap; }
+    .team-member { text-align: center; width: 140px; }
+    .team-member img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 16px; border: 3px solid var(--cream); }
+    .team-member h4 { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--dark); font-weight: 500; margin-bottom: 2px; }
+    .team-member p { font-size: 11px; color: rgba(44,44,44,.4); letter-spacing: .04em; }
+
+    /* TESTIMONIAL */
+    .testimonial { padding: 100px 48px; background: var(--cream); text-align: center; }
+    .testimonial-line { width: 48px; height: 2px; background: var(--gold); margin: 0 auto 28px; }
+    .testimonial blockquote { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--dark); max-width: 720px; margin: 0 auto 28px; line-height: 1.25; font-style: italic; font-weight: 400; }
+    .testimonial cite { font-size: 13px; color: rgba(44,44,44,.4); font-style: normal; letter-spacing: .04em; }
+
+    /* GALLERY */
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+    .gallery img { width: 100%; height: 220px; object-fit: cover; transition: opacity .3s; cursor: pointer; }
+    .gallery img:hover { opacity: .85; }
+
+    /* CTA */
+    .cta-section { padding: 120px 48px; background: var(--forest); text-align: center; position: relative; }
+    .cta-section h2 { font-size: 42px; color: var(--cream); margin-bottom: 16px; line-height: 1.05; }
+    .cta-section h2 em { color: var(--gold); font-style: italic; }
+    .cta-section p { font-size: 15px; color: rgba(242,235,224,.5); margin-bottom: 40px; letter-spacing: .02em; }
+    .btn-cream { background: var(--gold); color: var(--forest); padding: 16px 36px; border-radius: 4px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-decoration: none; transition: all .2s; display: inline-block; font-family: 'Raleway', sans-serif; }
+    .btn-cream:hover { background: #D4B87E; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+
+    /* FOOTER */
+    .footer { padding: 48px; background: var(--dark); display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 16px; color: white; font-weight: 700; letter-spacing: .04em; }
+    .footer-sub { font-size: 12px; color: rgba(255,255,255,.3); margin-top: 6px; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: rgba(255,255,255,.35); text-decoration: none; font-size: 11px; letter-spacing: .06em; font-weight: 500; }
+    .footer-links a:hover { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#" class="nav-logo">VISION DENTAL</a>
+  <div class="nav-links">
+    <a href="#">SERVICES</a>
+    <a href="#">ABOUT</a>
+    <a href="#">GALLERY</a>
+    <a href="#">CONTACT</a>
+    <a href="#" class="nav-cta">RESERVE</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-tag">LOS ANGELES</p>
+    <h1>The art of<br><em>dental care</em></h1>
+    <p class="hero-desc">Precision meets elegance. A dental experience designed for those who expect more.</p>
+    <a href="#" class="btn-gold">SCHEDULE A VISIT</a>
+  </div>
+  <div class="hero-img">
+    <img src="assets/about.jpg" alt="Vision Dental">
+  </div>
+</section>
+
+<div class="trust">
+  <span>15+ YEARS</span>
+  <div class="trust-sep"></div>
+  <span>5,000+ PATIENTS</span>
+  <div class="trust-sep"></div>
+  <span>4.9 STAR RATING</span>
+  <div class="trust-sep"></div>
+  <span>SANTA MONICA BLVD, LA</span>
+</div>
+
+<section class="services">
+  <p class="section-tag">EXPERTISE</p>
+  <h2 class="section-title">Curated services</h2>
+  <p class="section-desc">Every treatment is performed with precision, care, and an eye for artistry. Because your smile deserves nothing less.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <img src="assets/service-general.jpg" alt="General Dentistry">
+      <div class="service-card-body">
+        <h3>General Dentistry</h3>
+        <p>Comprehensive exams, cleanings, restorations, and preventive care tailored to your needs.</p>
+        <a href="#" class="service-card-link">EXPLORE &rarr;</a>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="assets/service-cosmetic.jpg" alt="Cosmetic Dentistry">
+      <div class="service-card-body">
+        <h3>Cosmetic Dentistry</h3>
+        <p>Porcelain veneers, professional whitening, bonding, and complete smile design.</p>
+        <a href="#" class="service-card-link">EXPLORE &rarr;</a>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="assets/service-pediatric.jpg" alt="Pediatric Dentistry">
+      <div class="service-card-body">
+        <h3>Pediatric Dentistry</h3>
+        <p>Gentle, patient-centered care for children. Creating positive dental experiences early.</p>
+        <a href="#" class="service-card-link">EXPLORE &rarr;</a>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="assets/service-orthodontic.jpg" alt="Orthodontics">
+      <div class="service-card-body">
+        <h3>Orthodontics</h3>
+        <p>Traditional braces, clear aligners, and Invisalign for adults and teens.</p>
+        <a href="#" class="service-card-link">EXPLORE &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-img">
+    <img src="assets/hero.jpg" alt="Our Practice">
+  </div>
+  <div class="about-content">
+    <p class="section-tag">OUR PHILOSOPHY</p>
+    <h2>Where science meets<br><em>artistry</em></h2>
+    <p>We approach dentistry the way an artist approaches a canvas &mdash; with precision, intention, and a deep respect for the craft.</p>
+    <p>Every detail matters. From the materials we choose to the way natural light fills our space, everything is designed to elevate your experience.</p>
+    <div class="about-detail">
+      <div><strong>15+</strong><span>YEARS</span></div>
+      <div><strong>5k+</strong><span>PATIENTS</span></div>
+      <div><strong>2</strong><span>LOCATIONS</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="team">
+  <p class="section-tag">THE TEAM</p>
+  <h2 class="section-title">Meet your providers</h2>
+  <div class="team-grid">
+    <div class="team-member"><img src="assets/team-william.jpg" alt="Dr. William Cheng"><h4>Dr. William Cheng</h4><p>Lead Dentist, DDS</p></div>
+    <div class="team-member"><img src="assets/team-nicole.jpg" alt="Nicole Cheng"><h4>Nicole Cheng</h4><p>Practice Manager</p></div>
+    <div class="team-member"><img src="assets/team-rogelio.jpg" alt="Rogelio Garcia"><h4>Rogelio Garcia</h4><p>Dental Hygienist</p></div>
+    <div class="team-member"><img src="assets/team-andrew.jpg" alt="Andrew Huynh"><h4>Andrew Huynh</h4><p>Dental Assistant</p></div>
+    <div class="team-member"><img src="assets/team-chris.jpg" alt="Chris Strandburg"><h4>Chris Strandburg</h4><p>Dental Assistant</p></div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div class="testimonial-line"></div>
+  <blockquote>"I've never experienced anything like this at a dental office. It felt more like a wellness retreat than a checkup."</blockquote>
+  <cite>&mdash; Michael R., Patient since 2021</cite>
+</section>
+
+<div class="gallery">
+  <img src="assets/gallery-1.jpg" alt="Gallery" loading="lazy">
+  <img src="assets/gallery-2.jpg" alt="Gallery" loading="lazy">
+  <img src="assets/gallery-3.jpg" alt="Gallery" loading="lazy">
+  <img src="assets/gallery-4.jpg" alt="Gallery" loading="lazy">
+</div>
+
+<section class="cta-section">
+  <h2>Experience <em>elevated</em><br>dental care</h2>
+  <p>Reserve your consultation and discover the Vision Dental difference.</p>
+  <a href="#" class="btn-cream">RESERVE YOUR VISIT</a>
+</section>
+
+<footer class="footer">
+  <div>
+    <p class="footer-logo">VISION DENTAL</p>
+    <p class="footer-sub">10700 Santa Monica Blvd, Suite 100, Los Angeles, CA 90025</p>
+  </div>
+  <div class="footer-links">
+    <a href="#">SERVICES</a>
+    <a href="#">ABOUT</a>
+    <a href="#">TEAM</a>
+    <a href="#">CONTACT</a>
+  </div>
+</footer>
+
+</body>
+</html>

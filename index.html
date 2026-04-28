@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vision Dental - Precision Dental Care</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['"Cormorant Garamond"', 'serif'],
+            body: ['"Lora"', 'serif'],
+          },
+          colors: {
+            'brand-blue': '#3a9ad9',
+            'brand-dark': '#090202',
+            'brand-gray': '#f2f2f2',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Lora', serif; color: #090202; }
+    h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Cormorant Garamond', serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  </style>
+</head>
+<body class="bg-white">
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="bg-white w-full">
+    <div class="max-w-[1440px] mx-auto h-[72px] flex items-center justify-center px-16">
+      <div class="flex items-center justify-center gap-8 w-full">
+        <!-- Logo -->
+        <div class="flex-1 min-w-0">
+          <div class="w-[172.785px] overflow-hidden">
+            <img src="assets/logo.png" alt="Vision Dental" class="w-full object-cover" style="aspect-ratio: 650/158;">
+          </div>
+        </div>
+        <!-- Nav Links -->
+        <div class="flex items-center gap-8 shrink-0">
+          <a href="#" class="font-body text-lg leading-[1.5] text-brand-dark whitespace-nowrap">Services</a>
+          <a href="#" class="font-body text-lg leading-[1.5] text-brand-dark whitespace-nowrap">Team</a>
+          <a href="#" class="font-body text-lg leading-[1.5] text-brand-dark whitespace-nowrap">Gallery</a>
+          <div class="flex items-center gap-1">
+            <a href="#" class="font-body text-lg leading-[1.5] text-brand-dark whitespace-nowrap">About</a>
+            <span class="material-symbols-outlined text-[24px]">expand_more</span>
+          </div>
+        </div>
+        <!-- CTA -->
+        <div class="flex-1 flex items-center justify-end min-w-0">
+          <a href="#" class="bg-brand-blue border border-brand-blue rounded-xl px-[10px] py-1 text-white font-body font-medium text-lg leading-[1.5] whitespace-nowrap">Book now</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="bg-white w-full">
+    <div class="max-w-[1440px] mx-auto px-16 py-20">
+      <div class="max-w-[1280px] mx-auto">
+        <div class="bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl flex items-center overflow-hidden">
+          <!-- Content -->
+          <div class="flex-1 flex flex-col gap-8 justify-center p-12 min-w-0">
+            <div class="flex flex-col gap-6">
+              <h1 class="font-heading font-medium text-[84px] leading-[1.1] tracking-[-0.84px] text-brand-dark">Precision dental care for your whole family</h1>
+              <p class="font-body text-xl leading-[1.5] text-brand-dark">Modern technology meets compassionate care. We deliver exceptional dental treatments using advanced techniques and personalized approaches.</p>
+            </div>
+            <div class="flex gap-4">
+              <a href="#" class="bg-brand-blue border border-brand-blue rounded-xl px-3 py-1.5 text-white font-body font-medium text-lg leading-[1.5] whitespace-nowrap">Schedule</a>
+              <a href="#" class="border border-[rgba(9,2,2,0.15)] rounded-xl px-3 py-1.5 text-brand-dark font-body font-medium text-lg leading-[1.5] whitespace-nowrap">Learn more</a>
+            </div>
+          </div>
+          <!-- Image -->
+          <div class="flex-1 min-w-0">
+            <img src="assets/hero.jpg" alt="Dental care" class="w-full object-cover" style="aspect-ratio: 1/1;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SERVICES ==================== -->
+  <section class="bg-white w-full">
+    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1280px] mx-auto flex flex-col gap-20 items-center">
+        <!-- Section Title -->
+        <div class="max-w-[768px] w-full flex flex-col gap-4 items-center">
+          <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark text-center">Specialized</p>
+          <div class="flex flex-col gap-6 items-center text-center w-full">
+            <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark w-full">Our comprehensive dental services</h2>
+            <p class="font-body text-xl leading-[1.5] text-brand-dark w-full">Delivering expert care across multiple dental specialties in Los Angeles.</p>
+          </div>
+        </div>
+        <!-- Cards Row -->
+        <div class="w-full flex gap-8">
+          <!-- General -->
+          <div class="flex-1 bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl overflow-hidden flex flex-col min-w-0">
+            <div class="h-[171px] w-full relative">
+              <img src="assets/service-general.jpg" alt="General dentistry" class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            <div class="flex flex-col gap-6 p-6">
+              <div class="flex flex-col gap-2">
+                <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">General</p>
+                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Complete dental health for every patient</h5>
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">Comprehensive examinations and treatments for optimal oral wellness.</p>
+              </div>
+              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                Details
+                <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+              </a>
+            </div>
+          </div>
+          <!-- Cosmetic -->
+          <div class="flex-1 bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl overflow-hidden flex flex-col min-w-0">
+            <div class="h-[171px] w-full relative">
+              <img src="assets/service-cosmetic.jpg" alt="Cosmetic dentistry" class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            <div class="flex flex-col gap-6 p-6">
+              <div class="flex flex-col gap-2">
+                <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">Cosmetic</p>
+                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Transforming smiles with precision</h5>
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">Advanced aesthetic procedures to enhance your dental appearance.</p>
+              </div>
+              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                Explore
+                <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+              </a>
+            </div>
+          </div>
+          <!-- Pediatric -->
+          <div class="flex-1 bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl overflow-hidden flex flex-col min-w-0">
+            <div class="h-[171px] w-full relative">
+              <img src="assets/service-pediatric.jpg" alt="Pediatric dentistry" class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            <div class="flex flex-col gap-6 p-6">
+              <div class="flex flex-col gap-2">
+                <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">Pediatric</p>
+                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Gentle care for young patients</h5>
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">Creating positive dental experiences for children and teenagers.</p>
+              </div>
+              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                Learn more
+                <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+              </a>
+            </div>
+          </div>
+          <!-- Orthodontic -->
+          <div class="flex-1 bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl overflow-hidden flex flex-col min-w-0">
+            <div class="h-[171px] w-full relative">
+              <img src="assets/service-orthodontic.jpg" alt="Orthodontic care" class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            <div class="flex flex-col gap-6 p-6">
+              <div class="flex flex-col gap-2">
+                <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">Orthodontic</p>
+                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Alignment and bite correction</h5>
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">Professional treatments to improve dental structure and smile aesthetics.</p>
+              </div>
+              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                Discover
+                <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROCESS / STEPS ==================== -->
+  <section class="bg-white w-full">
+    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1280px] mx-auto">
+        <div class="flex gap-20 items-center">
+          <!-- Image -->
+          <div class="flex-1 min-w-0 relative rounded-2xl overflow-hidden" style="aspect-ratio: 600/640;">
+            <img src="assets/process.jpg" alt="Dental process" class="absolute inset-0 w-full h-full object-cover rounded-2xl">
+          </div>
+          <!-- Steps Grid -->
+          <div class="flex-1 min-w-0 py-2">
+            <div class="flex flex-col gap-8">
+              <!-- Row 1 -->
+              <div class="flex gap-6">
+                <!-- Step 1 -->
+                <div class="flex-1 flex flex-col gap-6 min-w-0">
+                  <div class="flex flex-col gap-4">
+                    <span class="material-symbols-outlined text-[48px]">start</span>
+                    <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Initial consultation</h5>
+                    <p class="font-body text-lg leading-[1.5] text-brand-dark">Your dental journey begins with understanding</p>
+                  </div>
+                  <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                    Start
+                    <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+                  </a>
+                </div>
+                <!-- Step 2 -->
+                <div class="flex-1 flex flex-col gap-6 min-w-0">
+                  <div class="flex flex-col gap-4">
+                    <span class="material-symbols-outlined text-[48px]">next_plan</span>
+                    <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Treatment planning</h5>
+                    <p class="font-body text-lg leading-[1.5] text-brand-dark">Personalized treatment mapping for precise care</p>
+                  </div>
+                  <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                    Learn
+                    <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+                  </a>
+                </div>
+              </div>
+              <!-- Row 2 -->
+              <div class="flex gap-6">
+                <!-- Step 3 -->
+                <div class="flex-1 flex flex-col gap-6 min-w-0">
+                  <div class="flex flex-col gap-4">
+                    <span class="material-symbols-outlined text-[48px]">precision_manufacturing</span>
+                    <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Precision care</h5>
+                    <p class="font-body text-lg leading-[1.5] text-brand-dark">Seamless execution of your dental transformation</p>
+                  </div>
+                  <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                    Begin
+                    <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+                  </a>
+                </div>
+                <!-- Step 4 -->
+                <div class="flex-1 flex flex-col gap-6 min-w-0">
+                  <div class="flex flex-col gap-4">
+                    <span class="material-symbols-outlined text-[48px]">support</span>
+                    <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Follow-up and maintenance</h5>
+                    <p class="font-body text-lg leading-[1.5] text-brand-dark">Continuous support and long-term wellness tracking</p>
+                  </div>
+                  <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                    Connect
+                    <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIALS ==================== -->
+  <section class="bg-brand-gray w-full">
+    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1280px] mx-auto flex flex-col gap-20">
+        <!-- Section Title -->
+        <div class="max-w-[768px] flex flex-col gap-6">
+          <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark w-[560px]">Patient stories</h2>
+          <p class="font-body text-xl leading-[1.5] text-brand-dark w-[560px]">Real experiences that speak louder than words</p>
+        </div>
+        <!-- Testimonials Content -->
+        <div class="flex flex-col gap-12">
+          <div class="flex">
+            <!-- Testimonial 1 -->
+            <div class="flex-1 pr-16 overflow-hidden">
+              <div class="flex flex-col gap-8">
+                <div class="flex gap-0.5 text-brand-dark"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span></div>
+                <p class="font-heading font-medium text-[26px] leading-[1.4] tracking-[-0.26px] text-brand-dark">My smile transformation changed everything about my confidence.</p>
+                <div class="flex items-center gap-5">
+                  <img src="assets/avatar-emily.jpg" alt="Emily Rodriguez" class="w-14 h-14 rounded-full object-cover">
+                  <div class="flex flex-col leading-[1.5] text-lg text-brand-dark">
+                    <p class="font-body font-semibold">Emily Rodriguez</p>
+                    <p class="font-body">Marketing professional</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Testimonial 2 -->
+            <div class="flex-1 pr-16 overflow-hidden">
+              <div class="flex flex-col gap-8">
+                <div class="flex gap-0.5 text-brand-dark"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span></div>
+                <p class="font-heading font-medium text-[26px] leading-[1.4] tracking-[-0.26px] text-brand-dark">Vision Dental transformed my entire approach to dental care. The precision and compassion are unmatched.</p>
+                <div class="flex items-center gap-5">
+                  <img src="assets/avatar-michael.jpg" alt="Michael Thompson" class="w-14 h-14 rounded-full object-cover">
+                  <div class="flex flex-col leading-[1.5] text-lg text-brand-dark">
+                    <p class="font-body font-semibold">Michael Thompson</p>
+                    <p class="font-body">Business executive</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slider Controls -->
+          <div class="flex items-center justify-between">
+            <div class="flex gap-2 items-center"><span class="w-2 h-2 rounded-full bg-brand-dark"></span><span class="w-2 h-2 rounded-full bg-brand-dark/30"></span><span class="w-2 h-2 rounded-full bg-brand-dark/30"></span><span class="w-2 h-2 rounded-full bg-brand-dark/30"></span></div>
+            <div class="flex gap-4">
+              <button class="bg-white border border-[rgba(9,2,2,0.15)] rounded-lg p-3 flex items-center justify-center">
+                <span class="material-symbols-outlined text-[24px]">arrow_back</span>
+              </button>
+              <button class="bg-white border border-[rgba(9,2,2,0.15)] rounded-lg p-3 flex items-center justify-center">
+                <span class="material-symbols-outlined text-[24px]">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT / COMMITMENT ==================== -->
+  <section class="bg-white w-full">
+    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1280px] mx-auto">
+        <div class="flex gap-20 items-center">
+          <!-- Content -->
+          <div class="flex-1 min-w-0 flex flex-col gap-8">
+            <div class="flex flex-col gap-6">
+              <span class="material-symbols-outlined text-[80px]">dentistry</span>
+              <div class="flex flex-col gap-6">
+                <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark">Our commitment to exceptional dental care</h2>
+                <p class="font-body text-xl leading-[1.5] text-brand-dark">We blend cutting-edge technology with compassionate patient care. Our practice focuses on delivering personalized treatments in a comfortable environment.</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-6">
+              <a href="#" class="border border-[rgba(9,2,2,0.15)] rounded-xl px-3 py-1.5 font-body font-medium text-lg leading-[1.5] text-brand-dark whitespace-nowrap">About us</a>
+              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                Contact
+                <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+              </a>
+            </div>
+          </div>
+          <!-- Image -->
+          <div class="flex-1 min-w-0 relative rounded-2xl overflow-hidden" style="aspect-ratio: 600/640;">
+            <img src="assets/about.jpg" alt="Our dental practice" class="absolute inset-0 w-full h-full object-cover rounded-2xl">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TEAM ==================== -->
+  <section class="bg-brand-gray w-full">
+    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1280px] mx-auto flex flex-col gap-20 items-center">
+        <!-- Section Title -->
+        <div class="max-w-[768px] w-full flex flex-col gap-4 items-center">
+          <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark text-center w-full text-left">Experts</p>
+          <div class="flex flex-col gap-6 items-center text-center w-full">
+            <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark w-full">Our dental team</h2>
+            <p class="font-body text-xl leading-[1.5] text-brand-dark w-full">Skilled professionals dedicated to your dental health and comfort.</p>
+          </div>
+        </div>
+        <!-- Team Grid -->
+        <div class="w-full flex flex-col gap-16">
+          <!-- Row 1 -->
+          <div class="flex gap-8">
+            <!-- William -->
+            <div class="flex-1 flex flex-col gap-6 items-center min-w-0">
+              <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 1/1;">
+                <img src="assets/team-william.jpg" alt="William Cheng" class="w-full h-full object-cover">
+              </div>
+              <div class="flex flex-col gap-4 items-center text-center leading-[1.5] w-full">
+                <div class="flex flex-col items-center w-full">
+                  <p class="font-body font-semibold text-[26px]">William Cheng, DDS, MS</p>
+                  <p class="font-body text-xl">Lead dentist</p>
+                </div>
+                <p class="font-body text-lg">Experienced dental professional with advanced training in cosmetic and family dentistry.</p>
+              </div>
+            </div>
+            <!-- Rogelio -->
+            <div class="flex-1 flex flex-col gap-6 items-center min-w-0">
+              <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 1/1;">
+                <img src="assets/team-rogelio.jpg" alt="Rogelio Garcia" class="w-full h-full object-cover">
+              </div>
+              <div class="flex flex-col gap-4 items-center text-center leading-[1.5] w-full">
+                <div class="flex flex-col items-center w-full">
+                  <p class="font-body font-semibold text-[26px]">Rogelio Garcia, DDS</p>
+                  <p class="font-body text-xl">Dentist</p>
+                </div>
+                <p class="font-body text-lg">Skilled general dentist specializing in preventive, restorative, and patient-focused comprehensive care.</p>
+              </div>
+            </div>
+            <!-- Nicole -->
+            <div class="flex-1 flex flex-col gap-6 items-center min-w-0">
+              <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 1/1;">
+                <img src="assets/team-nicole.jpg" alt="Nicole Cheng" class="w-full h-full object-cover">
+              </div>
+              <div class="flex flex-col gap-4 items-center text-center leading-[1.5] w-full">
+                <div class="flex flex-col items-center w-full">
+                  <p class="font-body font-semibold text-[26px]">Nicole Cheng, DDS</p>
+                  <p class="font-body text-xl">Orthodontist</p>
+                </div>
+                <p class="font-body text-lg">Board-certified orthodontist with advanced expertise in braces, Invisalign, and dentofacial orthopedics.</p>
+              </div>
+            </div>
+            <!-- Andrew -->
+            <div class="flex-1 flex flex-col gap-6 items-center min-w-0">
+              <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 1/1;">
+                <img src="assets/team-andrew.jpg" alt="Andrew Huynh" class="w-full h-full object-cover">
+              </div>
+              <div class="flex flex-col gap-4 items-center text-center leading-[1.5] w-full">
+                <div class="flex flex-col items-center w-full">
+                  <p class="font-body font-semibold text-[26px]">Andrew Huynh, DDS</p>
+                  <p class="font-body text-xl">Pediatric Dentist</p>
+                </div>
+                <p class="font-body text-lg">Pediatric dentistry specialist providing gentle, evidence-based care for children and teens.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Row 2 -->
+          <div class="flex gap-8">
+            <!-- Chris -->
+            <div class="flex-1 flex flex-col gap-6 items-center min-w-0">
+              <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 1/1;">
+                <img src="assets/team-chris.jpg" alt="Chris Strandburg" class="w-full h-full object-cover">
+              </div>
+              <div class="flex flex-col gap-4 items-center text-center leading-[1.5] w-full">
+                <div class="flex flex-col items-center w-full">
+                  <p class="font-body font-semibold text-[26px]">Chris Strandburg, DDS</p>
+                  <p class="font-body text-xl">Dentist</p>
+                </div>
+                <p class="font-body text-lg">General dentist with a strong background in restorative treatments, preventive care, and patient education.</p>
+              </div>
+            </div>
+            <!-- John -->
+            <div class="flex-1 flex flex-col gap-6 items-center min-w-0">
+              <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 1/1;">
+                <img src="assets/team-john.jpg" alt="John Gonzales" class="w-full h-full object-cover">
+              </div>
+              <div class="flex flex-col gap-4 items-center text-center leading-[1.5] w-full">
+                <div class="flex flex-col items-center w-full">
+                  <p class="font-body font-semibold text-[26px]">John Gonzales, DDS</p>
+                  <p class="font-body text-xl">Dentist</p>
+                </div>
+                <p class="font-body text-lg">General dentist dedicated to delivering high-quality restorative and aesthetic care with a patient-centered approach.</p>
+              </div>
+            </div>
+            <!-- Kevin Lu -->
+            <div class="flex-1 flex flex-col gap-6 items-center min-w-0">
+              <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 1/1;">
+                <img src="assets/team-kevin-lu.jpg" alt="Kevin Lu" class="w-full h-full object-cover">
+              </div>
+              <div class="flex flex-col gap-4 items-center text-center leading-[1.5] w-full">
+                <div class="flex flex-col items-center w-full">
+                  <p class="font-body font-semibold text-[26px]">Kevin Lu, DDS</p>
+                  <p class="font-body text-xl">General Dentist</p>
+                </div>
+                <p class="font-body text-lg">Comprehensive general dentist skilled in extractions, implants, restorative procedures, and family dental care.</p>
+              </div>
+            </div>
+            <!-- Kevin Kang -->
+            <div class="flex-1 flex flex-col gap-6 items-center min-w-0">
+              <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 1/1;">
+                <img src="assets/team-kevin-kang.jpg" alt="Kevin Kang" class="w-full h-full object-cover">
+              </div>
+              <div class="flex flex-col gap-4 items-center text-center leading-[1.5] w-full">
+                <div class="flex flex-col items-center w-full">
+                  <p class="font-body font-semibold text-[26px]">Dr. Kevin Kang, DDS</p>
+                  <p class="font-body text-xl">Orthodontist</p>
+                </div>
+                <p class="font-body text-lg">Bio coming soon!</p>
+              </div>
+            </div>
+          </div>
+          <!-- Row 3 -->
+          <div class="flex gap-8">
+            <!-- Aaron -->
+            <div class="w-[296px] flex flex-col gap-6 items-center">
+              <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 1/1;">
+                <img src="assets/team-aaron.jpg" alt="Aaron Ochoco" class="w-full h-full object-cover">
+              </div>
+              <div class="flex flex-col gap-4 items-center text-center leading-[1.5] w-full">
+                <div class="flex flex-col items-center w-full">
+                  <p class="font-body font-semibold text-[26px]">Dr. Aaron Ochoco, DDS</p>
+                  <p class="font-body text-xl">-</p>
+                </div>
+                <p class="font-body text-lg">Dr. Aaron Ochoco, DDS</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Hiring -->
+        <div class="max-w-[768px] w-full flex flex-col gap-6 items-center">
+          <div class="flex flex-col gap-4 items-center text-center w-[768px]">
+            <h4 class="font-heading font-medium text-[40px] leading-[1.3] tracking-[-0.4px] text-brand-dark w-full">We're hiring</h4>
+            <p class="font-body text-xl leading-[1.5] text-brand-dark w-full">Join our growing team of dental professionals.</p>
+          </div>
+          <a href="#" class="border border-[rgba(9,2,2,0.15)] rounded-xl px-3 py-1.5 font-body font-medium text-lg leading-[1.5] text-brand-dark whitespace-nowrap">View positions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== LOCATIONS ==================== -->
+  <section class="bg-white w-full">
+    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1280px] mx-auto flex flex-col gap-20">
+        <!-- Section Title -->
+        <div class="max-w-[768px] flex flex-col gap-4">
+          <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">Reach</p>
+          <div class="flex flex-col gap-6">
+            <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark">Locations</h2>
+            <p class="font-body text-xl leading-[1.5] text-brand-dark">Precision dental care across strategic California locations</p>
+          </div>
+        </div>
+        <!-- Locations Grid -->
+        <div class="flex gap-16">
+          <!-- LA -->
+          <div class="flex-1 flex flex-col gap-8 items-center min-w-0">
+            <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 300/200;">
+              <img src="assets/location-la.jpg" alt="Los Angeles office" class="w-full h-full object-cover">
+            </div>
+            <div class="flex flex-col gap-6 w-full">
+              <div class="flex flex-col gap-4">
+                <h4 class="font-heading font-medium text-[40px] leading-[1.3] tracking-[-0.4px] text-brand-dark">Los Angeles</h4>
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">10700 Santa Monica Blvd, Suite 100, Los Angeles, CA 90025</p>
+              </div>
+              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                Get directions
+                <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+              </a>
+            </div>
+          </div>
+          <!-- Future -->
+          <div class="flex-1 flex flex-col gap-8 items-center min-w-0">
+            <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 300/200;">
+              <img src="assets/location-future.jpg" alt="Future location" class="w-full h-full object-cover">
+            </div>
+            <div class="flex flex-col gap-6 w-full">
+              <div class="flex flex-col gap-4">
+                <h4 class="font-heading font-medium text-[40px] leading-[1.3] tracking-[-0.4px] text-brand-dark">Future growth</h4>
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">Preparing to serve more communities across Southern California</p>
+              </div>
+              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                Stay connected
+                <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== GALLERY ==================== -->
+  <section class="bg-white w-full">
+    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1280px] mx-auto flex flex-col gap-20 items-center">
+        <!-- Section Title -->
+        <div class="max-w-[768px] w-full flex flex-col gap-6 items-center text-center">
+          <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark w-full">Our practice</h2>
+          <p class="font-body text-xl leading-[1.5] text-brand-dark w-full">Visual journey through our modern dental facility and patient transformations.</p>
+        </div>
+        <!-- Gallery Grid -->
+        <div class="w-full flex flex-col gap-8">
+          <div class="flex gap-8">
+            <div class="flex-1 rounded-2xl overflow-hidden min-w-0" style="aspect-ratio: 1/1;">
+              <img src="assets/gallery-1.jpg" alt="Gallery" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 rounded-2xl overflow-hidden min-w-0" style="aspect-ratio: 1/1;">
+              <img src="assets/gallery-2.jpg" alt="Gallery" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 rounded-2xl overflow-hidden min-w-0" style="aspect-ratio: 1/1;">
+              <img src="assets/gallery-3.jpg" alt="Gallery" class="w-full h-full object-cover">
+            </div>
+          </div>
+          <div class="flex gap-8">
+            <div class="flex-1 rounded-2xl overflow-hidden min-w-0" style="aspect-ratio: 1/1;">
+              <img src="assets/service-cosmetic.jpg" alt="Gallery" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 rounded-2xl overflow-hidden min-w-0" style="aspect-ratio: 1/1;">
+              <img src="assets/hero.jpg" alt="Gallery" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 rounded-2xl overflow-hidden min-w-0" style="aspect-ratio: 1/1;">
+              <img src="assets/gallery-4.jpg" alt="Gallery" class="w-full h-full object-cover">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== LOGOS / RECOGNITION ==================== -->
+  <section class="bg-white w-full">
+    <div class="max-w-[1440px] mx-auto py-20 flex flex-col gap-12 items-center overflow-hidden">
+      <div class="px-16 w-full flex items-center justify-center">
+        <p class="font-body font-bold text-xl leading-[1.5] text-brand-dark text-center w-[560px]">Recognized by dental innovators and healthcare leaders</p>
+      </div>
+      <div class="flex items-center justify-center gap-[50px]">
+        <img src="assets/partner-1.png" alt="Partner" class="h-[67.819px] w-auto object-contain">
+        <img src="assets/partner-2.png" alt="Partner" class="h-[67.819px] w-auto object-contain">
+        <img src="assets/partner-3.png" alt="Partner" class="h-[67.819px] w-auto object-contain">
+        <img src="assets/partner-4.png" alt="Partner" class="h-[67.819px] w-auto object-contain">
+        <img src="assets/partner-5.png" alt="Partner" class="h-[67.819px] w-auto object-contain">
+        <img src="assets/partner-6.png" alt="Partner" class="h-[67.819px] w-auto object-contain">
+        <img src="assets/partner-7.png" alt="Partner" class="h-[67.819px] w-auto object-contain">
+        <img src="assets/partner-8.png" alt="Partner" class="h-[67.819px] w-auto object-contain">
+        <img src="assets/partner-9.png" alt="Partner" class="h-[67.819px] w-auto object-contain">
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FAQ ==================== -->
+  <section class="bg-white w-full">
+    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1280px] mx-auto">
+        <div class="flex gap-20 items-start">
+          <!-- Left Side -->
+          <div class="w-[500px] shrink-0 flex flex-col gap-8">
+            <div class="flex flex-col gap-6">
+              <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark">Questions</h2>
+              <p class="font-body text-xl leading-[1.5] text-brand-dark">Clear answers about our dental practice and patient care</p>
+            </div>
+            <a href="#" class="inline-flex border border-[rgba(9,2,2,0.15)] rounded-xl px-3 py-1.5 font-body font-medium text-lg leading-[1.5] text-brand-dark whitespace-nowrap w-fit">Ask</a>
+          </div>
+          <!-- Right Side - Accordion -->
+          <div class="flex-1 min-w-0 border-b border-[rgba(9,2,2,0.15)]">
+            <!-- Q1 -->
+            <div>
+              <div class="border-t border-[rgba(9,2,2,0.15)] flex items-center gap-6 py-5">
+                <p class="flex-1 font-body font-bold text-xl leading-[1.5] text-brand-dark">What makes our approach unique</p>
+                <span class="material-symbols-outlined text-[32px] shrink-0">keyboard_arrow_up</span>
+              </div>
+              <div class="pb-6">
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">We blend advanced technology with personalized care. Our team focuses on individual patient needs and comfort. We treat each patient like family.</p>
+              </div>
+            </div>
+            <!-- Q2 -->
+            <div>
+              <div class="border-t border-[rgba(9,2,2,0.15)] flex items-center gap-6 py-5">
+                <p class="flex-1 font-body font-bold text-xl leading-[1.5] text-brand-dark">How we ensure patient comfort</p>
+                <span class="material-symbols-outlined text-[32px] shrink-0">keyboard_arrow_up</span>
+              </div>
+              <div class="pb-6">
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">We use modern sedation techniques and gentle approaches. Our goal is to minimize anxiety and maximize patient trust. We listen and adapt to each patient's specific concerns.</p>
+              </div>
+            </div>
+            <!-- Q3 -->
+            <div>
+              <div class="border-t border-[rgba(9,2,2,0.15)] flex items-center gap-6 py-5">
+                <p class="flex-1 font-body font-bold text-xl leading-[1.5] text-brand-dark">What sets our practice apart</p>
+                <span class="material-symbols-outlined text-[32px] shrink-0">keyboard_arrow_up</span>
+              </div>
+              <div class="pb-6">
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">Our commitment goes beyond treatment. We educate patients about preventive care and long-term dental wellness. We invest in continuous training and cutting-edge technology.</p>
+              </div>
+            </div>
+            <!-- Q4 -->
+            <div>
+              <div class="border-t border-[rgba(9,2,2,0.15)] flex items-center gap-6 py-5">
+                <p class="flex-1 font-body font-bold text-xl leading-[1.5] text-brand-dark">Can we address complex cases</p>
+                <span class="material-symbols-outlined text-[32px] shrink-0">keyboard_arrow_up</span>
+              </div>
+              <div class="pb-6">
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">We handle challenging dental scenarios with expertise and precision. Our team collaborates to develop comprehensive treatment plans. We welcome complex cases as opportunities to demonstrate our skill.</p>
+              </div>
+            </div>
+            <!-- Q5 -->
+            <div>
+              <div class="border-t border-[rgba(9,2,2,0.15)] flex items-center gap-6 py-5">
+                <p class="flex-1 font-body font-bold text-xl leading-[1.5] text-brand-dark">Do we offer payment options</p>
+                <span class="material-symbols-outlined text-[32px] shrink-0">keyboard_arrow_up</span>
+              </div>
+              <div class="pb-6">
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">We provide flexible financing for all patients. Multiple payment plans are available to make quality dental care accessible. We work with you to find affordable solutions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BLOG ==================== -->
+  <section class="bg-white w-full">
+    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1280px] mx-auto flex flex-col gap-16">
+        <!-- Section Title -->
+        <div class="max-w-[768px] flex flex-col gap-4">
+          <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">Blog</p>
+          <div class="flex flex-col gap-6 w-full">
+            <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark">Dental wisdom and insights</h2>
+            <p class="font-body text-xl leading-[1.5] text-brand-dark">Empowering patients through knowledge and understanding</p>
+          </div>
+        </div>
+        <!-- Blog Cards -->
+        <div class="flex gap-8">
+          <!-- Card 1 -->
+          <div class="flex-1 flex flex-col gap-6 min-w-0">
+            <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 405/270;">
+              <img src="assets/blog-1.jpg" alt="Blog" class="w-full h-full object-cover">
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center gap-4">
+                <span class="border border-[rgba(9,2,2,0.15)] rounded-md px-[10px] py-1 font-body font-semibold text-base leading-[1.5] text-brand-dark">Wellness</span>
+                <span class="font-body font-semibold text-base leading-[1.5] text-brand-dark">8 min read</span>
+              </div>
+              <div class="flex flex-col gap-2">
+                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Holistic approaches to dental health</h5>
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">Exploring the connection between oral care and overall body wellness</p>
+              </div>
+            </div>
+            <a href="#" class="flex items-center gap-2 font-body text-lg leading-[1.5] text-brand-dark">
+              Read more
+              <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+            </a>
+          </div>
+          <!-- Card 2 -->
+          <div class="flex-1 flex flex-col gap-6 min-w-0">
+            <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 405/270;">
+              <img src="assets/blog-2.jpg" alt="Blog" class="w-full h-full object-cover">
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center gap-4">
+                <span class="border border-[rgba(9,2,2,0.15)] rounded-md px-[10px] py-1 font-body font-semibold text-base leading-[1.5] text-brand-dark">Prevention</span>
+                <span class="font-body font-semibold text-base leading-[1.5] text-brand-dark">6 min read</span>
+              </div>
+              <div class="flex flex-col gap-2">
+                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Proactive strategies for long-term dental care</h5>
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">Simple daily habits that protect and strengthen your teeth</p>
+              </div>
+            </div>
+            <a href="#" class="flex items-center gap-2 font-body text-lg leading-[1.5] text-brand-dark">
+              Read more
+              <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+            </a>
+          </div>
+          <!-- Card 3 -->
+          <div class="flex-1 flex flex-col gap-6 min-w-0">
+            <div class="w-full rounded-2xl overflow-hidden" style="aspect-ratio: 405/270;">
+              <img src="assets/blog-3.jpg" alt="Blog" class="w-full h-full object-cover">
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center gap-4">
+                <span class="border border-[rgba(9,2,2,0.15)] rounded-md px-[10px] py-1 font-body font-semibold text-base leading-[1.5] text-brand-dark">Nutrition</span>
+                <span class="font-body font-semibold text-base leading-[1.5] text-brand-dark">7 min read</span>
+              </div>
+              <div class="flex flex-col gap-2">
+                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Eating for a healthier smile</h5>
+                <p class="font-body text-lg leading-[1.5] text-brand-dark">Nutritional choices that support optimal oral health and healing</p>
+              </div>
+            </div>
+            <a href="#" class="flex items-center gap-2 font-body text-lg leading-[1.5] text-brand-dark">
+              Read more
+              <span class="material-symbols-outlined text-[24px]">chevron_right</span>
+            </a>
+          </div>
+        </div>
+        <!-- View All -->
+        <div class="flex justify-end w-full">
+          <a href="#" class="border border-[rgba(9,2,2,0.15)] rounded-xl px-3 py-1.5 font-body font-medium text-lg leading-[1.5] text-brand-dark whitespace-nowrap">View all</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA ==================== -->
+  <section class="bg-white w-full">
+    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1280px] mx-auto">
+        <div class="relative rounded-2xl overflow-hidden flex items-center justify-center p-16">
+          <!-- Background -->
+          <img src="assets/cta-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover">
+          <div class="absolute inset-0 bg-black/50"></div>
+          <!-- Content -->
+          <div class="relative z-10 flex flex-col gap-8 items-center max-w-[768px] text-center">
+            <div class="flex flex-col gap-6 text-white">
+              <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px]">Ready for your best smile</h2>
+              <p class="font-body text-xl leading-[1.5]">Schedule a consultation and discover personalized dental care tailored to your needs.</p>
+            </div>
+            <div class="flex gap-4">
+              <a href="#" class="bg-white border border-white rounded-xl px-3 py-1.5 font-body font-medium text-lg leading-[1.5] text-brand-dark whitespace-nowrap">Book now</a>
+              <a href="#" class="border border-[rgba(255,255,255,0.2)] rounded-xl px-3 py-1.5 font-body font-medium text-lg leading-[1.5] text-white whitespace-nowrap">Contact us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-white w-full">
+    <div class="max-w-[1440px] mx-auto px-16 py-20 overflow-hidden">
+      <div class="max-w-[1280px] mx-auto flex flex-col gap-20">
+        <!-- Top Section -->
+        <div class="flex gap-32 h-[248px]">
+          <!-- Links -->
+          <div class="flex-1 flex gap-10 min-w-0">
+            <!-- Logo -->
+            <div class="flex-1 min-w-0 overflow-hidden">
+              <img src="assets/logo.png" alt="Vision Dental" class="w-full object-cover" style="aspect-ratio: 650/158;">
+            </div>
+            <!-- Services -->
+            <div class="flex-1 min-w-0 flex flex-col gap-4 overflow-hidden">
+              <p class="font-body font-semibold text-lg leading-[1.5] text-brand-dark">Services</p>
+              <div class="flex flex-col">
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">General dentistry</a>
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">Cosmetic procedures</a>
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">Pediatric care</a>
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">Orthodontics</a>
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">Pricing</a>
+              </div>
+            </div>
+            <!-- About -->
+            <div class="flex-1 min-w-0 flex flex-col gap-4 overflow-hidden">
+              <p class="font-body font-semibold text-lg leading-[1.5] text-brand-dark">About</p>
+              <div class="flex flex-col">
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">Our team</a>
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">Locations</a>
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">Careers</a>
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">Contact</a>
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">Resources</a>
+              </div>
+            </div>
+            <!-- Blog -->
+            <div class="flex-1 min-w-0 flex flex-col gap-4 overflow-hidden">
+              <p class="font-body font-semibold text-lg leading-[1.5] text-brand-dark">Blog</p>
+              <div class="flex flex-col">
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">FAQ</a>
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">Patient guide</a>
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">Dental tips</a>
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">Testimonials</a>
+                <a href="#" class="py-2 font-body text-base leading-[1.5] text-brand-dark">Subscribe</a>
+              </div>
+            </div>
+          </div>
+          <!-- Newsletter -->
+          <div class="w-[400px] shrink-0 flex flex-col gap-6">
+            <div class="flex flex-col gap-4 text-lg leading-[1.5] text-brand-dark">
+              <p class="font-body font-semibold">Stay updated with dental insights</p>
+              <p class="font-body">Join our newsletter for the latest dental health information.</p>
+            </div>
+            <div class="flex flex-col gap-3">
+              <div class="flex gap-4">
+                <div class="flex-1 border-b border-[rgba(9,2,2,0.15)] py-2 min-w-0">
+                  <p class="font-body text-lg leading-[1.5] text-[rgba(9,2,2,0.6)]">Enter email address</p>
+                </div>
+                <button class="border border-[rgba(9,2,2,0.15)] rounded-xl px-3 py-1.5 font-body font-medium text-lg leading-[1.5] text-brand-dark whitespace-nowrap shrink-0">Submit</button>
+              </div>
+              <p class="font-body text-xs leading-[1.5] text-brand-dark">By subscribing, you agree to our privacy policy.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Credits -->
+        <div class="flex flex-col gap-8">
+          <div class="w-full border-t border-[rgba(9,2,2,0.15)]"></div>
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-6 font-body text-base leading-[1.5] text-brand-dark whitespace-nowrap">
+              <p>&copy; 2024 Los Angeles Dental Care. All rights reserved.</p>
+              <a href="#" class="underline">Privacy policy</a>
+              <a href="#" class="underline">Terms of service</a>
+              <a href="#" class="underline">Cookie settings</a>
+            </div>
+            <div class="flex gap-3 items-center">
+              <a href="#" class="w-6 h-6"><img src="assets/facebook.svg" alt="Facebook" class="w-full h-full"></a>
+              <a href="#" class="w-6 h-6"><img src="assets/instagram.svg" alt="Instagram" class="w-full h-full"></a>
+              <a href="#" class="w-6 h-6"><img src="assets/x-twitter.svg" alt="X" class="w-full h-full"></a>
+              <a href="#" class="w-6 h-6"><img src="assets/linkedin.svg" alt="LinkedIn" class="w-full h-full"></a>
+              <a href="#" class="w-6 h-6"><img src="assets/youtube.svg" alt="YouTube" class="w-full h-full"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
