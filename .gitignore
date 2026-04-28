@@ -1,3 +1,6 @@
 .DS_Store
 .vscode/
 .claude/
+
+# Local Netlify folder
+.netlify
