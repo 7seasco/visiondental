@@ -24,11 +24,12 @@
 
     /* NAV */
     .nav { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; background: rgba(242,235,224,.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(44,44,44,.04); }
-    .nav-logo { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--dark); text-decoration: none; font-weight: 700; letter-spacing: .04em; }
+    .nav-logo { display: inline-flex; align-items: center; text-decoration: none; }
+    .nav-logo img { height: 36px; width: auto; display: block; }
     .nav-links { display: flex; gap: 28px; align-items: center; }
     .nav-links a { font-size: 12px; color: rgba(44,44,44,.5); text-decoration: none; letter-spacing: .08em; font-weight: 500; transition: color .2s; }
     .nav-links a:hover { color: var(--dark); }
-    .nav-cta { background: var(--forest); color: var(--cream); padding: 10px 24px; border-radius: 4px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-decoration: none; transition: background .2s; }
+    .nav-cta { background: var(--forest); color: #ffffff !important; padding: 10px 24px; border-radius: 4px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-decoration: none; transition: background .2s; }
     .nav-cta:hover { background: #1F3A2E; }
 
     /* HERO */
@@ -114,13 +115,13 @@
 <body>
 
 <nav class="nav">
-  <a href="#" class="nav-logo">VISION DENTAL</a>
+  <a href="#" class="nav-logo"><img src="assets/logo.png" alt="Vision Dental"></a>
   <div class="nav-links">
     <a href="#">SERVICES</a>
     <a href="#">ABOUT</a>
     <a href="#">GALLERY</a>
     <a href="#">CONTACT</a>
-    <a href="#" class="nav-cta">RESERVE</a>
+    <a href="#" class="nav-cta">Book a Visit</a>
   </div>
 </nav>
 
