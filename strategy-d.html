@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vision Dental — Care that feels like home</title>
+  <meta name="description" content="Precision dental care for your whole family. Los Angeles.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #fbf7f0;
+      --linen: #f4ece0;
+      --linen-deep: #ebdfcb;
+      --sand: #d8c4a4;
+      --sage: #7c9a6e;
+      --sage-deep: #5c8050;
+      --terracotta: #c4907e;
+      --clay: #b07a64;
+      --umber: #8c7a6b;
+      --bark: #4a3728;
+      --ink: #1f1611;
+      --rule: rgba(74, 55, 40, 0.14);
+      --rule-soft: rgba(74, 55, 40, 0.08);
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Inter", system-ui, sans-serif;
+      --container: 1280px;
+      --gutter: clamp(20px, 4vw, 64px);
+      --section-y: clamp(80px, 12vw, 160px);
+      --radius: 14px;
+      --radius-lg: 28px;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-cinema: cubic-bezier(0.76, 0, 0.24, 1);
+    }
+
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body {
+      font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+      color: var(--ink); background: var(--cream);
+      overflow-x: hidden; text-rendering: optimizeLegibility;
+      cursor: none;
+    }
+    body.loading { overflow: hidden; height: 100vh; }
+    /* Hide all hero foreground content while the loader is up — prevents flash before gsap.set runs */
+    body.loading .nav,
+    body.loading .hero-marker,
+    body.loading .hero .container,
+    body.loading .hero-scroll,
+    body.loading .hero-trust,
+    body.loading .hero-stamp { opacity: 0; }
+
+    /* Paper grain */
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+      opacity: 0.45; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.29  0 0 0 0 0.21  0 0 0 0 0.16  0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+    button { font: inherit; color: inherit; background: none; border: none; cursor: none; }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-display); font-weight: 380;
+      font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 0;
+      letter-spacing: -0.025em; line-height: 1.04; color: var(--bark);
+    }
+    h1 { font-size: clamp(50px, 9vw, 153px); font-weight: 320; line-height: 0.9; letter-spacing: -0.045em; }
+    h2 { font-size: clamp(40px, 6.4vw, 104px); }
+    h3 { font-size: clamp(26px, 2.4vw, 36px); letter-spacing: -0.02em; }
+    h4 { font-size: clamp(22px, 1.8vw, 28px); letter-spacing: -0.015em; }
+
+    .eyebrow {
+      font-family: var(--font-body); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--clay);
+    }
+    .lede { font-size: clamp(17px, 1.4vw, 20px); color: var(--umber); max-width: 56ch; line-height: 1.55; }
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+    .section { padding: var(--section-y) 0; position: relative; }
+
+    /* SplitText helpers — line-by-line mask animation (robust with nested italic/underline)
+       Note: NO initial transform here — the JS sets the initial state via gsap.set so that if
+       JS fails to load, the text is still visible (graceful degradation). */
+    .split-mask .line { display: block; overflow: hidden; padding-bottom: 0.04em; padding-top: 0.02em; }
+    .split-mask .line-inner { display: inline-block; will-change: transform; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 14px 26px; border-radius: 999px;
+      font-family: var(--font-body); font-size: 14px; font-weight: 500; letter-spacing: 0.01em;
+      transition: all 0.5s var(--ease-out);
+      will-change: transform; cursor: none;
+    }
+    .btn-primary { background: var(--bark); color: var(--cream); box-shadow: 0 12px 32px -16px rgba(74, 55, 40, 0.5); }
+    .btn-primary:hover { background: var(--sage-deep); transform: translateY(-2px); box-shadow: 0 16px 40px -12px rgba(92, 128, 80, 0.5); }
+    .btn-ghost { background: transparent; color: var(--bark); border: 1px solid var(--rule); }
+    .btn-ghost:hover { border-color: var(--bark); background: var(--linen); }
+    .btn-cream { background: var(--cream); color: var(--bark); }
+    .btn-cream:hover { background: var(--linen-deep); transform: translateY(-2px); }
+
+    .link-arrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 500; color: var(--bark);
+      transition: gap 0.4s var(--ease-out), color 0.4s;
+    }
+    .link-arrow::after { content: "→"; transition: transform 0.4s var(--ease-out); }
+    .link-arrow:hover { gap: 14px; color: var(--sage-deep); }
+
+    /* ==================== LOADER ==================== */
+    .loader {
+      position: fixed; inset: 0; z-index: 1000;
+      background: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 32px;
+    }
+    .loader-text {
+      font-family: var(--font-display); font-style: italic; font-weight: 320;
+      font-size: clamp(56px, 9vw, 120px);
+      color: var(--bark); letter-spacing: -0.04em;
+      overflow: hidden;
+      display: flex; gap: 0.04em;
+    }
+    .loader-text .lc { display: inline-block; transform: translateY(110%); }
+    .loader-bar {
+      width: 240px; height: 1px; background: var(--rule); position: relative; overflow: hidden;
+    }
+    .loader-bar::after {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--clay);
+    }
+    .loader-meta {
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--umber);
+      display: flex; gap: 14px; align-items: center; opacity: 0;
+    }
+    .loader-meta .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--clay); animation: pulse 1.4s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.4); } }
+
+    /* ==================== CURSOR ==================== */
+    .cursor {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+      will-change: transform;
+    }
+    .cursor-dot {
+      position: absolute; top: 0; left: 0;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--clay);
+      transform: translate(-50%, -50%);
+      transition: width 0.5s var(--ease-out), height 0.5s var(--ease-out), background 0.4s, opacity 0.3s;
+    }
+    .cursor.hover .cursor-dot { width: 88px; height: 88px; background: var(--sage); opacity: 0.55; }
+    .cursor-label {
+      position: absolute; top: 0; left: 0;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-body); font-size: 11px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0; transition: opacity 0.3s;
+      pointer-events: none; white-space: nowrap;
+    }
+    .cursor.hover.has-label .cursor-label { opacity: 1; }
+
+    /* ==================== NAV ==================== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 0;
+      transition: transform 0.5s var(--ease-out), background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(251, 247, 240, 0.78);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border-bottom-color: var(--rule-soft);
+    }
+    .nav.hidden { transform: translateY(-100%); }
+    .nav-inner {
+      max-width: 1440px; margin: 0 auto; padding: 0 var(--gutter);
+      display: flex; align-items: center; gap: 40px;
+    }
+    .nav-logo { font-family: var(--font-display); font-size: 22px; font-weight: 360; letter-spacing: -0.02em; color: var(--cream); flex: 1; transition: color 0.4s; text-shadow: 0 2px 16px rgba(31,22,17,0.35); }
+    .nav-logo em { font-style: italic; font-weight: 320; color: var(--sand); transition: color 0.4s; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--cream); position: relative; transition: color 0.4s; text-shadow: 0 2px 14px rgba(31,22,17,0.4); }
+    .nav-links a::after { content: ""; position: absolute; left: 0; bottom: -4px; width: 0; height: 1px; background: var(--sand); transition: width 0.4s var(--ease-out), background 0.4s; }
+    .nav-links a:hover { color: var(--sand); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta { background: var(--cream); color: var(--bark); padding: 10px 22px; border-radius: 999px; font-size: 13px; font-weight: 500; transition: all 0.4s var(--ease-out); }
+    .nav-cta:hover { background: var(--terracotta); color: var(--cream); transform: translateY(-1px); }
+
+    .nav.scrolled .nav-logo { color: var(--bark); text-shadow: none; }
+    .nav.scrolled .nav-logo em { color: var(--clay); }
+    .nav.scrolled .nav-links a { color: var(--bark); text-shadow: none; }
+    .nav.scrolled .nav-links a::after { background: var(--clay); }
+    .nav.scrolled .nav-links a:hover { color: var(--clay); }
+    .nav.scrolled .nav-cta { background: var(--bark); color: var(--cream); }
+    .nav.scrolled .nav-cta:hover { background: var(--sage-deep); }
+
+    /* ==================== HERO (FULL BG) ==================== */
+    .hero {
+      min-height: 100vh; height: 100vh;
+      display: flex; align-items: flex-end;
+      position: relative; overflow: hidden;
+      padding-bottom: clamp(48px, 6vw, 88px); padding-top: 0;
+      color: var(--cream);
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; clip-path: inset(0 0 100% 0); }
+    .hero.lit .hero-bg { animation: hero-clip 1.8s var(--ease-cinema) 0.2s forwards; }
+    @keyframes hero-clip { to { clip-path: inset(0 0 0 0); } }
+    .hero-bg img {
+      width: 100%; height: 100%; object-fit: cover;
+      transform: scale(1.18); transition: transform 18s linear;
+    }
+    .hero.lit .hero-bg img { transform: scale(1.02); }
+    .hero-bg::after {
+      content: ""; position: absolute; inset: 0;
+      background:
+        /* heavier bottom shade — title sits in the lower-left */
+        linear-gradient(180deg, rgba(31, 22, 17, 0.35) 0%, rgba(31, 22, 17, 0) 24%, rgba(31, 22, 17, 0) 38%, rgba(31, 22, 17, 0.65) 78%, rgba(31, 22, 17, 0.88) 100%),
+        /* diagonal shade from bottom-left for the title block */
+        linear-gradient(60deg, rgba(31, 22, 17, 0.78) 0%, rgba(31, 22, 17, 0.35) 32%, rgba(31, 22, 17, 0) 60%),
+        /* warm vignette for cinematic feel */
+        radial-gradient(ellipse at 20% 80%, rgba(31, 22, 17, 0.45) 0%, rgba(31, 22, 17, 0) 55%),
+        /* flat layer for overall contrast lift */
+        rgba(31, 22, 17, 0.18);
+    }
+
+    .hero-marker {
+      position: absolute; top: 12%; left: 50px; right: auto;
+      font-family: var(--font-display); font-style: italic; font-weight: 280;
+      font-size: clamp(80px, 14vw, 240px);
+      color: rgba(251, 247, 240, 0.08);
+      pointer-events: none; z-index: 1;
+      letter-spacing: -0.05em; line-height: 1;
+      text-align: left;
+    }
+
+    .hero-grid { width: 100%; position: relative; z-index: 3; display: grid; grid-template-columns: 1fr; gap: 0; }
+    .hero-text { max-width: 1080px; }
+    .hero h1 { color: var(--cream); margin-bottom: 28px; }
+    .hero h1 .accent { font-style: italic; color: var(--sand); font-weight: 280; }
+    .hero h1 .underline { position: relative; display: inline-block; }
+    .hero h1 .underline::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0.05em; height: 0.18em;
+      background: var(--terracotta); z-index: -1;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 1.4s var(--ease-out);
+    }
+    .hero.lit h1 .underline.draw::after { transform: scaleX(1); }
+
+    .hero-meta {
+      display: flex; gap: 24px; align-items: center; margin-bottom: 32px;
+      font-size: 12px; color: rgba(251, 247, 240, 0.85); letter-spacing: 0.16em; text-transform: uppercase;
+    }
+    .hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--terracotta); }
+    .hero-lede {
+      font-size: clamp(17px, 1.3vw, 20px);
+      color: rgba(251, 247, 240, 0.78);
+      max-width: 46ch; line-height: 1.6; margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero .btn-primary { background: var(--cream); color: var(--bark); }
+    .hero .btn-primary:hover { background: var(--terracotta); color: var(--cream); transform: translateY(-2px); box-shadow: 0 16px 40px -12px rgba(196, 144, 126, 0.6); }
+    .hero .btn-ghost { color: var(--cream); border-color: rgba(251, 247, 240, 0.4); }
+    .hero .btn-ghost:hover { background: rgba(251, 247, 240, 0.08); border-color: var(--cream); }
+
+    .hero-stamp {
+      position: absolute; top: 120px; right: var(--gutter);
+      background: rgba(251, 247, 240, 0.12);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      padding: 12px 18px; border-radius: 999px;
+      border: 1px solid rgba(251, 247, 240, 0.2);
+      font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--cream);
+      display: flex; align-items: center; gap: 10px;
+      opacity: 0; transform: translateY(-12px); z-index: 4;
+    }
+    .hero.lit .hero-stamp { animation: fade-down 0.9s var(--ease-out) 1.7s forwards; }
+    .hero-stamp::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--sage); animation: pulse 2s ease-in-out infinite; }
+    @keyframes fade-down { to { opacity: 1; transform: translateY(0); } }
+
+    .hero-trust {
+      position: absolute; bottom: clamp(48px, 6vw, 88px); right: var(--gutter);
+      background: rgba(31, 22, 17, 0.42);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border: none;
+      padding: 18px 24px; border-radius: 16px;
+      display: flex; align-items: center; gap: 16px;
+      font-size: 13px; color: rgba(251, 247, 240, 0.85);
+      opacity: 0; transform: translateY(20px); z-index: 4;
+    }
+    .hero.lit .hero-trust { animation: fade-up 0.9s var(--ease-out) 1.9s forwards; }
+    .hero-trust strong { font-family: var(--font-display); font-style: italic; font-weight: 320; font-size: 32px; color: var(--cream); letter-spacing: -0.02em; }
+    .hero-trust .stars::before { color: var(--terracotta); font-size: 13px; }
+    @keyframes fade-up { to { opacity: 1; transform: translateY(0); } }
+
+    .hero-scroll {
+      position: absolute; bottom: clamp(48px, 6vw, 88px); left: var(--gutter);
+      display: flex; align-items: center; gap: 14px;
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(251, 247, 240, 0.7); z-index: 4;
+      opacity: 0;
+    }
+    .hero.lit .hero-scroll { animation: fade-up 0.9s var(--ease-out) 2.1s forwards; }
+    .hero-scroll::before {
+      content: ""; width: 32px; height: 1px; background: rgba(251, 247, 240, 0.4);
+      animation: scroll-line 2.4s ease-in-out infinite;
+      transform-origin: left;
+    }
+    @keyframes scroll-line { 0%, 100% { transform: scaleX(0.4); } 50% { transform: scaleX(1); } }
+
+    /* ==================== STATEMENT MARQUEE ==================== */
+    .statement {
+      padding: 40px 0; overflow: hidden;
+      background: var(--bark); color: var(--cream);
+      border-top: 1px solid var(--rule-soft);
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .statement-track {
+      display: flex; gap: 64px; width: max-content;
+      animation: scroll-x-stmt 50s linear infinite;
+      align-items: center;
+    }
+    .statement-track span {
+      font-family: var(--font-display); font-style: italic; font-weight: 300;
+      font-size: clamp(48px, 7vw, 110px); letter-spacing: -0.04em;
+      color: var(--cream);
+      white-space: nowrap; line-height: 1;
+    }
+    .statement-track .dot {
+      width: 14px; height: 14px; border-radius: 50%; background: var(--terracotta); flex-shrink: 0;
+    }
+    @keyframes scroll-x-stmt {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ==================== SERVICES (HORIZONTAL PINNED) ==================== */
+    .section-services { background: var(--linen); padding-top: 0; padding-bottom: 0; }
+    .services-pin {
+      height: 100vh; overflow: hidden;
+      display: flex; align-items: center;
+    }
+    .services-track {
+      display: flex; align-items: center; gap: clamp(16px, 1.6vw, 32px);
+      padding: 0 var(--gutter); will-change: transform;
+    }
+    .services-head-block {
+      flex-shrink: 0; width: clamp(360px, 34vw, 520px);
+      padding-right: clamp(80px, 7vw, 140px);
+    }
+    .services-head-block h2 { font-size: clamp(45px, 5.4vw, 87px); }
+    .services-head-block h2 em { font-style: italic; color: var(--sage-deep); font-weight: 320; }
+    .services-head-block p { color: var(--umber); margin-top: 20px; font-size: 17px; max-width: 36ch; line-height: 1.55; }
+    .services-head-block .nav-hint {
+      margin-top: 32px;
+      display: flex; gap: 14px; align-items: center;
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--clay);
+    }
+    .services-head-block .nav-hint::after { content: "→"; font-size: 18px; color: var(--clay); animation: hint 1.6s ease-in-out infinite; }
+    @keyframes hint { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(8px); } }
+
+    .service-card {
+      flex-shrink: 0; width: clamp(280px, 24vw, 380px);
+      background: var(--cream);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: none;
+      transition: transform 0.6s var(--ease-out);
+    }
+    .service-card:hover { transform: translateY(-6px); }
+    .service-card-img { aspect-ratio: 4 / 5; overflow: hidden; position: relative; }
+    .service-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out); }
+    .service-card:hover .service-card-img img { transform: scale(1.06); }
+    .service-card-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(74, 55, 40, 0.18) 100%); }
+    .service-card-num {
+      position: absolute; top: 24px; left: 24px;
+      font-family: var(--font-display); font-style: italic; font-weight: 280;
+      font-size: 22px; color: var(--cream);
+      letter-spacing: -0.02em;
+    }
+    .service-card-tag {
+      position: absolute; top: 24px; right: 24px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--cream); padding: 6px 12px; border-radius: 999px;
+      background: rgba(74, 55, 40, 0.55); backdrop-filter: blur(10px);
+    }
+    .service-card-body { padding: 32px; display: flex; flex-direction: column; gap: 16px; }
+    .service-card h3 { color: var(--bark); }
+    .service-card p { color: var(--umber); font-size: 15px; line-height: 1.55; }
+
+    /* ==================== PROCESS — BENTO 2x2 ==================== */
+    .section-process { background: var(--cream); position: relative; overflow: hidden; }
+    .process-head { max-width: 720px; margin-bottom: 64px; }
+    .process-head h2 em { font-style: italic; color: var(--sage-deep); font-weight: 320; }
+    .process-head p { color: var(--umber); margin-top: 24px; font-size: 18px; max-width: 56ch; line-height: 1.55; }
+
+    .process-bento {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .process-bento-item {
+      position: relative;
+      aspect-ratio: 16 / 11;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--linen-deep);
+      cursor: none;
+      transition: transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out);
+    }
+    .process-bento-item:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -32px rgba(74, 55, 40, 0.4); }
+    .process-bento-img { position: absolute; inset: 0; }
+    .process-bento-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 1.6s var(--ease-out);
+    }
+    .process-bento-item:hover .process-bento-img img { transform: scale(1.06); }
+    .process-bento-img::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(31, 22, 17, 0.15) 0%, rgba(31, 22, 17, 0.4) 50%, rgba(31, 22, 17, 0.78) 100%);
+    }
+    .process-bento-content {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+      padding: clamp(24px, 3vw, 40px);
+      color: var(--cream);
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .process-bento-num {
+      font-family: var(--font-display); font-style: italic; font-weight: 280;
+      font-size: clamp(40px, 4vw, 64px);
+      color: var(--sand);
+      letter-spacing: -0.02em;
+      line-height: 0.9;
+      margin-bottom: 14px;
+    }
+    .process-bento-content h3 {
+      color: var(--cream); margin-bottom: 10px;
+      font-size: clamp(22px, 2vw, 30px);
+      letter-spacing: -0.015em;
+    }
+    .process-bento-content p {
+      color: rgba(251, 247, 240, 0.82); font-size: 15px; line-height: 1.55;
+      max-width: 42ch;
+    }
+
+    /* ==================== STORIES ==================== */
+    .section-stories { background: var(--linen-deep); }
+    .stories-head { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 80px; }
+    .stories-head h2 em { font-style: italic; color: var(--sage-deep); font-weight: 320; }
+    .stories-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .story-card {
+      background: var(--cream); padding: 48px;
+      border-radius: var(--radius-lg);
+      display: flex; flex-direction: column; gap: 28px; position: relative;
+    }
+    .story-quote {
+      font-family: var(--font-display); font-weight: 320; font-style: italic;
+      font-size: clamp(22px, 2vw, 30px); line-height: 1.3; color: var(--bark);
+      letter-spacing: -0.015em;
+    }
+    .story-quote::before {
+      content: "“";
+      font-family: var(--font-display); font-size: 80px; font-style: italic;
+      color: var(--clay); line-height: 0.5;
+      display: block; margin-bottom: 8px;
+    }
+    .story-attr { display: flex; gap: 16px; align-items: center; padding-top: 24px; border-top: 1px solid var(--rule-soft); }
+    .story-attr img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+    .story-attr-name { font-weight: 600; font-size: 15px; color: var(--bark); }
+    .story-attr-role { font-size: 13px; color: var(--umber); }
+    .stars::before { content: "★ ★ ★ ★ ★"; letter-spacing: 4px; color: var(--clay); font-size: 14px; }
+
+    /* ==================== ABOUT ==================== */
+    .section-about { background: var(--cream); }
+    .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(40px, 6vw, 96px); align-items: center; }
+    .about-text h2 { color: var(--bark); margin-bottom: 28px; }
+    .about-text h2 em { font-style: italic; color: var(--sage-deep); font-weight: 320; }
+    .about-text p { color: var(--umber); font-size: 18px; line-height: 1.65; max-width: 50ch; margin-bottom: 16px; }
+    .about-text .actions { display: flex; gap: 16px; align-items: center; margin-top: 36px; }
+    .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--rule-soft); }
+    .about-stat-num { font-family: var(--font-display); font-size: 64px; font-weight: 320; font-style: italic; color: var(--clay); line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .about-stat-label { font-size: 13px; color: var(--umber); letter-spacing: 0.06em; text-transform: uppercase; }
+    .about-image {
+      aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden;
+      position: relative;
+      clip-path: inset(0 0 100% 0);
+    }
+    .about-image.in { animation: clip-b 1.6s var(--ease-cinema) forwards; }
+    @keyframes clip-b { to { clip-path: inset(0 0 0 0); } }
+    .about-image img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); transition: transform 14s linear; }
+    .about-image.in img { transform: scale(1); }
+    .about-image-stamp {
+      position: absolute; bottom: 24px; left: 24px;
+      background: rgba(251, 247, 240, 0.95);
+      backdrop-filter: blur(12px);
+      padding: 18px 22px; border-radius: 16px;
+      max-width: 240px;
+    }
+    .about-image-stamp p { font-family: var(--font-display); font-style: italic; font-size: 16px; line-height: 1.4; color: var(--bark); }
+
+    /* ==================== TEAM ==================== */
+    .section-team { background: var(--linen); }
+    .team-head { max-width: 720px; margin: 0 auto 80px; text-align: center; }
+    .team-head h2 em { font-style: italic; color: var(--sage-deep); font-weight: 320; }
+    .team-head p { color: var(--umber); font-size: 18px; margin-top: 24px; max-width: 56ch; margin-left: auto; margin-right: auto; }
+
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .team-card { display: flex; flex-direction: column; gap: 18px; cursor: none; }
+    .team-card-img {
+      aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden;
+      background: var(--linen-deep); position: relative;
+    }
+    .team-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease-out), filter 1s; filter: saturate(0.88); }
+    .team-card:hover .team-card-img img { transform: scale(1.05); filter: saturate(1.06); }
+    .team-card-img::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(74, 55, 40, 0.4) 100%);
+      opacity: 0; transition: opacity 0.6s var(--ease-out);
+    }
+    .team-card:hover .team-card-img::after { opacity: 1; }
+    .team-card-name { font-family: var(--font-display); font-size: 22px; font-weight: 380; color: var(--bark); margin-bottom: 4px; letter-spacing: -0.015em; }
+    .team-card-role { font-size: 12px; color: var(--clay); letter-spacing: 0.1em; text-transform: uppercase; }
+    .team-card-bio { font-size: 14px; color: var(--umber); margin-top: 12px; line-height: 1.55; }
+    .team-hire {
+      grid-column: span 4; margin-top: 0;
+      padding: clamp(32px, 4vw, 56px);
+      background: var(--cream);
+      border-radius: var(--radius-lg);
+      display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+      align-self: start;
+    }
+    .team-hire h3 { font-size: clamp(26px, 2.4vw, 36px); color: var(--bark); }
+    .team-hire h3 em { font-style: italic; color: var(--clay); font-weight: 320; }
+    .team-hire p { color: var(--umber); margin-top: 8px; font-size: 16px; }
+
+    /* ==================== LOCATIONS ==================== */
+    .section-locations { background: var(--cream); }
+    .locations-head { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 64px; }
+    .locations-head h2 em { font-style: italic; color: var(--sage-deep); font-weight: 320; }
+    .locations-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .location-card { background: var(--linen); border-radius: var(--radius-lg); overflow: hidden; transition: transform 0.6s var(--ease-out); cursor: none; }
+    .location-card:hover { transform: translateY(-4px); }
+    .location-img { aspect-ratio: 16 / 9; overflow: hidden; }
+    .location-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out); }
+    .location-card:hover .location-img img { transform: scale(1.05); }
+    .location-body { padding: 36px; }
+    .location-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--clay); margin-bottom: 14px; display: inline-block; }
+    .location-card h3 { color: var(--bark); margin-bottom: 12px; }
+    .location-card p { color: var(--umber); font-size: 16px; margin-bottom: 24px; line-height: 1.55; }
+
+    /* ==================== GALLERY ==================== */
+    .section-gallery { background: var(--linen-deep); }
+    .gallery-head { text-align: center; max-width: 720px; margin: 0 auto 80px; }
+    .gallery-head h2 em { font-style: italic; color: var(--sage-deep); font-weight: 320; }
+    .gallery-head p { color: var(--umber); font-size: 18px; margin-top: 20px; }
+    .gallery-bento { display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: 280px 280px; gap: 16px; }
+    .gallery-bento .gi { border-radius: var(--radius); overflow: hidden; position: relative; cursor: none; }
+    .gallery-bento .gi img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease-out); }
+    .gallery-bento .gi:hover img { transform: scale(1.06); }
+    .gi-1 { grid-column: span 2; grid-row: span 2; }
+    .gi-2 { grid-column: span 2; }
+    .gi-3 { grid-column: span 2; }
+    .gi-4 { grid-column: span 2; }
+    .gi-5 { grid-column: span 2; }
+
+    /* ==================== LOGOS ==================== */
+    .section-logos {
+      background: var(--cream);
+      padding: clamp(60px, 8vw, 100px) 0;
+      overflow: hidden;
+      border-top: 1px solid var(--rule-soft); border-bottom: 1px solid var(--rule-soft);
+    }
+    .logos-title {
+      text-align: center;
+      font-family: var(--font-display); font-style: italic; font-weight: 300;
+      font-size: clamp(22px, 2vw, 30px);
+      color: var(--bark); margin-bottom: 56px;
+      letter-spacing: -0.015em;
+    }
+    .logos-title em { font-style: normal; font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--clay); display: block; margin-bottom: 16px; }
+    .marquee { display: flex; gap: 96px; width: max-content; animation: scroll-x 40s linear infinite; align-items: center; }
+    .marquee:hover { animation-play-state: paused; }
+    .marquee img {
+      height: 56px; width: auto; object-fit: contain;
+      opacity: 0.85; filter: grayscale(1) contrast(1.15);
+      mix-blend-mode: darken;
+      transition: opacity 0.4s, filter 0.4s;
+      flex-shrink: 0;
+    }
+    .marquee img:hover { opacity: 1; filter: grayscale(0) contrast(1); }
+    @keyframes scroll-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ==================== FAQ ==================== */
+    .section-faq { background: var(--cream); }
+    .faq-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(40px, 6vw, 96px); align-items: start; }
+    .faq-aside { position: sticky; top: 120px; }
+    .faq-aside h2 em { font-style: italic; color: var(--sage-deep); font-weight: 320; }
+    .faq-aside p { color: var(--umber); font-size: 17px; margin: 24px 0 32px; max-width: 36ch; }
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item { border-top: 1px solid var(--rule-soft); }
+    .faq-item:last-child { border-bottom: 1px solid var(--rule-soft); }
+    .faq-q {
+      width: 100%; padding: 28px 0; display: flex; justify-content: space-between; align-items: center;
+      gap: 24px; text-align: left; cursor: none;
+      font-family: var(--font-display); font-size: clamp(20px, 1.8vw, 26px); font-weight: 380; color: var(--bark);
+      letter-spacing: -0.01em; transition: color 0.3s;
+      list-style: none;
+    }
+    .faq-q::-webkit-details-marker { display: none; }
+    .faq-q:hover { color: var(--clay); }
+    .faq-icon {
+      width: 32px; height: 32px; flex-shrink: 0; position: relative;
+      border-radius: 50%; border: 1px solid var(--rule);
+      transition: background 0.4s, border-color 0.4s;
+    }
+    .faq-icon::before, .faq-icon::after {
+      content: ""; position: absolute; top: 50%; left: 50%; background: var(--bark);
+      transform: translate(-50%, -50%);
+    }
+    .faq-icon::before { width: 12px; height: 1px; }
+    .faq-icon::after { width: 1px; height: 12px; transition: transform 0.4s var(--ease-out); }
+    .faq-item[open] .faq-icon { background: var(--sage-deep); border-color: var(--sage-deep); }
+    .faq-item[open] .faq-icon::before, .faq-item[open] .faq-icon::after { background: var(--cream); }
+    .faq-item[open] .faq-icon::after { transform: translate(-50%, -50%) scaleY(0); }
+    .faq-a-inner {
+      padding-bottom: 28px; color: var(--umber); font-size: 16px; line-height: 1.65; max-width: 56ch;
+      animation: fade-in 0.5s var(--ease-out);
+    }
+    @keyframes fade-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+    /* ==================== BLOG ==================== */
+    .section-blog { background: var(--linen); }
+    .blog-head { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 64px; }
+    .blog-head h2 em { font-style: italic; color: var(--sage-deep); font-weight: 320; }
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .blog-card { display: flex; flex-direction: column; gap: 20px; cursor: none; }
+    .blog-card-img { aspect-ratio: 3 / 2; border-radius: var(--radius); overflow: hidden; }
+    .blog-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out); }
+    .blog-card:hover .blog-card-img img { transform: scale(1.06); }
+    .blog-meta { display: flex; gap: 12px; align-items: center; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clay); }
+    .blog-meta-tag { padding: 4px 10px; border: 1px solid var(--rule); border-radius: 999px; }
+    .blog-card h3 { font-size: clamp(20px, 1.8vw, 26px); color: var(--bark); margin-bottom: 8px; line-height: 1.2; }
+    .blog-card p { color: var(--umber); font-size: 15px; line-height: 1.55; }
+
+    /* ==================== CTA ==================== */
+    .section-cta { background: var(--cream); padding-top: var(--section-y); padding-bottom: var(--section-y); }
+    .cta-card {
+      position: relative; border-radius: var(--radius-lg); overflow: hidden;
+      padding: clamp(60px, 10vw, 140px) 48px; text-align: center;
+    }
+    .cta-bg { position: absolute; inset: 0; }
+    .cta-bg img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); transition: transform 14s linear; }
+    .cta-card.in .cta-bg img { transform: scale(1); }
+    .cta-bg::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(74, 55, 40, 0.65), rgba(31, 22, 17, 0.78));
+    }
+    .cta-content { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; color: var(--cream); }
+    .cta-content h2 { color: var(--cream); margin-bottom: 24px; font-weight: 320; }
+    .cta-content h2 em { font-style: italic; color: var(--sand); font-weight: 280; }
+    .cta-content p { font-size: clamp(17px, 1.4vw, 20px); color: rgba(251, 247, 240, 0.88); margin-bottom: 40px; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ==================== FOOTER ==================== */
+    .footer { background: var(--bark); color: var(--linen); padding: clamp(60px, 8vw, 100px) 0 40px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1.4fr; gap: 48px; }
+    .footer-brand { font-family: var(--font-display); font-size: 32px; font-weight: 320; color: var(--cream); margin-bottom: 16px; letter-spacing: -0.02em; }
+    .footer-brand em { font-style: italic; color: var(--terracotta); font-weight: 280; }
+    .footer-tag { font-size: 14px; color: rgba(244, 236, 224, 0.6); max-width: 28ch; line-height: 1.55; }
+    .footer-col h4 { font-family: var(--font-body); font-size: 11px; font-weight: 600; color: var(--cream); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { font-size: 14px; color: rgba(244, 236, 224, 0.65); transition: color 0.3s; }
+    .footer-col a:hover { color: var(--cream); }
+    .footer-news h4 { color: var(--cream); }
+    .footer-news p { font-size: 13px; color: rgba(244, 236, 224, 0.6); margin-bottom: 20px; line-height: 1.55; }
+    .footer-news-form { display: flex; gap: 8px; border-bottom: 1px solid rgba(244, 236, 224, 0.18); padding-bottom: 8px; }
+    .footer-news-form input { flex: 1; background: transparent; border: none; outline: none; color: var(--cream); font: inherit; padding: 6px 0; }
+    .footer-news-form input::placeholder { color: rgba(244, 236, 224, 0.4); }
+    .footer-news-form button { font-size: 14px; color: var(--terracotta); transition: color 0.3s; }
+    .footer-news-form button:hover { color: var(--cream); }
+    .footer-bottom { margin-top: 80px; padding-top: 32px; border-top: 1px solid rgba(244, 236, 224, 0.12); display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; font-size: 12px; color: rgba(244, 236, 224, 0.5); }
+    .footer-bottom-links { display: flex; gap: 24px; }
+    .footer-bottom a { color: inherit; }
+    .footer-bottom a:hover { color: var(--cream); }
+    .footer-social { display: flex; gap: 14px; }
+    .footer-social a { width: 36px; height: 36px; border: 1px solid rgba(244, 236, 224, 0.18); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+    .footer-social a:hover { background: var(--cream); border-color: var(--cream); }
+    .footer-social img { width: 14px; height: 14px; filter: invert(100%) brightness(2); }
+    .footer-social a:hover img { filter: invert(15%) sepia(20%) saturate(800%) hue-rotate(8deg); }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 960px) {
+      body { cursor: auto; }
+      .cursor { display: none; }
+      a, button, .magnetic, .magnetic-soft, .service-card, .team-card, .blog-card, summary, .faq-q { cursor: pointer; }
+      .hero-grid, .process-grid, .about-grid, .faq-grid { grid-template-columns: 1fr; }
+      .stories-head, .locations-head, .blog-head { grid-template-columns: 1fr; }
+      .stories-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-hire { grid-template-columns: 1fr; grid-column: span 2; }
+      .locations-grid { grid-template-columns: 1fr; }
+      .gallery-bento { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+      .gi-1, .gi-2, .gi-3, .gi-4, .gi-5 { grid-column: span 1; grid-row: span 1; aspect-ratio: 1 / 1; }
+      .gi-1 { grid-column: span 2; aspect-ratio: 16 / 9; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-news { grid-column: span 2; }
+      .nav-links { display: none; }
+      .hero { min-height: auto; padding-top: 120px; }
+      .about-stats { grid-template-columns: 1fr; gap: 16px; }
+      .services-pin { height: auto; }
+      .services-track { flex-direction: column; padding: 80px var(--gutter); }
+      .services-head-block, .service-card { width: 100%; }
+      .process-pin { min-height: auto; padding: 80px 0; }
+      .process-bg-num { font-size: clamp(180px, 50vw, 360px); right: -20%; }
+    }
+    @media (max-width: 640px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .team-hire { grid-column: span 1; padding: 32px; }
+      .gi-1 { grid-column: span 2; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-news { grid-column: span 1; }
+    }
+  </style>
+  <script>
+    /* Iframe mode: when embedded inside the presentation preview/lightbox,
+       skip loader, custom cursor, and hero entry animations so visitors see
+       the real page state immediately even if module imports stall. */
+    if (window.self !== window.top) {
+      document.documentElement.classList.add('in-iframe');
+      document.addEventListener('DOMContentLoaded', function () {
+        document.body.classList.remove('loading');
+        /* Trigger the hero background clip-reveal by adding .lit (CSS-only animation,
+           no JS needed). Also mark every IntersectionObserver target as .in so the
+           rest of the page renders fully visible without the cinematic entry. */
+        var hero = document.querySelector('.hero');
+        if (hero) hero.classList.add('lit');
+        document.querySelectorAll('.rv, [data-clip-l], [data-clip-b], .about-image').forEach(function (el) {
+          el.classList.add('in');
+        });
+      });
+    }
+  </script>
+  <style>
+    /* Iframe preview overrides — render the page in its final post-animation state.
+       Standalone view (window.top) is unaffected. */
+    html.in-iframe .loader { display: none !important; }
+    html.in-iframe .cursor, html.in-iframe .cursor-label { display: none !important; }
+    html.in-iframe body { cursor: auto !important; }
+    html.in-iframe a, html.in-iframe button { cursor: pointer !important; }
+
+    /* Hero background: skip clip-reveal + slow zoom, jump straight to final state */
+    html.in-iframe .hero-bg { clip-path: inset(0 0 0 0) !important; animation: none !important; }
+    html.in-iframe .hero-bg img { transform: scale(1.02) !important; transition: none !important; }
+
+    /* Hero foreground: force every reveal target fully visible, no masks */
+    html.in-iframe .hero .container,
+    html.in-iframe .hero-text,
+    html.in-iframe .hero-meta,
+    html.in-iframe .hero-lede,
+    html.in-iframe .hero-actions,
+    html.in-iframe .hero-scroll,
+    html.in-iframe .hero-trust,
+    html.in-iframe .hero-stamp,
+    html.in-iframe .hero-marker,
+    html.in-iframe .nav,
+    html.in-iframe #hero-h1 { opacity: 1 !important; transform: none !important; }
+    html.in-iframe .split-mask .line { overflow: visible !important; }
+    html.in-iframe .split-mask .line-inner { transform: none !important; }
+    html.in-iframe .hero h1 .underline::after { transform: scaleX(1) !important; transition: none !important; }
+    html.in-iframe .hero-marker, html.in-iframe .hero-stamp { animation: none !important; }
+
+    /* Reveal-on-scroll targets across the rest of the page */
+    html.in-iframe .rv { opacity: 1 !important; transform: none !important; }
+    html.in-iframe .about-image { clip-path: inset(0 0 0 0) !important; animation: none !important; }
+  </style>
+</head>
+<body class="loading">
+
+  <!-- LOADER -->
+  <div class="loader" id="loader">
+    <div class="loader-text" id="loader-text">
+      <span class="lc">V</span><span class="lc">i</span><span class="lc">s</span><span class="lc">i</span><span class="lc">o</span><span class="lc">n</span><span class="lc" style="width:0.3em;display:inline-block;"></span><span class="lc">D</span><span class="lc">e</span><span class="lc">n</span><span class="lc">t</span><span class="lc">a</span><span class="lc">l</span>
+    </div>
+    <div class="loader-bar" id="loader-bar"></div>
+    <div class="loader-meta" id="loader-meta">
+      <span class="dot"></span>
+      <span>Los Angeles · Since 2009</span>
+    </div>
+  </div>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor">
+    <div class="cursor-dot"></div>
+    <div class="cursor-label" id="cursor-label"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Vision <em>Dental</em></a>
+      <div class="nav-links">
+        <a href="#services" data-cursor="View">Services</a>
+        <a href="#team" data-cursor="Meet">Team</a>
+        <a href="#gallery" data-cursor="See">Gallery</a>
+        <a href="#about" data-cursor="Read">About</a>
+      </div>
+      <a href="#cta" class="nav-cta magnetic" data-cursor="Book">Book a visit</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"><img src="strategy-d-assets/hero4.png" alt="Vision Dental lobby"></div>
+    <div class="hero-marker">los angeles</div>
+
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div class="hero-meta">
+            <span class="split-mask"><span class="line"><span class="line-inner">Los Angeles, CA</span></span></span>
+            <span class="dot"></span>
+            <span class="split-mask"><span class="line"><span class="line-inner">Since 2009</span></span></span>
+          </div>
+          <h1 class="split-mask" id="hero-h1"><span class="line"><span class="line-inner">Modern Dentistry.</span></span><span class="line"><span class="line-inner"><span class="accent">Personalized</span></span></span><span class="line"><span class="line-inner"><span class="underline">Experience.</span></span></span></h1>
+          <p class="hero-lede split-mask"><span class="line"><span class="line-inner">Modern technology meets the warmth of California living.</span></span><span class="line"><span class="line-inner">A practice that feels less like a clinic, more like home.</span></span></p>
+          <div class="hero-actions">
+            <a href="#cta" class="btn btn-primary magnetic" data-cursor="Book">Schedule a visit</a>
+            <a href="#services" class="btn btn-ghost magnetic" data-cursor="View">See our services</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">Scroll to explore</div>
+
+    <div class="hero-trust">
+      <strong>4.9</strong>
+      <div>
+        <div class="stars"></div>
+        <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(251,247,240,0.6);margin-top:4px;">1,200+ patients</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATEMENT MARQUEE -->
+  <section class="statement" aria-hidden="true">
+    <div class="statement-track">
+      <span>warmth</span><span class="dot"></span>
+      <span>precision</span><span class="dot"></span>
+      <span>family</span><span class="dot"></span>
+      <span>trusted</span><span class="dot"></span>
+      <span>los angeles</span><span class="dot"></span>
+      <span>warmth</span><span class="dot"></span>
+      <span>precision</span><span class="dot"></span>
+      <span>family</span><span class="dot"></span>
+      <span>trusted</span><span class="dot"></span>
+      <span>los angeles</span><span class="dot"></span>
+    </div>
+  </section>
+
+  <!-- SERVICES (HORIZONTAL PINNED) -->
+  <section class="section-services" id="services">
+    <div class="services-pin" id="services-pin">
+      <div class="services-track" id="services-track">
+        <div class="services-head-block">
+          <p class="eyebrow">Specialties</p>
+          <h2 style="margin-top:16px;">Comprehensive care, <em>thoughtfully delivered</em>.</h2>
+          <p>Four specialties under one roof. Expert practitioners, honest conversations, treatments designed around the way you live.</p>
+          <div class="nav-hint">Drag or scroll</div>
+        </div>
+        <article class="service-card" data-cursor="Open">
+          <div class="service-card-img">
+            <img src="strategy-d-assets/service-1.jpg" alt="">
+            <span class="service-card-num">01</span>
+            <span class="service-card-tag">General</span>
+          </div>
+          <div class="service-card-body">
+            <h3>Complete dental health for every patient.</h3>
+            <p>Comprehensive examinations and treatments for optimal oral wellness, year after year.</p>
+            <a href="#" class="link-arrow">Explore general care</a>
+          </div>
+        </article>
+        <article class="service-card" data-cursor="Open">
+          <div class="service-card-img">
+            <img src="strategy-d-assets/service-2.jpg" alt="">
+            <span class="service-card-num">02</span>
+            <span class="service-card-tag">Cosmetic</span>
+          </div>
+          <div class="service-card-body">
+            <h3>Transforming smiles with precision.</h3>
+            <p>Veneers, whitening, alignment. Aesthetic procedures that look effortless because they were thought through.</p>
+            <a href="#" class="link-arrow">Explore cosmetic</a>
+          </div>
+        </article>
+        <article class="service-card" data-cursor="Open">
+          <div class="service-card-img">
+            <img src="strategy-d-assets/service-3.jpg" alt="">
+            <span class="service-card-num">03</span>
+            <span class="service-card-tag">Pediatric</span>
+          </div>
+          <div class="service-card-body">
+            <h3>Gentle care for young patients.</h3>
+            <p>Creating positive dental experiences for children and teenagers. Calm rooms, calmer hands.</p>
+            <a href="#" class="link-arrow">Explore pediatric</a>
+          </div>
+        </article>
+        <article class="service-card" data-cursor="Open">
+          <div class="service-card-img">
+            <img src="strategy-d-assets/service-4.jpg" alt="">
+            <span class="service-card-num">04</span>
+            <span class="service-card-tag">Orthodontic</span>
+          </div>
+          <div class="service-card-body">
+            <h3>Alignment and bite correction.</h3>
+            <p>Professional treatments that improve dental structure and how your smile feels every day.</p>
+            <a href="#" class="link-arrow">Explore orthodontic</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS — Bento 2x2 -->
+  <section class="section section-process">
+    <div class="container">
+      <div class="process-head">
+        <p class="eyebrow rv">How we work</p>
+        <h2 class="rv rv-d1" style="margin-top:16px;">A process built <em>around you</em>.</h2>
+        <p class="rv rv-d2">No rushed appointments. No upselling. Four deliberate steps from the moment you walk in to the years that follow.</p>
+      </div>
+      <div class="process-bento">
+        <article class="process-bento-item rv rv-d1" data-cursor="Read">
+          <div class="process-bento-img"><img src="strategy-d-assets/process.jpg" alt=""></div>
+          <div class="process-bento-content">
+            <span class="process-bento-num">01</span>
+            <h3>Initial consultation</h3>
+            <p>Your dental journey begins with understanding. We listen first, examine carefully, and explain everything.</p>
+          </div>
+        </article>
+        <article class="process-bento-item rv rv-d2" data-cursor="Read">
+          <div class="process-bento-img"><img src="strategy-d-assets/service-2.jpg" alt=""></div>
+          <div class="process-bento-content">
+            <span class="process-bento-num">02</span>
+            <h3>Treatment planning</h3>
+            <p>Personalized treatment mapping. Every recommendation is backed by reason, never by pressure.</p>
+          </div>
+        </article>
+        <article class="process-bento-item rv rv-d3" data-cursor="Read">
+          <div class="process-bento-img"><img src="strategy-d-assets/gallery-2.jpg" alt=""></div>
+          <div class="process-bento-content">
+            <span class="process-bento-num">03</span>
+            <h3>Precision care</h3>
+            <p>Seamless execution of your dental transformation, with comfort built into every visit.</p>
+          </div>
+        </article>
+        <article class="process-bento-item rv rv-d4" data-cursor="Read">
+          <div class="process-bento-img"><img src="strategy-d-assets/about.jpg" alt=""></div>
+          <div class="process-bento-content">
+            <span class="process-bento-num">04</span>
+            <h3>Follow-up and maintenance</h3>
+            <p>Continuous support and long-term wellness tracking. We are here for the next thirty years.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORIES -->
+  <section class="section section-stories">
+    <div class="container">
+      <div class="stories-head">
+        <div>
+          <p class="eyebrow rv">Patient stories</p>
+          <h2 class="rv rv-d1" style="margin-top:16px;">Real experiences, <em>louder than words</em>.</h2>
+        </div>
+        <p class="lede rv rv-d2">Honest reviews from patients who decided dental care should feel like the rest of their lifestyle: thoughtful, warm, never rushed.</p>
+      </div>
+      <div class="stories-grid">
+        <article class="story-card rv rv-d1">
+          <span class="stars"></span>
+          <p class="story-quote">My smile transformation changed everything about my confidence.</p>
+          <div class="story-attr">
+            <img src="strategy-d-assets/avatar-1.jpg" alt="">
+            <div>
+              <div class="story-attr-name">Emily Rodriguez</div>
+              <div class="story-attr-role">Marketing professional</div>
+            </div>
+          </div>
+        </article>
+        <article class="story-card rv rv-d2">
+          <span class="stars"></span>
+          <p class="story-quote">Vision Dental transformed my entire approach to dental care. The precision and compassion are unmatched.</p>
+          <div class="story-attr">
+            <img src="strategy-d-assets/avatar-2.jpg" alt="">
+            <div>
+              <div class="story-attr-name">Michael Thompson</div>
+              <div class="story-attr-role">Business executive</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section section-about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="eyebrow rv">Our commitment</p>
+          <h2 class="rv rv-d1" style="margin-top:16px;">Care that <em>feels different</em>, because it is.</h2>
+          <p class="rv rv-d2">We blend cutting-edge technology with compassionate patient care. Our practice focuses on delivering personalized treatments in a comfortable environment, and on the small details most clinics overlook.</p>
+          <p class="rv rv-d3">A practice that sounds like Sunday morning. A team that treats you like family. A space designed so you actually want to come back.</p>
+          <div class="actions rv rv-d4">
+            <a href="#" class="btn btn-primary magnetic" data-cursor="Read">About us</a>
+            <a href="#" class="link-arrow">Contact</a>
+          </div>
+          <div class="about-stats">
+            <div class="rv rv-d2">
+              <div class="about-stat-num" data-counter="15" data-suffix="+">0</div>
+              <div class="about-stat-label">Years of practice</div>
+            </div>
+            <div class="rv rv-d3">
+              <div class="about-stat-num" data-counter="9">0</div>
+              <div class="about-stat-label">Specialists in house</div>
+            </div>
+            <div class="rv rv-d4">
+              <div class="about-stat-num" data-counter="1200" data-suffix="+">0</div>
+              <div class="about-stat-label">Patients served</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-image" data-clip-b>
+          <img src="strategy-d-assets/about.jpg" alt="">
+          <div class="about-image-stamp">
+            <p>“We treat each patient like family. That is the entire philosophy.”</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="section section-team" id="team">
+    <div class="container">
+      <div class="team-head">
+        <p class="eyebrow rv">Our specialists</p>
+        <h2 class="rv rv-d1" style="margin-top:16px;">Skilled professionals, <em>in your corner</em>.</h2>
+        <p class="rv rv-d2">Nine practitioners. One philosophy. Each one chosen because they listen first, then treat.</p>
+      </div>
+      <div class="team-grid">
+        <article class="team-card rv rv-d1" data-cursor="Meet">
+          <div class="team-card-img"><img src="strategy-d-assets/team-1.jpg" alt=""></div>
+          <div><div class="team-card-name">William Cheng, DDS, MS</div><div class="team-card-role">Lead Dentist</div><p class="team-card-bio">Advanced training in cosmetic and family dentistry.</p></div>
+        </article>
+        <article class="team-card rv rv-d2" data-cursor="Meet">
+          <div class="team-card-img"><img src="strategy-d-assets/team-2.jpg" alt=""></div>
+          <div><div class="team-card-name">Rogelio Garcia, DDS</div><div class="team-card-role">Dentist</div><p class="team-card-bio">Preventive, restorative, and patient-focused care.</p></div>
+        </article>
+        <article class="team-card rv rv-d3" data-cursor="Meet">
+          <div class="team-card-img"><img src="strategy-d-assets/team-3.jpg" alt=""></div>
+          <div><div class="team-card-name">Nicole Cheng, DDS</div><div class="team-card-role">Orthodontist</div><p class="team-card-bio">Board-certified, specializing in Invisalign and dentofacial orthopedics.</p></div>
+        </article>
+        <article class="team-card rv rv-d4" data-cursor="Meet">
+          <div class="team-card-img"><img src="strategy-d-assets/team-4.jpg" alt=""></div>
+          <div><div class="team-card-name">Andrew Huynh, DDS</div><div class="team-card-role">Pediatric Dentist</div><p class="team-card-bio">Gentle, evidence-based care for children and teens.</p></div>
+        </article>
+        <article class="team-card rv rv-d1" data-cursor="Meet">
+          <div class="team-card-img"><img src="strategy-d-assets/team-5.jpg" alt=""></div>
+          <div><div class="team-card-name">Chris Strandburg, DDS</div><div class="team-card-role">Dentist</div><p class="team-card-bio">Restorative treatments and patient education.</p></div>
+        </article>
+        <article class="team-card rv rv-d2" data-cursor="Meet">
+          <div class="team-card-img"><img src="strategy-d-assets/team-6.jpg" alt=""></div>
+          <div><div class="team-card-name">John Gonzales, DDS</div><div class="team-card-role">Dentist</div><p class="team-card-bio">High-quality restorative and aesthetic care.</p></div>
+        </article>
+        <article class="team-card rv rv-d3" data-cursor="Meet">
+          <div class="team-card-img"><img src="strategy-d-assets/team-7.jpg" alt=""></div>
+          <div><div class="team-card-name">Kevin Lu, DDS</div><div class="team-card-role">General Dentist</div><p class="team-card-bio">Implants, restorative procedures, family care.</p></div>
+        </article>
+        <article class="team-card rv rv-d4" data-cursor="Meet">
+          <div class="team-card-img"><img src="strategy-d-assets/team-8.jpg" alt=""></div>
+          <div><div class="team-card-name">Kevin Kang, DDS</div><div class="team-card-role">Orthodontist</div><p class="team-card-bio">Bio coming soon.</p></div>
+        </article>
+        <article class="team-card rv rv-d1" data-cursor="Meet">
+          <div class="team-card-img"><img src="strategy-d-assets/team-9.jpg" alt=""></div>
+          <div><div class="team-card-name">Aaron Ochoco, DDS</div><div class="team-card-role">Dentist</div><p class="team-card-bio">Comprehensive dental care.</p></div>
+        </article>
+        <div class="team-hire rv rv-d2" style="grid-column: span 3;">
+          <div>
+            <h3>We are <em>hiring</em>.</h3>
+            <p>Looking for a practice that values craft over volume? Let us talk.</p>
+          </div>
+          <a href="#" class="btn btn-ghost magnetic">View positions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS -->
+  <section class="section section-locations">
+    <div class="container">
+      <div class="locations-head">
+        <div>
+          <p class="eyebrow rv">Where to find us</p>
+          <h2 class="rv rv-d1" style="margin-top:16px;">Two locations, <em>same warmth</em>.</h2>
+        </div>
+        <p class="lede rv rv-d2">A flagship in Los Angeles and a second location in development. Same team, same standard, same Sunday-morning feel.</p>
+      </div>
+      <div class="locations-grid">
+        <article class="location-card rv rv-d1" data-cursor="Visit">
+          <div class="location-img"><img src="strategy-d-assets/location-la.jpg" alt=""></div>
+          <div class="location-body">
+            <span class="location-tag">Flagship</span>
+            <h3>Los Angeles</h3>
+            <p>10700 Santa Monica Blvd, Suite 100<br>Los Angeles, CA 90025</p>
+            <a href="#" class="link-arrow">Get directions</a>
+          </div>
+        </article>
+        <article class="location-card rv rv-d2" data-cursor="Visit">
+          <div class="location-img"><img src="strategy-d-assets/location-future.jpg" alt=""></div>
+          <div class="location-body">
+            <span class="location-tag">Coming soon</span>
+            <h3>Future growth</h3>
+            <p>Preparing to serve more communities across Southern California. Same practice, more accessibility.</p>
+            <a href="#" class="link-arrow">Stay connected</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section section-gallery" id="gallery">
+    <div class="container">
+      <div class="gallery-head">
+        <p class="eyebrow rv">Our practice</p>
+        <h2 class="rv rv-d1" style="margin-top:16px;">A visual journey, <em>through our space</em>.</h2>
+        <p class="rv rv-d2">Inside the rooms where we work, the smiles we have shaped, the small details that make a clinical visit feel like a lifestyle moment.</p>
+      </div>
+      <div class="gallery-bento">
+        <div class="gi gi-1 rv rv-d1" data-cursor="View"><img src="strategy-d-assets/gallery-1.jpg" alt=""></div>
+        <div class="gi gi-2 rv rv-d2" data-cursor="View"><img src="strategy-d-assets/gallery-2.jpg" alt=""></div>
+        <div class="gi gi-3 rv rv-d3" data-cursor="View"><img src="strategy-d-assets/gallery-3.jpg" alt=""></div>
+        <div class="gi gi-4 rv rv-d2" data-cursor="View"><img src="strategy-d-assets/service-2.jpg" alt=""></div>
+        <div class="gi gi-5 rv rv-d3" data-cursor="View"><img src="strategy-d-assets/gallery-6.jpg" alt=""></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS -->
+  <section class="section-logos">
+    <div class="container">
+      <p class="logos-title rv">
+        <em>In good company</em>
+        Recognized by dental innovators and healthcare leaders
+      </p>
+    </div>
+    <div class="marquee" aria-hidden="true">
+      <img src="strategy-d-assets/partner-1.png"><img src="strategy-d-assets/partner-2.png"><img src="strategy-d-assets/partner-3.png"><img src="strategy-d-assets/partner-4.png"><img src="strategy-d-assets/partner-5.png"><img src="strategy-d-assets/partner-6.png"><img src="strategy-d-assets/partner-7.png"><img src="strategy-d-assets/partner-8.png"><img src="strategy-d-assets/partner-9.png">
+      <img src="strategy-d-assets/partner-1.png"><img src="strategy-d-assets/partner-2.png"><img src="strategy-d-assets/partner-3.png"><img src="strategy-d-assets/partner-4.png"><img src="strategy-d-assets/partner-5.png"><img src="strategy-d-assets/partner-6.png"><img src="strategy-d-assets/partner-7.png"><img src="strategy-d-assets/partner-8.png"><img src="strategy-d-assets/partner-9.png">
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-faq">
+    <div class="container">
+      <div class="faq-grid">
+        <aside class="faq-aside">
+          <p class="eyebrow rv">Questions</p>
+          <h2 class="rv rv-d1" style="margin-top:16px;">Clear answers, <em>no jargon</em>.</h2>
+          <p class="rv rv-d2">Common questions about our practice, our patient care, and how appointments work.</p>
+          <a href="#" class="btn btn-ghost magnetic rv rv-d3">Ask a question</a>
+        </aside>
+        <div class="faq-list">
+          <details class="faq-item rv" open>
+            <summary class="faq-q">What makes our approach unique<span class="faq-icon"></span></summary>
+            <div class="faq-a-inner">We blend advanced technology with personalized care. Our team focuses on individual patient needs and comfort. We treat each patient like family.</div>
+          </details>
+          <details class="faq-item rv rv-d1">
+            <summary class="faq-q">How we ensure patient comfort<span class="faq-icon"></span></summary>
+            <div class="faq-a-inner">We use modern sedation techniques and gentle approaches. Our goal is to minimize anxiety and maximize patient trust. We listen and adapt to each patient's specific concerns.</div>
+          </details>
+          <details class="faq-item rv rv-d2">
+            <summary class="faq-q">What sets our practice apart<span class="faq-icon"></span></summary>
+            <div class="faq-a-inner">Our commitment goes beyond treatment. We educate patients about preventive care and long-term dental wellness. We invest in continuous training and cutting-edge technology.</div>
+          </details>
+          <details class="faq-item rv rv-d3">
+            <summary class="faq-q">Can we address complex cases<span class="faq-icon"></span></summary>
+            <div class="faq-a-inner">We handle challenging dental scenarios with expertise and precision. Our team collaborates to develop comprehensive treatment plans. We welcome complex cases as opportunities to demonstrate our skill.</div>
+          </details>
+          <details class="faq-item rv rv-d4">
+            <summary class="faq-q">Do we offer payment options<span class="faq-icon"></span></summary>
+            <div class="faq-a-inner">We provide flexible financing for all patients. Multiple payment plans are available to make quality dental care accessible. We work with you to find affordable solutions.</div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="section section-blog">
+    <div class="container">
+      <div class="blog-head">
+        <div>
+          <p class="eyebrow rv">Journal</p>
+          <h2 class="rv rv-d1" style="margin-top:16px;">Dental wisdom <em>and insights</em>.</h2>
+        </div>
+        <p class="lede rv rv-d2">Empowering patients through knowledge. Stories about care, prevention, nutrition, and the science behind a confident smile.</p>
+      </div>
+      <div class="blog-grid">
+        <article class="blog-card rv rv-d1" data-cursor="Read">
+          <div class="blog-card-img"><img src="strategy-d-assets/blog-1.jpg" alt=""></div>
+          <div class="blog-meta"><span class="blog-meta-tag">Wellness</span><span>8 min read</span></div>
+          <h3>Holistic approaches to dental health.</h3>
+          <p>The connection between oral care and overall body wellness, and why your dentist should ask about sleep.</p>
+          <a href="#" class="link-arrow">Read more</a>
+        </article>
+        <article class="blog-card rv rv-d2" data-cursor="Read">
+          <div class="blog-card-img"><img src="strategy-d-assets/blog-2.jpg" alt=""></div>
+          <div class="blog-meta"><span class="blog-meta-tag">Prevention</span><span>6 min read</span></div>
+          <h3>Proactive strategies for long-term dental care.</h3>
+          <p>Simple daily habits that protect and strengthen your teeth, told without the marketing fluff.</p>
+          <a href="#" class="link-arrow">Read more</a>
+        </article>
+        <article class="blog-card rv rv-d3" data-cursor="Read">
+          <div class="blog-card-img"><img src="strategy-d-assets/blog-3.jpg" alt=""></div>
+          <div class="blog-meta"><span class="blog-meta-tag">Nutrition</span><span>7 min read</span></div>
+          <h3>Eating for a healthier smile.</h3>
+          <p>Nutritional choices that support optimal oral health and healing, from a Mediterranean lens.</p>
+          <a href="#" class="link-arrow">Read more</a>
+        </article>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:48px;">
+        <a href="#" class="btn btn-ghost magnetic rv">View all stories</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-cta" id="cta">
+    <div class="container">
+      <div class="cta-card">
+        <div class="cta-bg"><img src="strategy-d-assets/cta-bg.jpg" alt=""></div>
+        <div class="cta-content">
+          <p class="eyebrow" style="color: var(--sand);">Ready when you are</p>
+          <h2 style="margin-top:16px;">Ready for <em>your best smile</em>.</h2>
+          <p>Schedule a consultation and discover personalized dental care, designed around the way you actually live.</p>
+          <div class="cta-actions">
+            <a href="#" class="btn btn-cream magnetic" data-cursor="Book">Book a visit</a>
+            <a href="#" class="btn btn-ghost magnetic" style="color:var(--cream);border-color:rgba(251,247,240,0.4);" data-cursor="Send">Contact us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">Vision <em>Dental</em></div>
+          <p class="footer-tag">Precision dental care for your whole family. Los Angeles, CA. Practicing since 2009.</p>
+        </div>
+        <div class="footer-col"><h4>Services</h4><ul><li><a href="#">General dentistry</a></li><li><a href="#">Cosmetic procedures</a></li><li><a href="#">Pediatric care</a></li><li><a href="#">Orthodontics</a></li><li><a href="#">Pricing</a></li></ul></div>
+        <div class="footer-col"><h4>About</h4><ul><li><a href="#">Our team</a></li><li><a href="#">Locations</a></li><li><a href="#">Careers</a></li><li><a href="#">Contact</a></li><li><a href="#">Resources</a></li></ul></div>
+        <div class="footer-col"><h4>Journal</h4><ul><li><a href="#">FAQ</a></li><li><a href="#">Patient guide</a></li><li><a href="#">Dental tips</a></li><li><a href="#">Testimonials</a></li><li><a href="#">Subscribe</a></li></ul></div>
+        <div class="footer-news footer-col">
+          <h4>Stay close</h4>
+          <p>Quiet emails. Thoughtful insights about caring for your smile, on your terms.</p>
+          <form class="footer-news-form" onsubmit="event.preventDefault();">
+            <input type="email" placeholder="Enter email address">
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Vision Dental. All rights reserved.</span>
+        <div class="footer-bottom-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+        <div class="footer-social">
+          <a href="#"><img src="strategy-d-assets/social-facebook.svg"></a>
+          <a href="#"><img src="strategy-d-assets/social-instagram.svg"></a>
+          <a href="#"><img src="strategy-d-assets/social-x.svg"></a>
+          <a href="#"><img src="strategy-d-assets/social-linkedin.svg"></a>
+          <a href="#"><img src="strategy-d-assets/social-youtube.svg"></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script type="importmap">
+    { "imports": { "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.3.13/+esm" } }
+  </script>
+  <script type="module">
+    import Lenis from "lenis";
+
+    /* Iframe preview mode: short-circuit the cinematic entry so the page renders
+       as a fully visible static snapshot (hero text, CTAs, all content shown).
+       The standalone page (top-window) keeps the full loader + GSAP experience. */
+    if (window.self !== window.top) {
+      document.body.classList.remove('loading');
+      const _loader = document.getElementById('loader');
+      if (_loader) _loader.style.display = 'none';
+      throw new Error('iframe-mode: skipping cinematic entry');
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* ============== LOADER ============== */
+    const loader = document.getElementById("loader");
+    const loaderText = document.getElementById("loader-text");
+    const loaderBar = document.getElementById("loader-bar");
+    const loaderMeta = document.getElementById("loader-meta");
+
+    const loaderTl = gsap.timeline({ defaults: { ease: "expo.out" } });
+    loaderTl
+      .to(".loader-text .lc", { y: 0, duration: 1.1, stagger: 0.04 }, 0)
+      .to(loaderBar.querySelector("::after") || loaderBar, { width: "100%", duration: 1.4, ease: "power2.inOut", onUpdate: function() {} }, 0.2)
+      .to(loaderMeta, { opacity: 1, duration: 0.6 }, 0.8)
+      .to(loader, { opacity: 0, duration: 0.9, delay: 0.5, ease: "power2.inOut", onComplete: () => {
+        loader.style.display = "none";
+        startSite();                                  // run gsap.set FIRST so initial state is locked
+        document.body.classList.remove("loading");    // then unhide
+      }});
+
+    // Animate loader bar with css after pseudo via real element
+    const barFill = document.createElement("span");
+    Object.assign(barFill.style, { position: "absolute", left: "0", top: "0", bottom: "0", width: "0", background: "var(--clay)" });
+    loaderBar.appendChild(barFill);
+    gsap.to(barFill, { width: "100%", duration: 1.6, ease: "power2.inOut", delay: 0.2 });
+
+    /* ============== START SITE ============== */
+    function startSite() {
+      // Lenis
+      const lenis = new Lenis({
+        duration: 1.4,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      });
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      lenis.on("scroll", ScrollTrigger.update);
+
+      /* HERO h1 split */
+      const h1 = document.getElementById("hero-h1");
+      // Split each span text content into chars while preserving structure
+      const splitInto = (el) => {
+        const walk = (node) => {
+          if (node.nodeType === 3) {
+            const text = node.textContent;
+            const frag = document.createDocumentFragment();
+            for (const ch of text) {
+              const span = document.createElement("span");
+              span.className = "char";
+              span.textContent = ch === " " ? " " : ch;
+              frag.appendChild(span);
+            }
+            node.parentNode.replaceChild(frag, node);
+          } else if (node.nodeType === 1) {
+            Array.from(node.childNodes).forEach(walk);
+          }
+        };
+        Array.from(el.childNodes).forEach(walk);
+      };
+      // splitInto disabled: hero now uses line-by-line mask animation
+
+      /* Hero entry timeline
+         Background image clip-reveal: starts at 0.2s, takes 1.8s → fully revealed at 2.0s.
+         Title (chars) must only appear AFTER the image finishes (≥ 2.0s). */
+      const heroEl = document.querySelector(".hero");
+
+      /* Defensive: hide all hero text lines + nav BEFORE the timeline starts.
+         Done with gsap.set so a JS failure leaves text visible (graceful degradation). */
+      const heroLines = document.querySelectorAll(".hero-meta .line-inner, #hero-h1 .line-inner, .hero-lede .line-inner");
+      gsap.set(heroLines, { yPercent: 110 });
+      gsap.set(".hero-actions", { opacity: 0, y: 20 });
+      gsap.set(".nav", { opacity: 0, y: -16 });
+
+      const heroTl = gsap.timeline();
+      heroTl
+        .add(() => heroEl.classList.add("lit"), 0)
+        .to(".hero-meta .line-inner",
+          { yPercent: 0, duration: 1.0, stagger: 0.08, ease: "expo.out" }, 0.6)
+        .to(".nav",
+          { opacity: 1, y: 0, duration: 1.0, ease: "expo.out" }, 2.0)
+        .to("#hero-h1 .line-inner",
+          { yPercent: 0, duration: 1.2, stagger: 0.16, ease: "expo.out" }, 2.1)
+        .add(() => { const u = heroEl.querySelector(".underline"); if (u) u.classList.add("draw"); }, 3.0)
+        .to(".hero-lede .line-inner",
+          { yPercent: 0, duration: 1.0, stagger: 0.08, ease: "expo.out" }, 3.0)
+        .to(".hero-actions",
+          { opacity: 1, y: 0, duration: 0.9, ease: "expo.out" }, 3.4);
+
+      /* Hero canvas blobs removed — they competed with the lobby photo */
+
+      /* Reveal IO */
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+      document.querySelectorAll(".rv, [data-clip-l], [data-clip-b]").forEach((el) => io.observe(el));
+
+      // Make .rv reveal via class .in
+      const style = document.createElement("style");
+      style.textContent = `
+        .rv { opacity: 0; transform: translateY(28px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+        .rv.in { opacity: 1; transform: none; }
+        .rv-d1 { transition-delay: 0.08s; } .rv-d2 { transition-delay: 0.16s; } .rv-d3 { transition-delay: 0.24s; } .rv-d4 { transition-delay: 0.32s; }
+      `;
+      document.head.appendChild(style);
+
+      /* Nav scroll behavior */
+      const nav = document.getElementById("nav");
+      let lastY = 0;
+      lenis.on("scroll", ({ scroll }) => {
+        const y = scroll;
+        if (y > 60) nav.classList.add("scrolled"); else nav.classList.remove("scrolled");
+        if (y > lastY && y > 200) nav.classList.add("hidden");
+        else nav.classList.remove("hidden");
+        lastY = y;
+      });
+
+      /* Anchor smooth scroll via Lenis */
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          const target = a.getAttribute("href");
+          if (target === "#" || target.length < 2) return;
+          const el = document.querySelector(target);
+          if (!el) return;
+          e.preventDefault();
+          lenis.scrollTo(el, { offset: -80, duration: 1.6 });
+        });
+      });
+
+      /* CURSOR */
+      const cursor = document.getElementById("cursor");
+      const cursorLabel = document.getElementById("cursor-label");
+      let cx = 0, cy = 0, tx = 0, ty = 0;
+      document.addEventListener("mousemove", (e) => { tx = e.clientX; ty = e.clientY; });
+      function tickCursor() {
+        cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18;
+        cursor.style.transform = `translate(${cx}px, ${cy}px)`;
+        requestAnimationFrame(tickCursor);
+      }
+      tickCursor();
+      const hoverables = document.querySelectorAll("a, button, [data-cursor], .service-card, .team-card, .blog-card, .gi, summary, .faq-q");
+      hoverables.forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          cursor.classList.add("hover");
+          const label = el.dataset.cursor || el.closest("[data-cursor]")?.dataset.cursor;
+          if (label) {
+            cursorLabel.textContent = label;
+            cursor.classList.add("has-label");
+          }
+        });
+        el.addEventListener("mouseleave", () => {
+          cursor.classList.remove("hover");
+          cursor.classList.remove("has-label");
+        });
+      });
+
+      /* MAGNETIC */
+      document.querySelectorAll(".magnetic").forEach((el) => {
+        el.addEventListener("mousemove", (e) => {
+          const r = el.getBoundingClientRect();
+          const x = e.clientX - r.left - r.width / 2;
+          const y = e.clientY - r.top - r.height / 2;
+          gsap.to(el, { x: x * 0.25, y: y * 0.4, duration: 0.6, ease: "power3.out" });
+        });
+        el.addEventListener("mouseleave", () => { gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.5)" }); });
+      });
+
+      /* SERVICES HORIZONTAL PIN */
+      const isDesktop = window.matchMedia("(min-width: 961px)").matches;
+      if (isDesktop) {
+        const track = document.getElementById("services-track");
+        const pin = document.getElementById("services-pin");
+        const totalWidth = track.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        const distance = totalWidth - viewportWidth + 64;
+        gsap.to(track, {
+          x: -distance,
+          ease: "none",
+          scrollTrigger: {
+            trigger: pin,
+            start: "top top",
+            end: () => `+=${distance + 200}`,
+            pin: true,
+            scrub: 0.6,
+            invalidateOnRefresh: true,
+          },
+        });
+      }
+
+      /* PROCESS — bento 2x2 layout, no scroll trigger needed */
+
+      /* COUNTERS */
+      document.querySelectorAll("[data-counter]").forEach((el) => {
+        const target = parseInt(el.dataset.counter, 10);
+        const suffix = el.dataset.suffix || "";
+        ScrollTrigger.create({
+          trigger: el, start: "top 85%",
+          onEnter: () => {
+            gsap.fromTo(
+              { v: 0 },
+              { v: 0 },
+              {
+                v: target, duration: 2.2, ease: "expo.out",
+                onUpdate: function () { el.textContent = Math.round(this.targets()[0].v).toLocaleString() + suffix; },
+              }
+            );
+          },
+        });
+      });
+
+      ScrollTrigger.refresh();
+    }
+  </script>
+</body>
+</html>
