@@ -104,6 +104,25 @@
     .footer-links { display: flex; gap: 24px; }
     .footer-links a { color: rgba(255,255,255,.5); text-decoration: none; font-size: 13px; }
     .footer-links a:hover { color: white; }
+
+    /* ===== Fullscreen content caps (>=1376px viewport) ===== */
+    /* Backgrounds still bleed full-width; content stays in a comfortable column. */
+    .nav,
+    .trust,
+    .services,
+    .team,
+    .testimonial,
+    .cta-section,
+    .footer {
+      padding-inline: max(48px, calc((100% - 1280px) / 2));
+    }
+    /* Visual full-bleed split sections cap at 1760px on ultra-wide displays */
+    .hero,
+    .about {
+      max-width: 1760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   </style>
 </head>
 <body>

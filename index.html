@@ -7,15 +7,15 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            heading: ['"Cormorant Garamond"', 'serif'],
-            body: ['"Lora"', 'serif'],
+            heading: ['"Manrope"', 'sans-serif'],
+            body: ['"Manrope"', 'sans-serif'],
           },
           colors: {
             'brand-blue': '#3a9ad9',
@@ -27,8 +27,9 @@
     }
   </script>
   <style>
-    body { font-family: 'Lora', serif; color: #090202; }
-    h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Cormorant Garamond', serif; }
+    body { font-family: 'Manrope', sans-serif; color: #090202; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Manrope', sans-serif; letter-spacing: -0.025em; }
+    h1 { letter-spacing: -0.035em; }
     .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   </style>
 </head>
@@ -36,7 +37,7 @@
 
   <!-- ==================== NAVBAR ==================== -->
   <nav class="bg-white w-full">
-    <div class="max-w-[1440px] mx-auto h-[72px] flex items-center justify-center px-16">
+    <div class="max-w-[1600px] mx-auto h-[72px] flex items-center justify-center px-16">
       <div class="flex items-center justify-center gap-8 w-full">
         <!-- Logo -->
         <div class="flex-1 min-w-0">
@@ -64,8 +65,8 @@
 
   <!-- ==================== HERO ==================== -->
   <section class="bg-white w-full">
-    <div class="max-w-[1440px] mx-auto px-16 py-20">
-      <div class="max-w-[1280px] mx-auto">
+    <div class="max-w-[1600px] mx-auto px-16 py-20">
+      <div class="max-w-[1440px] mx-auto">
         <div class="bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl flex items-center overflow-hidden">
           <!-- Content -->
           <div class="flex-1 flex flex-col gap-8 justify-center p-12 min-w-0">
@@ -89,8 +90,8 @@
 
   <!-- ==================== SERVICES ==================== -->
   <section class="bg-white w-full">
-    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto flex flex-col gap-20 items-center">
+    <div class="max-w-[1600px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1440px] mx-auto flex flex-col gap-20 items-center">
         <!-- Section Title -->
         <div class="max-w-[768px] w-full flex flex-col gap-4 items-center">
           <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark text-center">Specialized</p>
@@ -176,8 +177,8 @@
 
   <!-- ==================== PROCESS / STEPS ==================== -->
   <section class="bg-white w-full">
-    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto">
+    <div class="max-w-[1600px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1440px] mx-auto">
         <div class="flex gap-20 items-center">
           <!-- Image -->
           <div class="flex-1 min-w-0 relative rounded-2xl overflow-hidden" style="aspect-ratio: 600/640;">
@@ -249,8 +250,8 @@
 
   <!-- ==================== TESTIMONIALS ==================== -->
   <section class="bg-brand-gray w-full">
-    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto flex flex-col gap-20">
+    <div class="max-w-[1600px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1440px] mx-auto flex flex-col gap-20">
         <!-- Section Title -->
         <div class="max-w-[768px] flex flex-col gap-6">
           <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark w-[560px]">Patient stories</h2>
@@ -307,8 +308,8 @@
 
   <!-- ==================== ABOUT / COMMITMENT ==================== -->
   <section class="bg-white w-full">
-    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto">
+    <div class="max-w-[1600px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1440px] mx-auto">
         <div class="flex gap-20 items-center">
           <!-- Content -->
           <div class="flex-1 min-w-0 flex flex-col gap-8">
@@ -338,8 +339,8 @@
 
   <!-- ==================== TEAM ==================== -->
   <section class="bg-brand-gray w-full">
-    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto flex flex-col gap-20 items-center">
+    <div class="max-w-[1600px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1440px] mx-auto flex flex-col gap-20 items-center">
         <!-- Section Title -->
         <div class="max-w-[768px] w-full flex flex-col gap-4 items-center">
           <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark text-center w-full text-left">Experts</p>
@@ -491,8 +492,8 @@
 
   <!-- ==================== LOCATIONS ==================== -->
   <section class="bg-white w-full">
-    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto flex flex-col gap-20">
+    <div class="max-w-[1600px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1440px] mx-auto flex flex-col gap-20">
         <!-- Section Title -->
         <div class="max-w-[768px] flex flex-col gap-4">
           <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">Reach</p>
@@ -542,8 +543,8 @@
 
   <!-- ==================== GALLERY ==================== -->
   <section class="bg-white w-full">
-    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto flex flex-col gap-20 items-center">
+    <div class="max-w-[1600px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1440px] mx-auto flex flex-col gap-20 items-center">
         <!-- Section Title -->
         <div class="max-w-[768px] w-full flex flex-col gap-6 items-center text-center">
           <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark w-full">Our practice</h2>
@@ -580,7 +581,7 @@
 
   <!-- ==================== LOGOS / RECOGNITION ==================== -->
   <section class="bg-white w-full">
-    <div class="max-w-[1440px] mx-auto py-20 flex flex-col gap-12 items-center overflow-hidden">
+    <div class="max-w-[1600px] mx-auto py-20 flex flex-col gap-12 items-center overflow-hidden">
       <div class="px-16 w-full flex items-center justify-center">
         <p class="font-body font-bold text-xl leading-[1.5] text-brand-dark text-center w-[560px]">Recognized by dental innovators and healthcare leaders</p>
       </div>
@@ -600,8 +601,8 @@
 
   <!-- ==================== FAQ ==================== -->
   <section class="bg-white w-full">
-    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto">
+    <div class="max-w-[1600px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1440px] mx-auto">
         <div class="flex gap-20 items-start">
           <!-- Left Side -->
           <div class="w-[500px] shrink-0 flex flex-col gap-8">
@@ -671,8 +672,8 @@
 
   <!-- ==================== BLOG ==================== -->
   <section class="bg-white w-full">
-    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto flex flex-col gap-16">
+    <div class="max-w-[1600px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1440px] mx-auto flex flex-col gap-16">
         <!-- Section Title -->
         <div class="max-w-[768px] flex flex-col gap-4">
           <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">Blog</p>
@@ -754,8 +755,8 @@
 
   <!-- ==================== CTA ==================== -->
   <section class="bg-white w-full">
-    <div class="max-w-[1440px] mx-auto px-16 py-28 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto">
+    <div class="max-w-[1600px] mx-auto px-16 py-28 overflow-hidden">
+      <div class="max-w-[1440px] mx-auto">
         <div class="relative rounded-2xl overflow-hidden flex items-center justify-center p-16">
           <!-- Background -->
           <img src="assets/cta-bg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover">
@@ -778,8 +779,8 @@
 
   <!-- ==================== FOOTER ==================== -->
   <footer class="bg-white w-full">
-    <div class="max-w-[1440px] mx-auto px-16 py-20 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto flex flex-col gap-20">
+    <div class="max-w-[1600px] mx-auto px-16 py-20 overflow-hidden">
+      <div class="max-w-[1440px] mx-auto flex flex-col gap-20">
         <!-- Top Section -->
         <div class="flex gap-32 h-[248px]">
           <!-- Links -->
