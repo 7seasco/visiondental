@@ -31,6 +31,126 @@
     h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Manrope', sans-serif; letter-spacing: -0.025em; }
     h1 { letter-spacing: -0.035em; }
     .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+    /* ===== Buttons ===== */
+    .btn-primary,
+    .btn-secondary,
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, color .25s ease, border-color .25s ease;
+      will-change: transform;
+    }
+    .btn-primary {
+      background: #3a9ad9;
+      color: #fff;
+      padding: 14px 26px;
+      font-size: 16px;
+      border: 1px solid #3a9ad9;
+      box-shadow: 0 1px 0 rgba(255,255,255,.15) inset, 0 4px 12px -6px rgba(58,154,217,.4);
+    }
+    .btn-primary:hover {
+      background: #2d8bc9;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px -10px rgba(58,154,217,.55);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary .material-symbols-outlined { transition: transform .25s ease; }
+    .btn-primary:hover .material-symbols-outlined { transform: translateX(3px); }
+    .btn-secondary {
+      background: transparent;
+      color: #090202;
+      padding: 13px 26px;
+      font-size: 16px;
+      border: 1px solid rgba(9,2,2,.15);
+    }
+    .btn-secondary:hover {
+      background: #090202;
+      color: #fff;
+      border-color: #090202;
+      transform: translateY(-2px);
+    }
+    .btn-nav {
+      background: #3a9ad9;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 15px;
+      border: 1px solid #3a9ad9;
+    }
+    .btn-nav:hover {
+      background: #2d8bc9;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px -8px rgba(58,154,217,.5);
+    }
+
+    /* ===== Inline arrow link ===== */
+    .link-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #090202;
+      text-decoration: none;
+      transition: gap .25s ease, color .25s ease;
+    }
+    .link-arrow:hover { gap: 12px; color: #3a9ad9; }
+    .link-arrow .material-symbols-outlined { transition: transform .25s ease, color .25s ease; }
+    .link-arrow:hover .material-symbols-outlined { transform: translateX(3px); }
+
+    /* ===== Nav link underline ===== */
+    .nav-link { position: relative; transition: color .2s ease; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -6px;
+      width: 0; height: 1.5px;
+      background: #090202;
+      transition: width .35s cubic-bezier(0.65,0,0.35,1);
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ===== Card hover ===== */
+    .card-lift {
+      transition: transform .45s cubic-bezier(0.2,0.6,0.2,1),
+                  box-shadow .45s cubic-bezier(0.2,0.6,0.2,1),
+                  border-color .45s ease;
+    }
+    .card-lift:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 42px -18px rgba(9,2,2,.14);
+      border-color: rgba(9,2,2,.25);
+    }
+    .card-img-zoom { overflow: hidden; }
+    .card-img-zoom img { transition: transform .9s cubic-bezier(0.2,0.6,0.2,1); }
+    .card-lift:hover .card-img-zoom img { transform: scale(1.06); }
+
+    /* ===== Logo subtle interaction ===== */
+    .logo-zoom { transition: opacity .3s ease, transform .3s ease; }
+    .logo-zoom:hover { opacity: .85; }
+
+    /* ===== Scroll reveal ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .9s cubic-bezier(0.16,1,0.3,1),
+                  transform .9s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.in-view { opacity: 1; transform: none; }
+    .reveal[data-delay="1"] { transition-delay: .08s; }
+    .reveal[data-delay="2"] { transition-delay: .16s; }
+    .reveal[data-delay="3"] { transition-delay: .24s; }
+    .reveal[data-delay="4"] { transition-delay: .32s; }
+
+    /* ===== Reduced motion ===== */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
   </style>
 </head>
 <body class="bg-white">
@@ -41,23 +161,23 @@
       <div class="flex items-center justify-center gap-8 w-full">
         <!-- Logo -->
         <div class="flex-1 min-w-0">
-          <div class="w-[172.785px] overflow-hidden">
+          <a href="#" class="logo-zoom inline-block w-[172.785px] overflow-hidden">
             <img src="assets/logo.png" alt="Vision Dental" class="w-full object-cover" style="aspect-ratio: 650/158;">
-          </div>
+          </a>
         </div>
         <!-- Nav Links -->
         <div class="flex items-center gap-8 shrink-0">
-          <a href="#" class="font-body text-lg leading-[1.5] text-brand-dark whitespace-nowrap">Services</a>
-          <a href="#" class="font-body text-lg leading-[1.5] text-brand-dark whitespace-nowrap">Team</a>
-          <a href="#" class="font-body text-lg leading-[1.5] text-brand-dark whitespace-nowrap">Gallery</a>
+          <a href="#" class="nav-link font-body text-base leading-[1.5] text-brand-dark whitespace-nowrap">Services</a>
+          <a href="#" class="nav-link font-body text-base leading-[1.5] text-brand-dark whitespace-nowrap">Team</a>
+          <a href="#" class="nav-link font-body text-base leading-[1.5] text-brand-dark whitespace-nowrap">Gallery</a>
           <div class="flex items-center gap-1">
-            <a href="#" class="font-body text-lg leading-[1.5] text-brand-dark whitespace-nowrap">About</a>
-            <span class="material-symbols-outlined text-[24px]">expand_more</span>
+            <a href="#" class="nav-link font-body text-base leading-[1.5] text-brand-dark whitespace-nowrap">About</a>
+            <span class="material-symbols-outlined text-[20px]">expand_more</span>
           </div>
         </div>
         <!-- CTA -->
         <div class="flex-1 flex items-center justify-end min-w-0">
-          <a href="#" class="bg-brand-blue border border-brand-blue rounded-xl px-[10px] py-1 text-white font-body font-medium text-lg leading-[1.5] whitespace-nowrap">Book now</a>
+          <a href="#" class="btn-nav">Book now</a>
         </div>
       </div>
     </div>
@@ -71,16 +191,16 @@
           <!-- Content -->
           <div class="flex-1 flex flex-col gap-8 justify-center p-12 min-w-0">
             <div class="flex flex-col gap-6">
-              <h1 class="font-heading font-medium text-[84px] leading-[1.1] tracking-[-0.84px] text-brand-dark">Precision dental care for your whole family</h1>
-              <p class="font-body text-xl leading-[1.5] text-brand-dark">Modern technology meets compassionate care. We deliver exceptional dental treatments using advanced techniques and personalized approaches.</p>
+              <h1 class="reveal font-heading font-semibold text-[clamp(40px,4.5vw,68px)] leading-[1.05] text-brand-dark">Precision dental care for your whole family</h1>
+              <p class="reveal font-body text-lg leading-[1.55] text-brand-dark/75 max-w-[560px]" data-delay="1">Modern technology meets compassionate care. We deliver exceptional dental treatments using advanced techniques and personalized approaches.</p>
             </div>
-            <div class="flex gap-4">
-              <a href="#" class="bg-brand-blue border border-brand-blue rounded-xl px-3 py-1.5 text-white font-body font-medium text-lg leading-[1.5] whitespace-nowrap">Schedule</a>
-              <a href="#" class="border border-[rgba(9,2,2,0.15)] rounded-xl px-3 py-1.5 text-brand-dark font-body font-medium text-lg leading-[1.5] whitespace-nowrap">Learn more</a>
+            <div class="reveal flex gap-3 items-center" data-delay="2">
+              <a href="#" class="btn-primary">Schedule a visit <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+              <a href="#" class="btn-secondary">Learn more</a>
             </div>
           </div>
           <!-- Image -->
-          <div class="flex-1 min-w-0">
+          <div class="card-img-zoom flex-1 min-w-0">
             <img src="assets/hero.jpg" alt="Dental care" class="w-full object-cover" style="aspect-ratio: 1/1;">
           </div>
         </div>
@@ -93,78 +213,78 @@
     <div class="max-w-[1600px] mx-auto px-16 py-28 overflow-hidden">
       <div class="max-w-[1440px] mx-auto flex flex-col gap-20 items-center">
         <!-- Section Title -->
-        <div class="max-w-[768px] w-full flex flex-col gap-4 items-center">
+        <div class="reveal max-w-[768px] w-full flex flex-col gap-4 items-center">
           <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark text-center">Specialized</p>
           <div class="flex flex-col gap-6 items-center text-center w-full">
-            <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark w-full">Our comprehensive dental services</h2>
+            <h2 class="font-heading font-semibold text-[clamp(34px,3.4vw,52px)] leading-[1.1] text-brand-dark w-full">Our comprehensive dental services</h2>
             <p class="font-body text-xl leading-[1.5] text-brand-dark w-full">Delivering expert care across multiple dental specialties in Los Angeles.</p>
           </div>
         </div>
         <!-- Cards Row -->
         <div class="w-full flex gap-8">
           <!-- General -->
-          <div class="flex-1 bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl overflow-hidden flex flex-col min-w-0">
-            <div class="h-[171px] w-full relative">
+          <div class="card-lift reveal flex-1 bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl overflow-hidden flex flex-col min-w-0" data-delay="1">
+            <div class="card-img-zoom h-[171px] w-full relative">
               <img src="assets/service-general.jpg" alt="General dentistry" class="absolute inset-0 w-full h-full object-cover">
             </div>
             <div class="flex flex-col gap-6 p-6">
               <div class="flex flex-col gap-2">
                 <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">General</p>
-                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Complete dental health for every patient</h5>
+                <h5 class="font-heading font-semibold text-[26px] leading-[1.25] text-brand-dark">Complete dental health for every patient</h5>
                 <p class="font-body text-lg leading-[1.5] text-brand-dark">Comprehensive examinations and treatments for optimal oral wellness.</p>
               </div>
-              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+              <a href="#" class="link-arrow font-body font-medium text-base leading-[1.5]">
                 Details
                 <span class="material-symbols-outlined text-[24px]">chevron_right</span>
               </a>
             </div>
           </div>
           <!-- Cosmetic -->
-          <div class="flex-1 bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl overflow-hidden flex flex-col min-w-0">
-            <div class="h-[171px] w-full relative">
+          <div class="card-lift reveal flex-1 bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl overflow-hidden flex flex-col min-w-0" data-delay="2">
+            <div class="card-img-zoom h-[171px] w-full relative">
               <img src="assets/service-cosmetic.jpg" alt="Cosmetic dentistry" class="absolute inset-0 w-full h-full object-cover">
             </div>
             <div class="flex flex-col gap-6 p-6">
               <div class="flex flex-col gap-2">
                 <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">Cosmetic</p>
-                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Transforming smiles with precision</h5>
+                <h5 class="font-heading font-semibold text-[26px] leading-[1.25] text-brand-dark">Transforming smiles with precision</h5>
                 <p class="font-body text-lg leading-[1.5] text-brand-dark">Advanced aesthetic procedures to enhance your dental appearance.</p>
               </div>
-              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+              <a href="#" class="link-arrow font-body font-medium text-base leading-[1.5]">
                 Explore
                 <span class="material-symbols-outlined text-[24px]">chevron_right</span>
               </a>
             </div>
           </div>
           <!-- Pediatric -->
-          <div class="flex-1 bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl overflow-hidden flex flex-col min-w-0">
-            <div class="h-[171px] w-full relative">
+          <div class="card-lift reveal flex-1 bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl overflow-hidden flex flex-col min-w-0" data-delay="3">
+            <div class="card-img-zoom h-[171px] w-full relative">
               <img src="assets/service-pediatric.jpg" alt="Pediatric dentistry" class="absolute inset-0 w-full h-full object-cover">
             </div>
             <div class="flex flex-col gap-6 p-6">
               <div class="flex flex-col gap-2">
                 <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">Pediatric</p>
-                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Gentle care for young patients</h5>
+                <h5 class="font-heading font-semibold text-[26px] leading-[1.25] text-brand-dark">Gentle care for young patients</h5>
                 <p class="font-body text-lg leading-[1.5] text-brand-dark">Creating positive dental experiences for children and teenagers.</p>
               </div>
-              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+              <a href="#" class="link-arrow font-body font-medium text-base leading-[1.5]">
                 Learn more
                 <span class="material-symbols-outlined text-[24px]">chevron_right</span>
               </a>
             </div>
           </div>
           <!-- Orthodontic -->
-          <div class="flex-1 bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl overflow-hidden flex flex-col min-w-0">
-            <div class="h-[171px] w-full relative">
+          <div class="card-lift reveal flex-1 bg-white border border-[rgba(9,2,2,0.15)] rounded-2xl overflow-hidden flex flex-col min-w-0" data-delay="4">
+            <div class="card-img-zoom h-[171px] w-full relative">
               <img src="assets/service-orthodontic.jpg" alt="Orthodontic care" class="absolute inset-0 w-full h-full object-cover">
             </div>
             <div class="flex flex-col gap-6 p-6">
               <div class="flex flex-col gap-2">
                 <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">Orthodontic</p>
-                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Alignment and bite correction</h5>
+                <h5 class="font-heading font-semibold text-[26px] leading-[1.25] text-brand-dark">Alignment and bite correction</h5>
                 <p class="font-body text-lg leading-[1.5] text-brand-dark">Professional treatments to improve dental structure and smile aesthetics.</p>
               </div>
-              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+              <a href="#" class="link-arrow font-body font-medium text-base leading-[1.5]">
                 Discover
                 <span class="material-symbols-outlined text-[24px]">chevron_right</span>
               </a>
@@ -193,10 +313,10 @@
                 <div class="flex-1 flex flex-col gap-6 min-w-0">
                   <div class="flex flex-col gap-4">
                     <span class="material-symbols-outlined text-[48px]">start</span>
-                    <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Initial consultation</h5>
+                    <h5 class="font-heading font-semibold text-[26px] leading-[1.25] text-brand-dark">Initial consultation</h5>
                     <p class="font-body text-lg leading-[1.5] text-brand-dark">Your dental journey begins with understanding</p>
                   </div>
-                  <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                  <a href="#" class="link-arrow font-body font-medium text-base leading-[1.5]">
                     Start
                     <span class="material-symbols-outlined text-[24px]">chevron_right</span>
                   </a>
@@ -205,10 +325,10 @@
                 <div class="flex-1 flex flex-col gap-6 min-w-0">
                   <div class="flex flex-col gap-4">
                     <span class="material-symbols-outlined text-[48px]">next_plan</span>
-                    <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Treatment planning</h5>
+                    <h5 class="font-heading font-semibold text-[26px] leading-[1.25] text-brand-dark">Treatment planning</h5>
                     <p class="font-body text-lg leading-[1.5] text-brand-dark">Personalized treatment mapping for precise care</p>
                   </div>
-                  <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                  <a href="#" class="link-arrow font-body font-medium text-base leading-[1.5]">
                     Learn
                     <span class="material-symbols-outlined text-[24px]">chevron_right</span>
                   </a>
@@ -220,10 +340,10 @@
                 <div class="flex-1 flex flex-col gap-6 min-w-0">
                   <div class="flex flex-col gap-4">
                     <span class="material-symbols-outlined text-[48px]">precision_manufacturing</span>
-                    <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Precision care</h5>
+                    <h5 class="font-heading font-semibold text-[26px] leading-[1.25] text-brand-dark">Precision care</h5>
                     <p class="font-body text-lg leading-[1.5] text-brand-dark">Seamless execution of your dental transformation</p>
                   </div>
-                  <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                  <a href="#" class="link-arrow font-body font-medium text-base leading-[1.5]">
                     Begin
                     <span class="material-symbols-outlined text-[24px]">chevron_right</span>
                   </a>
@@ -232,10 +352,10 @@
                 <div class="flex-1 flex flex-col gap-6 min-w-0">
                   <div class="flex flex-col gap-4">
                     <span class="material-symbols-outlined text-[48px]">support</span>
-                    <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Follow-up and maintenance</h5>
+                    <h5 class="font-heading font-semibold text-[26px] leading-[1.25] text-brand-dark">Follow-up and maintenance</h5>
                     <p class="font-body text-lg leading-[1.5] text-brand-dark">Continuous support and long-term wellness tracking</p>
                   </div>
-                  <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+                  <a href="#" class="link-arrow font-body font-medium text-base leading-[1.5]">
                     Connect
                     <span class="material-symbols-outlined text-[24px]">chevron_right</span>
                   </a>
@@ -253,8 +373,8 @@
     <div class="max-w-[1600px] mx-auto px-16 py-28 overflow-hidden">
       <div class="max-w-[1440px] mx-auto flex flex-col gap-20">
         <!-- Section Title -->
-        <div class="max-w-[768px] flex flex-col gap-6">
-          <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark w-[560px]">Patient stories</h2>
+        <div class="reveal max-w-[768px] flex flex-col gap-6">
+          <h2 class="font-heading font-semibold text-[clamp(34px,3.4vw,52px)] leading-[1.1] text-brand-dark w-[560px]">Patient stories</h2>
           <p class="font-body text-xl leading-[1.5] text-brand-dark w-[560px]">Real experiences that speak louder than words</p>
         </div>
         <!-- Testimonials Content -->
@@ -293,10 +413,10 @@
           <div class="flex items-center justify-between">
             <div class="flex gap-2 items-center"><span class="w-2 h-2 rounded-full bg-brand-dark"></span><span class="w-2 h-2 rounded-full bg-brand-dark/30"></span><span class="w-2 h-2 rounded-full bg-brand-dark/30"></span><span class="w-2 h-2 rounded-full bg-brand-dark/30"></span></div>
             <div class="flex gap-4">
-              <button class="bg-white border border-[rgba(9,2,2,0.15)] rounded-lg p-3 flex items-center justify-center">
+              <button class="bg-white border border-[rgba(9,2,2,0.15)] rounded-lg p-3 flex items-center justify-center transition hover:border-brand-dark hover:bg-brand-dark hover:text-white">
                 <span class="material-symbols-outlined text-[24px]">arrow_back</span>
               </button>
-              <button class="bg-white border border-[rgba(9,2,2,0.15)] rounded-lg p-3 flex items-center justify-center">
+              <button class="bg-white border border-[rgba(9,2,2,0.15)] rounded-lg p-3 flex items-center justify-center transition hover:border-brand-dark hover:bg-brand-dark hover:text-white">
                 <span class="material-symbols-outlined text-[24px]">arrow_forward</span>
               </button>
             </div>
@@ -316,13 +436,13 @@
             <div class="flex flex-col gap-6">
               <span class="material-symbols-outlined text-[80px]">dentistry</span>
               <div class="flex flex-col gap-6">
-                <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark">Our commitment to exceptional dental care</h2>
+                <h2 class="font-heading font-semibold text-[clamp(34px,3.4vw,52px)] leading-[1.1] text-brand-dark">Our commitment to exceptional dental care</h2>
                 <p class="font-body text-xl leading-[1.5] text-brand-dark">We blend cutting-edge technology with compassionate patient care. Our practice focuses on delivering personalized treatments in a comfortable environment.</p>
               </div>
             </div>
             <div class="flex items-center gap-6">
-              <a href="#" class="border border-[rgba(9,2,2,0.15)] rounded-xl px-3 py-1.5 font-body font-medium text-lg leading-[1.5] text-brand-dark whitespace-nowrap">About us</a>
-              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+              <a href="#" class="btn-secondary">About us</a>
+              <a href="#" class="link-arrow font-body font-medium text-base leading-[1.5]">
                 Contact
                 <span class="material-symbols-outlined text-[24px]">chevron_right</span>
               </a>
@@ -342,10 +462,10 @@
     <div class="max-w-[1600px] mx-auto px-16 py-28 overflow-hidden">
       <div class="max-w-[1440px] mx-auto flex flex-col gap-20 items-center">
         <!-- Section Title -->
-        <div class="max-w-[768px] w-full flex flex-col gap-4 items-center">
+        <div class="reveal max-w-[768px] w-full flex flex-col gap-4 items-center">
           <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark text-center w-full text-left">Experts</p>
           <div class="flex flex-col gap-6 items-center text-center w-full">
-            <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark w-full">Our dental team</h2>
+            <h2 class="font-heading font-semibold text-[clamp(34px,3.4vw,52px)] leading-[1.1] text-brand-dark w-full">Our dental team</h2>
             <p class="font-body text-xl leading-[1.5] text-brand-dark w-full">Skilled professionals dedicated to your dental health and comfort.</p>
           </div>
         </div>
@@ -498,7 +618,7 @@
         <div class="max-w-[768px] flex flex-col gap-4">
           <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">Reach</p>
           <div class="flex flex-col gap-6">
-            <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark">Locations</h2>
+            <h2 class="font-heading font-semibold text-[clamp(34px,3.4vw,52px)] leading-[1.1] text-brand-dark">Locations</h2>
             <p class="font-body text-xl leading-[1.5] text-brand-dark">Precision dental care across strategic California locations</p>
           </div>
         </div>
@@ -514,7 +634,7 @@
                 <h4 class="font-heading font-medium text-[40px] leading-[1.3] tracking-[-0.4px] text-brand-dark">Los Angeles</h4>
                 <p class="font-body text-lg leading-[1.5] text-brand-dark">10700 Santa Monica Blvd, Suite 100, Los Angeles, CA 90025</p>
               </div>
-              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+              <a href="#" class="link-arrow font-body font-medium text-base leading-[1.5]">
                 Get directions
                 <span class="material-symbols-outlined text-[24px]">chevron_right</span>
               </a>
@@ -530,7 +650,7 @@
                 <h4 class="font-heading font-medium text-[40px] leading-[1.3] tracking-[-0.4px] text-brand-dark">Future growth</h4>
                 <p class="font-body text-lg leading-[1.5] text-brand-dark">Preparing to serve more communities across Southern California</p>
               </div>
-              <a href="#" class="flex items-center gap-2 font-body font-medium text-lg leading-[1.5] text-brand-dark">
+              <a href="#" class="link-arrow font-body font-medium text-base leading-[1.5]">
                 Stay connected
                 <span class="material-symbols-outlined text-[24px]">chevron_right</span>
               </a>
@@ -547,7 +667,7 @@
       <div class="max-w-[1440px] mx-auto flex flex-col gap-20 items-center">
         <!-- Section Title -->
         <div class="max-w-[768px] w-full flex flex-col gap-6 items-center text-center">
-          <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark w-full">Our practice</h2>
+          <h2 class="font-heading font-semibold text-[clamp(34px,3.4vw,52px)] leading-[1.1] text-brand-dark w-full">Our practice</h2>
           <p class="font-body text-xl leading-[1.5] text-brand-dark w-full">Visual journey through our modern dental facility and patient transformations.</p>
         </div>
         <!-- Gallery Grid -->
@@ -607,7 +727,7 @@
           <!-- Left Side -->
           <div class="w-[500px] shrink-0 flex flex-col gap-8">
             <div class="flex flex-col gap-6">
-              <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark">Questions</h2>
+              <h2 class="font-heading font-semibold text-[clamp(34px,3.4vw,52px)] leading-[1.1] text-brand-dark">Questions</h2>
               <p class="font-body text-xl leading-[1.5] text-brand-dark">Clear answers about our dental practice and patient care</p>
             </div>
             <a href="#" class="inline-flex border border-[rgba(9,2,2,0.15)] rounded-xl px-3 py-1.5 font-body font-medium text-lg leading-[1.5] text-brand-dark whitespace-nowrap w-fit">Ask</a>
@@ -678,7 +798,7 @@
         <div class="max-w-[768px] flex flex-col gap-4">
           <p class="font-body font-semibold text-base leading-[1.5] text-brand-dark">Blog</p>
           <div class="flex flex-col gap-6 w-full">
-            <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px] text-brand-dark">Dental wisdom and insights</h2>
+            <h2 class="font-heading font-semibold text-[clamp(34px,3.4vw,52px)] leading-[1.1] text-brand-dark">Dental wisdom and insights</h2>
             <p class="font-body text-xl leading-[1.5] text-brand-dark">Empowering patients through knowledge and understanding</p>
           </div>
         </div>
@@ -695,7 +815,7 @@
                 <span class="font-body font-semibold text-base leading-[1.5] text-brand-dark">8 min read</span>
               </div>
               <div class="flex flex-col gap-2">
-                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Holistic approaches to dental health</h5>
+                <h5 class="font-heading font-semibold text-[26px] leading-[1.25] text-brand-dark">Holistic approaches to dental health</h5>
                 <p class="font-body text-lg leading-[1.5] text-brand-dark">Exploring the connection between oral care and overall body wellness</p>
               </div>
             </div>
@@ -715,7 +835,7 @@
                 <span class="font-body font-semibold text-base leading-[1.5] text-brand-dark">6 min read</span>
               </div>
               <div class="flex flex-col gap-2">
-                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Proactive strategies for long-term dental care</h5>
+                <h5 class="font-heading font-semibold text-[26px] leading-[1.25] text-brand-dark">Proactive strategies for long-term dental care</h5>
                 <p class="font-body text-lg leading-[1.5] text-brand-dark">Simple daily habits that protect and strengthen your teeth</p>
               </div>
             </div>
@@ -735,7 +855,7 @@
                 <span class="font-body font-semibold text-base leading-[1.5] text-brand-dark">7 min read</span>
               </div>
               <div class="flex flex-col gap-2">
-                <h5 class="font-heading font-medium text-[32px] leading-[1.3] tracking-[-0.32px] text-brand-dark">Eating for a healthier smile</h5>
+                <h5 class="font-heading font-semibold text-[26px] leading-[1.25] text-brand-dark">Eating for a healthier smile</h5>
                 <p class="font-body text-lg leading-[1.5] text-brand-dark">Nutritional choices that support optimal oral health and healing</p>
               </div>
             </div>
@@ -764,7 +884,7 @@
           <!-- Content -->
           <div class="relative z-10 flex flex-col gap-8 items-center max-w-[768px] text-center">
             <div class="flex flex-col gap-6 text-white">
-              <h2 class="font-heading font-medium text-[60px] leading-[1.2] tracking-[-0.6px]">Ready for your best smile</h2>
+              <h2 class="font-heading font-semibold text-[clamp(34px,3.4vw,52px)] leading-[1.1]">Ready for your best smile</h2>
               <p class="font-body text-xl leading-[1.5]">Schedule a consultation and discover personalized dental care tailored to your needs.</p>
             </div>
             <div class="flex gap-4">
@@ -862,6 +982,26 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // Scroll reveal: fade + lift elements as they enter the viewport.
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window) || !els.length) {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
 
 </body>
 </html>
