@@ -54,7 +54,7 @@
     .hero-content::after { content: ""; position: absolute; right: -1px; top: 12%; bottom: 12%; width: 1px; background: var(--hairline); }
     .hero-tag { display: inline-flex; align-items: center; gap: 12px; font-size: 12px; color: var(--sage-deep); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; margin-bottom: 36px; }
     .hero-tag::before { content: ""; display: inline-block; width: 28px; height: 1px; background: var(--sage); }
-    .hero h1 { font-size: clamp(40px, 4vw, 60px); color: var(--dark); line-height: 1.05; margin-bottom: 32px; letter-spacing: -.01em; max-width: 600px; }
+    .hero h1 { font-size: clamp(40px, 4vw, 64px); color: var(--dark); line-height: 1.05; margin-bottom: 32px; letter-spacing: -.01em; max-width: 760px; }
     .hero h1 em { font-style: italic; color: var(--terracotta-deep); }
     .hero-desc { font-size: 17px; color: var(--umber); max-width: 480px; line-height: 1.75; margin-bottom: 40px; }
     .hero-btns { display: flex; gap: 12px; align-items: center; margin-bottom: 40px; }
@@ -127,8 +127,8 @@
     .about-img-quote cite { font-size: 12px; color: var(--umber); font-style: normal; letter-spacing: .04em; }
     .about-content { display: flex; flex-direction: column; justify-content: center; padding: 100px 80px; background: var(--white); }
     .about-content h2 { font-size: clamp(32px, 3.2vw, 44px); color: var(--dark); margin-bottom: 24px; line-height: 1.1; }
-    .about-content > p { font-size: 16px; color: var(--umber); line-height: 1.85; margin-bottom: 16px; max-width: 480px; }
-    .about-stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; padding-top: 36px; border-top: 1px solid var(--hairline); max-width: 480px; }
+    .about-content > p { font-size: 16px; color: var(--umber); line-height: 1.85; margin-bottom: 16px; max-width: 560px; }
+    .about-stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; padding-top: 36px; border-top: 1px solid var(--hairline); max-width: 560px; }
     .about-stat strong { font-family: 'DM Serif Display', serif; font-size: 38px; color: var(--dark); display: block; line-height: 1; margin-bottom: 6px; font-weight: 400; }
     .about-stat span { font-size: 12px; color: var(--umber); letter-spacing: .04em; text-transform: uppercase; }
 
@@ -255,11 +255,11 @@
     .articles,
     .cta-section,
     .footer {
-      padding-inline: max(48px, calc((100% - 1280px) / 2));
+      padding-inline: max(48px, calc((100% - 1440px) / 2));
     }
     .hero,
     .about {
-      max-width: 1760px;
+      max-width: 1920px;
       margin-left: auto;
       margin-right: auto;
     }
