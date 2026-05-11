@@ -6,257 +6,692 @@
   <title>Vision Dental &mdash; California Warmth</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --sage: #7C9A6E;
+      --sage-deep: #6B8A5E;
       --sand: #C8B49A;
+      --sand-soft: #E4D8C5;
       --terracotta: #C4907E;
+      --terracotta-deep: #A87664;
       --linen: #F9F5EF;
-      --dark: #4A3728;
+      --linen-deep: #F0E9DC;
+      --dark: #3C2C20;
       --umber: #8C7A6B;
+      --umber-soft: #B5A89A;
       --white: #FFFFFF;
+      --hairline: rgba(60,44,32,.08);
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Outfit', sans-serif; color: var(--dark); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-    h1, h2, h3 { font-family: 'DM Serif Display', serif; font-weight: 400; }
+    body { font-family: 'Outfit', sans-serif; color: var(--dark); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; font-weight: 300; }
+    h1, h2, h3, h4 { font-family: 'DM Serif Display', serif; font-weight: 400; }
     img { display: block; max-width: 100%; }
+    a { color: inherit; }
 
-    /* NAV */
-    .nav { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: rgba(255,255,255,.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(74,55,40,.06); }
-    .nav-logo { display: inline-flex; align-items: center; text-decoration: none; }
+    /* ===== Scroll reveal ===== */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal[data-d="1"] { transition-delay: .1s; }
+    .reveal[data-d="2"] { transition-delay: .2s; }
+    .reveal[data-d="3"] { transition-delay: .3s; }
+    .reveal[data-d="4"] { transition-delay: .4s; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+    /* ===== NAV ===== */
+    .nav { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; background: rgba(255,255,255,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--hairline); }
     .nav-logo img { height: 36px; width: auto; display: block; }
-    .nav-links { display: flex; gap: 32px; align-items: center; }
-    .nav-links a { font-size: 14px; color: var(--umber); text-decoration: none; transition: color .2s; }
+    .nav-links { display: flex; gap: 36px; align-items: center; }
+    .nav-links a { font-size: 14px; color: var(--umber); text-decoration: none; transition: color .2s; font-weight: 400; }
     .nav-links a:hover { color: var(--dark); }
-    .nav-cta { background: var(--sage); color: #ffffff !important; padding: 10px 24px; border-radius: 100px; font-size: 14px; font-weight: 600; text-decoration: none; transition: background .2s; }
-    .nav-cta:hover { background: #6B8A5E; }
+    .nav-cta { background: var(--sage); color: #fff !important; padding: 10px 22px; border-radius: 100px; font-size: 14px; font-weight: 500; text-decoration: none; transition: background .2s; }
+    .nav-cta:hover { background: var(--sage-deep); }
 
-    /* HERO */
-    .hero { display: flex; min-height: 600px; }
-    .hero-content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 48px; background: var(--linen); }
-    .hero-tag { font-size: 13px; color: var(--sage); letter-spacing: .08em; margin-bottom: 24px; }
-    .hero h1 { font-size: 48px; color: var(--dark); line-height: 1.05; margin-bottom: 24px; }
-    .hero-desc { font-size: 17px; color: var(--umber); max-width: 420px; line-height: 1.7; margin-bottom: 36px; }
-    .hero-btns { display: flex; gap: 14px; }
-    .btn-primary { background: var(--sage); color: white; padding: 14px 32px; border-radius: 100px; font-size: 15px; font-weight: 500; text-decoration: none; transition: all .2s; border: none; cursor: pointer; font-family: 'Outfit', sans-serif; }
-    .btn-primary:hover { background: #6B8A5E; transform: translateY(-1px); }
-    .btn-outline { border: 1px solid var(--sand); color: var(--dark); padding: 14px 32px; border-radius: 100px; font-size: 15px; text-decoration: none; transition: all .2s; background: transparent; cursor: pointer; font-family: 'Outfit', sans-serif; }
-    .btn-outline:hover { border-color: var(--dark); }
-    .hero-img { flex: 1; position: relative; overflow: hidden; }
-    .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+    /* ===== HERO ===== */
+    .hero { display: grid; grid-template-columns: 1.05fr 1fr; min-height: 720px; }
+    .hero-content { display: flex; flex-direction: column; justify-content: center; padding: 80px 64px 80px 80px; background: var(--linen); position: relative; }
+    .hero-content::after { content: ""; position: absolute; right: -1px; top: 12%; bottom: 12%; width: 1px; background: var(--hairline); }
+    .hero-tag { display: inline-flex; align-items: center; gap: 12px; font-size: 12px; color: var(--sage-deep); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; margin-bottom: 36px; }
+    .hero-tag::before { content: ""; display: inline-block; width: 28px; height: 1px; background: var(--sage); }
+    .hero h1 { font-size: clamp(40px, 4vw, 60px); color: var(--dark); line-height: 1.05; margin-bottom: 32px; letter-spacing: -.01em; max-width: 600px; }
+    .hero h1 em { font-style: italic; color: var(--terracotta-deep); }
+    .hero-desc { font-size: 17px; color: var(--umber); max-width: 480px; line-height: 1.75; margin-bottom: 40px; }
+    .hero-btns { display: flex; gap: 12px; align-items: center; margin-bottom: 40px; }
+    .hero-meta { display: flex; gap: 28px; padding-top: 24px; border-top: 1px solid var(--hairline); font-size: 13px; color: var(--umber); }
+    .hero-meta-item strong { display: block; font-family: 'DM Serif Display', serif; font-size: 18px; font-weight: 400; color: var(--dark); margin-bottom: 2px; }
+    .btn-primary { background: var(--sage); color: #fff; padding: 14px 30px; border-radius: 100px; font-size: 14px; font-weight: 500; letter-spacing: .02em; text-decoration: none; transition: all .25s; border: none; cursor: pointer; font-family: 'Outfit', sans-serif; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-primary:hover { background: var(--sage-deep); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(124,154,110,.25); }
+    .btn-outline { border: 1px solid var(--sand); color: var(--dark); padding: 14px 30px; border-radius: 100px; font-size: 14px; font-weight: 500; text-decoration: none; transition: all .25s; background: transparent; cursor: pointer; font-family: 'Outfit', sans-serif; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-outline:hover { border-color: var(--dark); background: rgba(60,44,32,.03); }
+    .hero-img { position: relative; overflow: hidden; }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 12s ease; }
+    .hero-img:hover img { transform: scale(1.05); }
+    .hero-img-badge { position: absolute; bottom: 36px; left: 36px; right: 36px; background: rgba(249,245,239,.94); backdrop-filter: blur(10px); padding: 20px 24px; border-radius: 16px; display: flex; align-items: center; gap: 16px; }
+    .hero-img-badge-stars { color: var(--sage-deep); font-size: 13px; letter-spacing: 3px; margin-bottom: 4px; }
+    .hero-img-badge-text { font-size: 13px; color: var(--dark); line-height: 1.4; }
+    .hero-img-badge-text strong { font-family: 'DM Serif Display', serif; font-weight: 400; font-size: 15px; }
 
-    /* TRUST BAR */
-    .trust { display: flex; align-items: center; justify-content: center; gap: 48px; padding: 32px 48px; background: var(--white); border-bottom: 1px solid rgba(74,55,40,.06); }
-    .trust span { font-size: 14px; color: var(--umber); }
-    .trust-sep { width: 1px; height: 16px; background: var(--sand); }
+    /* ===== TRUST BAR ===== */
+    .trust { display: flex; align-items: center; justify-content: center; gap: 0; padding: 36px 48px; background: var(--white); border-bottom: 1px solid var(--hairline); flex-wrap: wrap; }
+    .trust-item { display: flex; flex-direction: column; align-items: center; padding: 0 48px; min-width: 0; text-align: center; }
+    .trust-item + .trust-item { border-left: 1px solid var(--hairline); }
+    .trust-item strong { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: var(--dark); line-height: 1; margin-bottom: 6px; }
+    .trust-item span { font-size: 12px; color: var(--umber); letter-spacing: .04em; }
 
-    /* SERVICES */
-    .services { padding: 100px 48px; background: var(--white); }
-    .section-tag { font-size: 12px; color: var(--sage); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
-    .section-title { font-size: 40px; color: var(--dark); margin-bottom: 16px; }
-    .section-desc { font-size: 16px; color: var(--umber); max-width: 480px; margin-bottom: 56px; line-height: 1.7; }
-    .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .service-card { border-radius: 20px; overflow: hidden; border: 1px solid rgba(74,55,40,.06); transition: all .3s; cursor: pointer; background: var(--white); }
-    .service-card:hover { box-shadow: 0 12px 40px rgba(74,55,40,.08); transform: translateY(-4px); }
-    .service-card img { width: 100%; height: 200px; object-fit: cover; }
-    .service-card-body { padding: 24px; }
-    .service-card h3 { font-size: 20px; color: var(--dark); margin-bottom: 8px; }
-    .service-card p { font-size: 14px; color: var(--umber); line-height: 1.6; }
-    .service-card-link { display: inline-block; margin-top: 12px; font-size: 13px; color: var(--sage); font-weight: 500; text-decoration: none; }
+    /* ===== SECTION SHARED ===== */
+    .section-tag { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; color: var(--sage-deep); letter-spacing: .16em; text-transform: uppercase; margin-bottom: 20px; font-weight: 500; }
+    .section-tag::before { content: ""; display: inline-block; width: 24px; height: 1px; background: var(--sage); }
+    .section-title { font-size: clamp(32px, 3.4vw, 48px); color: var(--dark); margin-bottom: 20px; line-height: 1.1; letter-spacing: -.005em; }
+    .section-title em { font-style: italic; color: var(--terracotta-deep); }
+    .section-desc { font-size: 16px; color: var(--umber); max-width: 520px; line-height: 1.75; }
 
-    /* ABOUT */
-    .about { display: flex; min-height: 480px; }
-    .about-img { flex: 1; position: relative; overflow: hidden; }
+    /* ===== SERVICES ===== */
+    .services { padding: 120px 48px; background: var(--white); }
+    .services-head { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 64px; }
+    .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .service-card { border-radius: 20px; overflow: hidden; background: var(--linen); transition: all .35s; }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(60,44,32,.08); }
+    .service-card-img { aspect-ratio: 4/3; overflow: hidden; }
+    .service-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s; }
+    .service-card:hover .service-card-img img { transform: scale(1.06); }
+    .service-card-body { padding: 28px 24px 32px; }
+    .service-card-eyebrow { font-size: 11px; color: var(--sage-deep); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 12px; }
+    .service-card h3 { font-size: 22px; color: var(--dark); margin-bottom: 10px; }
+    .service-card p { font-size: 14px; color: var(--umber); line-height: 1.6; margin-bottom: 16px; }
+    .service-card-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--sage-deep); font-weight: 500; text-decoration: none; transition: gap .25s; }
+    .service-card-link:hover { gap: 14px; }
+    .services-foot { margin-top: 56px; text-align: center; }
+    .services-foot a { font-size: 14px; color: var(--dark); text-decoration: none; border-bottom: 1px solid var(--sand); padding-bottom: 4px; transition: all .25s; }
+    .services-foot a:hover { color: var(--sage-deep); border-color: var(--sage-deep); }
+
+    /* ===== PROCESS ===== */
+    .process { padding: 120px 48px; background: var(--linen); position: relative; }
+    .process-head { text-align: center; max-width: 640px; margin: 0 auto 72px; }
+    .process-head .section-tag { justify-content: center; }
+    .process-head .section-desc { margin: 0 auto; }
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+    .process-grid::before { content: ""; position: absolute; top: 32px; left: 12%; right: 12%; height: 1px; background: linear-gradient(90deg, transparent, var(--sand) 12%, var(--sand) 88%, transparent); }
+    .process-step { padding: 0 24px; text-align: center; position: relative; }
+    .process-num { width: 64px; height: 64px; border-radius: 50%; background: var(--linen); border: 1px solid var(--sand); display: flex; align-items: center; justify-content: center; margin: 0 auto 28px; font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--dark); position: relative; z-index: 1; transition: all .3s; }
+    .process-step:hover .process-num { background: var(--sage); color: #fff; border-color: var(--sage); transform: scale(1.05); }
+    .process-step h3 { font-size: 22px; color: var(--dark); margin-bottom: 10px; }
+    .process-step p { font-size: 14px; color: var(--umber); line-height: 1.6; max-width: 220px; margin: 0 auto; }
+
+    /* ===== ABOUT ===== */
+    .about { display: grid; grid-template-columns: 1fr 1fr; min-height: 640px; align-items: stretch; }
+    .about-img { position: relative; overflow: hidden; }
     .about-img img { width: 100%; height: 100%; object-fit: cover; }
-    .about-content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 80px 64px; background: var(--linen); }
-    .about h2 { font-size: 36px; color: var(--dark); margin-bottom: 20px; line-height: 1.1; }
-    .about p { font-size: 15px; color: var(--umber); line-height: 1.8; margin-bottom: 16px; max-width: 440px; }
-    .about-stat-row { display: flex; gap: 40px; margin-top: 32px; }
-    .about-stat strong { font-size: 36px; font-family: 'DM Serif Display', serif; color: var(--dark); display: block; line-height: 1; }
-    .about-stat span { font-size: 13px; color: var(--umber); }
+    .about-img-quote { position: absolute; bottom: 40px; left: 40px; right: 40px; background: rgba(249,245,239,.94); backdrop-filter: blur(10px); padding: 24px 28px; border-radius: 16px; }
+    .about-img-quote p { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 18px; color: var(--dark); line-height: 1.4; margin-bottom: 8px; }
+    .about-img-quote cite { font-size: 12px; color: var(--umber); font-style: normal; letter-spacing: .04em; }
+    .about-content { display: flex; flex-direction: column; justify-content: center; padding: 100px 80px; background: var(--white); }
+    .about-content h2 { font-size: clamp(32px, 3.2vw, 44px); color: var(--dark); margin-bottom: 24px; line-height: 1.1; }
+    .about-content > p { font-size: 16px; color: var(--umber); line-height: 1.85; margin-bottom: 16px; max-width: 480px; }
+    .about-stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; padding-top: 36px; border-top: 1px solid var(--hairline); max-width: 480px; }
+    .about-stat strong { font-family: 'DM Serif Display', serif; font-size: 38px; color: var(--dark); display: block; line-height: 1; margin-bottom: 6px; font-weight: 400; }
+    .about-stat span { font-size: 12px; color: var(--umber); letter-spacing: .04em; text-transform: uppercase; }
 
-    /* TEAM */
-    .team { padding: 100px 48px; background: var(--white); text-align: center; }
-    .team-grid { display: flex; justify-content: center; gap: 32px; margin-top: 56px; flex-wrap: wrap; }
-    .team-member { text-align: center; width: 140px; }
-    .team-member img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 14px; border: 3px solid var(--linen); }
-    .team-member h4 { font-family: 'DM Serif Display', serif; font-size: 15px; color: var(--dark); font-weight: 400; margin-bottom: 2px; }
-    .team-member p { font-size: 12px; color: var(--umber); }
+    /* ===== GALLERY ===== */
+    .gallery { padding: 120px 48px; background: var(--white); }
+    .gallery-head { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 56px; }
+    .gallery-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; grid-template-rows: 320px 280px; gap: 16px; }
+    .gallery-img { overflow: hidden; border-radius: 16px; position: relative; }
+    .gallery-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s; }
+    .gallery-img:hover img { transform: scale(1.04); }
+    .gallery-img:nth-child(1) { grid-row: 1 / span 2; }
+    .gallery-img:nth-child(2) { grid-column: 2; grid-row: 1; }
+    .gallery-img:nth-child(3) { grid-column: 3; grid-row: 1; }
+    .gallery-img:nth-child(4) { grid-column: 2 / span 2; grid-row: 2; }
 
-    /* TESTIMONIAL */
-    .testimonial { padding: 100px 48px; background: var(--linen); text-align: center; }
-    .testimonial-stars { color: var(--sage); font-size: 20px; margin-bottom: 20px; letter-spacing: 4px; }
-    .testimonial blockquote { font-family: 'DM Serif Display', serif; font-size: 30px; color: var(--dark); max-width: 720px; margin: 0 auto 24px; line-height: 1.3; font-style: italic; }
-    .testimonial cite { font-size: 14px; color: var(--umber); font-style: normal; }
+    /* ===== TESTIMONIALS ===== */
+    .testimonials { padding: 120px 48px; background: var(--linen); }
+    .testimonials-head { text-align: center; max-width: 640px; margin: 0 auto 72px; }
+    .testimonials-head .section-tag { justify-content: center; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .testimonial-card { background: var(--white); border-radius: 20px; padding: 40px 36px; }
+    .testimonial-stars { color: var(--sage-deep); font-size: 14px; letter-spacing: 3px; margin-bottom: 20px; }
+    .testimonial-card blockquote { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--dark); line-height: 1.45; margin-bottom: 28px; font-style: italic; }
+    .testimonial-meta { display: flex; align-items: center; gap: 14px; padding-top: 24px; border-top: 1px solid var(--hairline); }
+    .testimonial-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+    .testimonial-name { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--dark); }
+    .testimonial-role { font-size: 12px; color: var(--umber); letter-spacing: .04em; }
 
-    /* CTA */
-    .cta-section { padding: 100px 48px; background: var(--sage); text-align: center; }
-    .cta-section h2 { font-size: 42px; color: white; margin-bottom: 16px; }
-    .cta-section p { font-size: 16px; color: rgba(255,255,255,.75); margin-bottom: 36px; }
-    .btn-white { background: white; color: var(--dark); padding: 16px 36px; border-radius: 100px; font-size: 16px; font-weight: 500; text-decoration: none; transition: all .2s; display: inline-block; font-family: 'Outfit', sans-serif; }
-    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+    /* ===== TEAM ===== */
+    .team { padding: 120px 48px; background: var(--white); text-align: center; }
+    .team-head { max-width: 640px; margin: 0 auto 72px; }
+    .team-head .section-tag { justify-content: center; }
+    .team-head .section-desc { margin: 0 auto; }
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 32px; max-width: 1100px; margin: 0 auto; }
+    .team-member { text-align: center; }
+    .team-member img { width: 132px; height: 132px; border-radius: 50%; object-fit: cover; margin: 0 auto 16px; border: 3px solid var(--linen); transition: all .3s; }
+    .team-member:hover img { border-color: var(--sage); transform: scale(1.03); }
+    .team-member h4 { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--dark); font-weight: 400; margin-bottom: 4px; }
+    .team-member p { font-size: 12px; color: var(--umber); letter-spacing: .04em; }
 
-    /* FOOTER */
-    .footer { padding: 48px; background: var(--dark); color: rgba(255,255,255,.5); display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
-    .footer-logo { font-family: 'DM Serif Display', serif; font-size: 18px; color: white; }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { color: rgba(255,255,255,.5); text-decoration: none; font-size: 13px; }
-    .footer-links a:hover { color: white; }
+    /* ===== LOCATIONS ===== */
+    .locations { padding: 120px 48px; background: var(--linen); }
+    .locations-head { text-align: center; max-width: 640px; margin: 0 auto 72px; }
+    .locations-head .section-tag { justify-content: center; }
+    .locations-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .location-card { background: var(--white); border-radius: 24px; overflow: hidden; position: relative; }
+    .location-img { aspect-ratio: 16/10; overflow: hidden; position: relative; }
+    .location-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s; }
+    .location-card:hover .location-img img { transform: scale(1.04); }
+    .location-tag { position: absolute; top: 20px; left: 20px; background: rgba(249,245,239,.94); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 100px; font-size: 11px; color: var(--sage-deep); letter-spacing: .12em; text-transform: uppercase; font-weight: 500; }
+    .location-tag.future { color: var(--terracotta-deep); }
+    .location-body { padding: 32px 36px 36px; }
+    .location-body h3 { font-size: 26px; color: var(--dark); margin-bottom: 8px; }
+    .location-body .addr { font-size: 14px; color: var(--umber); line-height: 1.6; margin-bottom: 20px; }
+    .location-body .hours { display: flex; gap: 24px; font-size: 13px; color: var(--umber); padding-top: 16px; border-top: 1px solid var(--hairline); margin-bottom: 20px; }
+    .location-body .hours strong { color: var(--dark); font-family: 'DM Serif Display', serif; font-weight: 400; display: block; font-size: 15px; margin-bottom: 2px; }
+    .location-body .loc-link { font-size: 13px; color: var(--sage-deep); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; transition: gap .25s; }
+    .location-body .loc-link:hover { gap: 12px; }
 
-    /* ===== Fullscreen content caps (>=1376px viewport) ===== */
-    /* Backgrounds still bleed full-width; content stays in a comfortable column. */
+    /* ===== FAQ ===== */
+    .faq { padding: 120px 48px; background: var(--white); }
+    .faq-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; max-width: 1200px; margin: 0 auto; }
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item { border-bottom: 1px solid var(--hairline); }
+    .faq-item summary { padding: 24px 0; font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--dark); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 24px; transition: color .25s; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: "+"; font-size: 22px; color: var(--sage-deep); transition: transform .3s; font-family: 'Outfit', sans-serif; font-weight: 300; }
+    .faq-item[open] summary::after { content: "−"; }
+    .faq-item summary:hover { color: var(--sage-deep); }
+    .faq-item-body { padding: 0 0 24px; font-size: 15px; color: var(--umber); line-height: 1.75; max-width: 540px; }
+
+    /* ===== ARTICLES ===== */
+    .articles { padding: 120px 48px; background: var(--linen); }
+    .articles-head { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 56px; }
+    .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .article-card { background: var(--white); border-radius: 20px; overflow: hidden; transition: all .35s; }
+    .article-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(60,44,32,.08); }
+    .article-img { aspect-ratio: 4/3; overflow: hidden; }
+    .article-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s; }
+    .article-card:hover .article-img img { transform: scale(1.04); }
+    .article-body { padding: 28px 28px 32px; }
+    .article-meta { display: flex; gap: 12px; font-size: 11px; color: var(--umber); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px; }
+    .article-meta span:not(:first-child)::before { content: "·"; margin-right: 12px; color: var(--sand); }
+    .article-body h3 { font-size: 20px; color: var(--dark); margin-bottom: 10px; line-height: 1.3; }
+    .article-body p { font-size: 14px; color: var(--umber); line-height: 1.65; margin-bottom: 16px; }
+    .article-link { font-size: 13px; color: var(--sage-deep); font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: gap .25s; }
+    .article-link:hover { gap: 12px; }
+
+    /* ===== CTA ===== */
+    .cta-section { padding: 140px 48px; background: var(--sage); text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 80% 20%, rgba(196,144,126,.18), transparent 50%), radial-gradient(circle at 20% 80%, rgba(228,216,197,.15), transparent 50%); pointer-events: none; }
+    .cta-section > * { position: relative; }
+    .cta-section .section-tag { color: rgba(255,255,255,.7); justify-content: center; }
+    .cta-section .section-tag::before { background: rgba(255,255,255,.4); }
+    .cta-section h2 { font-size: clamp(36px, 4vw, 56px); color: #fff; margin-bottom: 24px; line-height: 1.1; }
+    .cta-section p { font-size: 17px; color: rgba(255,255,255,.8); margin-bottom: 40px; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .cta-actions { display: inline-flex; gap: 14px; align-items: center; flex-wrap: wrap; justify-content: center; }
+    .btn-white { background: #fff; color: var(--dark); padding: 16px 32px; border-radius: 100px; font-size: 15px; font-weight: 500; text-decoration: none; transition: all .25s; display: inline-flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,.15); }
+    .btn-ghost-light { color: #fff; border: 1px solid rgba(255,255,255,.3); padding: 16px 32px; border-radius: 100px; font-size: 15px; font-weight: 500; text-decoration: none; transition: all .25s; display: inline-flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; }
+    .btn-ghost-light:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.5); }
+
+    /* ===== FOOTER ===== */
+    .footer { padding: 80px 48px 36px; background: var(--dark); color: rgba(255,255,255,.55); }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 64px; margin-bottom: 48px; }
+    .footer-brand-name { font-family: 'DM Serif Display', serif; font-size: 24px; color: #fff; margin-bottom: 14px; font-weight: 400; }
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 320px; }
+    .footer-col h5 { font-family: 'Outfit', sans-serif; font-size: 12px; color: #fff; text-transform: uppercase; letter-spacing: .14em; margin-bottom: 20px; font-weight: 500; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { color: rgba(255,255,255,.55); font-size: 14px; text-decoration: none; transition: color .2s; }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom { padding-top: 24px; border-top: 1px solid rgba(255,255,255,.08); display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+
+    /* ===== Fullscreen content caps ===== */
     .nav,
     .trust,
     .services,
+    .process,
+    .gallery,
+    .testimonials,
     .team,
-    .testimonial,
+    .locations,
+    .faq,
+    .articles,
     .cta-section,
     .footer {
       padding-inline: max(48px, calc((100% - 1280px) / 2));
     }
-    /* Visual full-bleed split sections cap at 1760px on ultra-wide displays */
     .hero,
     .about {
       max-width: 1760px;
       margin-left: auto;
       margin-right: auto;
     }
+
+    /* ===== Responsive (broad strokes; main canvas is desktop) ===== */
+    @media (max-width: 960px) {
+      .nav { padding: 16px 24px; }
+      .nav-links { gap: 18px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-content { padding: 56px 32px; }
+      .hero-content::after { display: none; }
+      .hero-img { min-height: 360px; }
+      .services-head, .gallery-head, .articles-head { grid-template-columns: 1fr; gap: 24px; }
+      .services-grid, .articles-grid { grid-template-columns: 1fr 1fr; }
+      .process-grid { grid-template-columns: 1fr 1fr; gap: 48px 0; }
+      .process-grid::before { display: none; }
+      .about { grid-template-columns: 1fr; }
+      .about-content { padding: 56px 32px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 240px 240px; }
+      .gallery-img:nth-child(1) { grid-row: 1; grid-column: 1; }
+      .gallery-img:nth-child(2) { grid-row: 1; grid-column: 2; }
+      .gallery-img:nth-child(3) { grid-row: 2; grid-column: 1; }
+      .gallery-img:nth-child(4) { grid-row: 2; grid-column: 2; }
+      .testimonials-grid, .locations-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .faq-wrap { grid-template-columns: 1fr; gap: 32px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
   </style>
 </head>
 <body>
 
+<!-- ===== NAV ===== -->
 <nav class="nav">
   <a href="#" class="nav-logo"><img src="assets/logo.png" alt="Vision Dental"></a>
   <div class="nav-links">
-    <a href="#">Services</a>
-    <a href="#">About</a>
-    <a href="#">Team</a>
-    <a href="#">Gallery</a>
-    <a href="#">Contact</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#team">Team</a>
+    <a href="#locations">Locations</a>
+    <a href="#articles">Journal</a>
     <a href="#" class="nav-cta">Book a Visit</a>
   </div>
 </nav>
 
+<!-- ===== HERO ===== -->
 <section class="hero">
   <div class="hero-content">
-    <p class="hero-tag">LOS ANGELES, CALIFORNIA</p>
-    <h1>Your smile<br>deserves<br>warmth</h1>
-    <p class="hero-desc">Thoughtful dental care rooted in community. Where every visit feels like coming home.</p>
-    <div class="hero-btns">
-      <a href="#" class="btn-primary">Schedule Your Visit</a>
-      <a href="#" class="btn-outline">Our Approach</a>
+    <p class="hero-tag reveal">Los Angeles &middot; Trusted since 2008</p>
+    <h1 class="reveal" data-d="1">A dental practice that feels less like a clinic &mdash; and more like <em>coming home</em>.</h1>
+    <p class="hero-desc reveal" data-d="2">We've been caring for West LA families for over fifteen years. Honest dentistry, served slowly, in a sun-filled space designed to soothe rather than rush. Whether it's your first cleaning or your tenth, you'll find the same gentle attention waiting.</p>
+    <div class="hero-btns reveal" data-d="3">
+      <a href="#" class="btn-primary">Schedule Your Visit &rarr;</a>
+      <a href="#about" class="btn-outline">Our Approach</a>
+    </div>
+    <div class="hero-meta reveal" data-d="4">
+      <div class="hero-meta-item"><strong>Mon &ndash; Fri</strong>8am &ndash; 6pm</div>
+      <div class="hero-meta-item"><strong>(213) 555-0100</strong>Front desk, no robots</div>
     </div>
   </div>
   <div class="hero-img">
-    <img src="assets/hero.jpg" alt="Vision Dental">
+    <img src="assets/hero.jpg" alt="Vision Dental practice interior">
+    <div class="hero-img-badge reveal" data-d="2">
+      <div>
+        <div class="hero-img-badge-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <div class="hero-img-badge-text"><strong>4.9 / 5</strong> &middot; 600+ Google reviews</div>
+      </div>
+    </div>
   </div>
 </section>
 
+<!-- ===== TRUST BAR ===== -->
 <div class="trust">
-  <span>15+ Years of Care</span>
-  <div class="trust-sep"></div>
-  <span>5,000+ Happy Patients</span>
-  <div class="trust-sep"></div>
-  <span>4.9 Star Rating</span>
-  <div class="trust-sep"></div>
-  <span>Santa Monica Blvd, LA</span>
+  <div class="trust-item"><strong>15+</strong><span>YEARS IN WEST LA</span></div>
+  <div class="trust-item"><strong>5,000+</strong><span>PATIENTS SERVED</span></div>
+  <div class="trust-item"><strong>4.9</strong><span>GOOGLE RATING</span></div>
+  <div class="trust-item"><strong>9</strong><span>DENTISTS &amp; HYGIENISTS</span></div>
+  <div class="trust-item"><strong>2</strong><span>LA LOCATIONS</span></div>
 </div>
 
-<section class="services">
-  <p class="section-tag">What We Do</p>
-  <h2 class="section-title">Care for every smile</h2>
-  <p class="section-desc">From routine cleanings to smile transformations, every service is delivered with warmth and precision.</p>
+<!-- ===== SERVICES ===== -->
+<section class="services" id="services">
+  <div class="services-head reveal">
+    <div>
+      <p class="section-tag">What we do</p>
+      <h2 class="section-title">Care for <em>every</em> smile, every age</h2>
+    </div>
+    <p class="section-desc">From a quick cleaning to a full smile redesign, every service is delivered with the same patience, precision, and warmth. We never rush — and we explain everything.</p>
+  </div>
   <div class="services-grid">
-    <div class="service-card">
-      <img src="assets/service-general.jpg" alt="General Dentistry">
+    <div class="service-card reveal" data-d="1">
+      <div class="service-card-img"><img src="assets/service-general.jpg" alt=""></div>
       <div class="service-card-body">
-        <h3>General</h3>
-        <p>Exams, cleanings, fillings, and preventive care for the whole family.</p>
+        <p class="service-card-eyebrow">Family</p>
+        <h3>General Dentistry</h3>
+        <p>Exams, cleanings, fillings, and preventive care for the whole household.</p>
         <a href="#" class="service-card-link">Learn more &rarr;</a>
       </div>
     </div>
-    <div class="service-card">
-      <img src="assets/service-cosmetic.jpg" alt="Cosmetic Dentistry">
+    <div class="service-card reveal" data-d="2">
+      <div class="service-card-img"><img src="assets/service-cosmetic.jpg" alt=""></div>
       <div class="service-card-body">
+        <p class="service-card-eyebrow">Aesthetic</p>
         <h3>Cosmetic</h3>
-        <p>Veneers, whitening, bonding, and complete smile design.</p>
+        <p>Veneers, whitening, bonding, and full smile design for confidence.</p>
         <a href="#" class="service-card-link">Learn more &rarr;</a>
       </div>
     </div>
-    <div class="service-card">
-      <img src="assets/service-pediatric.jpg" alt="Pediatric Dentistry">
+    <div class="service-card reveal" data-d="3">
+      <div class="service-card-img"><img src="assets/service-pediatric.jpg" alt=""></div>
       <div class="service-card-body">
+        <p class="service-card-eyebrow">Little ones</p>
         <h3>Pediatric</h3>
-        <p>Gentle care for little ones. Sealants, checkups, and a fun experience.</p>
+        <p>Gentle, unhurried visits for kids. Sealants, checkups, and zero pressure.</p>
         <a href="#" class="service-card-link">Learn more &rarr;</a>
       </div>
     </div>
-    <div class="service-card">
-      <img src="assets/service-orthodontic.jpg" alt="Orthodontics">
+    <div class="service-card reveal" data-d="4">
+      <div class="service-card-img"><img src="assets/service-orthodontic.jpg" alt=""></div>
       <div class="service-card-body">
+        <p class="service-card-eyebrow">Alignment</p>
         <h3>Orthodontics</h3>
-        <p>Braces, Invisalign, and bite correction for all ages.</p>
+        <p>Invisalign, braces, and bite correction for teens and adults alike.</p>
         <a href="#" class="service-card-link">Learn more &rarr;</a>
       </div>
     </div>
   </div>
+  <div class="services-foot reveal">
+    <a href="#">See every service we offer &rarr;</a>
+  </div>
 </section>
 
-<section class="about">
+<!-- ===== PROCESS ===== -->
+<section class="process">
+  <div class="process-head reveal">
+    <p class="section-tag">How it goes</p>
+    <h2 class="section-title">A slower, kinder kind of visit</h2>
+    <p class="section-desc">Four small steps. No rush, no surprises. Just a clear plan and a calm chair.</p>
+  </div>
+  <div class="process-grid">
+    <div class="process-step reveal" data-d="1">
+      <div class="process-num">01</div>
+      <h3>Welcome</h3>
+      <p>Tea, a quiet seat, and a few minutes to actually talk before anything else.</p>
+    </div>
+    <div class="process-step reveal" data-d="2">
+      <div class="process-num">02</div>
+      <h3>Consult</h3>
+      <p>An unhurried look, gentle questions, and a treatment plan we explain in plain English.</p>
+    </div>
+    <div class="process-step reveal" data-d="3">
+      <div class="process-num">03</div>
+      <h3>Care</h3>
+      <p>Modern, evidence-based treatment delivered with patience &mdash; and the same chair each time.</p>
+    </div>
+    <div class="process-step reveal" data-d="4">
+      <div class="process-num">04</div>
+      <h3>Follow-up</h3>
+      <p>A real check-in, a reminder when you're due, and a relationship that lasts beyond the visit.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
   <div class="about-img">
-    <img src="assets/about.jpg" alt="Our Practice">
+    <img src="assets/about.jpg" alt="Inside our West LA practice">
+    <div class="about-img-quote reveal">
+      <p>"We don't run a dental factory. We run a neighborhood practice."</p>
+      <cite>&mdash; Dr. William Cheng, Lead Dentist</cite>
+    </div>
   </div>
   <div class="about-content">
-    <p class="section-tag">Our Approach</p>
-    <h2>Dental care that<br>feels different</h2>
-    <p>We believe a visit to the dentist should feel warm, personal, and unhurried. Our practice is built around genuine relationships with the people we serve.</p>
-    <p>From the moment you walk in, you'll notice the difference &mdash; natural light, friendly faces, and a space designed to put you at ease.</p>
-    <div class="about-stat-row">
+    <p class="section-tag reveal">Our story</p>
+    <h2 class="reveal" data-d="1">Dental care that feels <em>different</em></h2>
+    <p class="reveal" data-d="2">We opened on Santa Monica Boulevard in 2008 with a quiet conviction: that a visit to the dentist shouldn't feel like a transaction. Fifteen years later, the same belief still guides every appointment.</p>
+    <p class="reveal" data-d="2">From the moment you walk in &mdash; natural light, friendly faces, no pressure &mdash; you'll notice the difference. We're proud to be a fixture in West LA, and to count multiple generations of families among our patients.</p>
+    <div class="about-stat-row reveal" data-d="3">
       <div class="about-stat"><strong>15+</strong><span>Years of care</span></div>
-      <div class="about-stat"><strong>5k+</strong><span>Happy patients</span></div>
-      <div class="about-stat"><strong>2</strong><span>LA locations</span></div>
+      <div class="about-stat"><strong>5k+</strong><span>Patients served</span></div>
+      <div class="about-stat"><strong>9</strong><span>Specialists</span></div>
     </div>
   </div>
 </section>
 
-<section class="team">
-  <p class="section-tag">Meet Our Team</p>
-  <h2 class="section-title">The people behind<br>every smile</h2>
+<!-- ===== GALLERY ===== -->
+<section class="gallery">
+  <div class="gallery-head reveal">
+    <div>
+      <p class="section-tag">Inside the practice</p>
+      <h2 class="section-title">A space designed to <em>breathe</em></h2>
+    </div>
+    <p class="section-desc">Natural light, warm wood, and quiet corners &mdash; not the clinic you remember from childhood. Take a look.</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-img reveal" data-d="1"><img src="assets/gallery-1.jpg" alt="Reception"></div>
+    <div class="gallery-img reveal" data-d="2"><img src="assets/gallery-2.jpg" alt="Treatment room"></div>
+    <div class="gallery-img reveal" data-d="3"><img src="assets/gallery-3.jpg" alt="Consultation area"></div>
+    <div class="gallery-img reveal" data-d="4"><img src="assets/gallery-4.jpg" alt="Waiting area"></div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials">
+  <div class="testimonials-head reveal">
+    <p class="section-tag">In their own words</p>
+    <h2 class="section-title">Stories from the chair</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal" data-d="1">
+      <div class="testimonial-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+      <blockquote>"The warmest dental office I've ever been to. From the front desk to the chair, every person made me feel cared for. I actually look forward to my cleanings now."</blockquote>
+      <div class="testimonial-meta">
+        <img class="testimonial-avatar" src="assets/avatar-emily.jpg" alt="">
+        <div>
+          <div class="testimonial-name">Emily R.</div>
+          <div class="testimonial-role">Patient since 2019</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal" data-d="2">
+      <div class="testimonial-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+      <blockquote>"Dr. Cheng explained my treatment plan like a friend would &mdash; no jargon, no pressure. I came in dreading a root canal and walked out planning to bring my kids."</blockquote>
+      <div class="testimonial-meta">
+        <img class="testimonial-avatar" src="assets/avatar-michael.jpg" alt="">
+        <div>
+          <div class="testimonial-name">Michael T.</div>
+          <div class="testimonial-role">Patient since 2021</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEAM ===== -->
+<section class="team" id="team">
+  <div class="team-head reveal">
+    <p class="section-tag">Meet the team</p>
+    <h2 class="section-title">The people behind <em>every</em> smile</h2>
+    <p class="section-desc">A small, tight-knit team you'll come to know by name. Many have been with us for a decade or more.</p>
+  </div>
   <div class="team-grid">
-    <div class="team-member"><img src="assets/team-william.jpg" alt="Dr. William Cheng"><h4>Dr. William Cheng</h4><p>Lead Dentist, DDS</p></div>
-    <div class="team-member"><img src="assets/team-nicole.jpg" alt="Nicole Cheng"><h4>Nicole Cheng</h4><p>Practice Manager</p></div>
-    <div class="team-member"><img src="assets/team-rogelio.jpg" alt="Rogelio Garcia"><h4>Rogelio Garcia</h4><p>Dental Hygienist</p></div>
-    <div class="team-member"><img src="assets/team-andrew.jpg" alt="Andrew Huynh"><h4>Andrew Huynh</h4><p>Dental Assistant</p></div>
-    <div class="team-member"><img src="assets/team-chris.jpg" alt="Chris Strandburg"><h4>Chris Strandburg</h4><p>Dental Assistant</p></div>
+    <div class="team-member reveal" data-d="1"><img src="assets/team-william.jpg" alt=""><h4>Dr. William Cheng</h4><p>LEAD DENTIST, DDS</p></div>
+    <div class="team-member reveal" data-d="1"><img src="assets/team-rogelio.jpg" alt=""><h4>Rogelio Garcia, DDS</h4><p>GENERAL DENTIST</p></div>
+    <div class="team-member reveal" data-d="2"><img src="assets/team-nicole.jpg" alt=""><h4>Nicole Cheng, DDS</h4><p>GENERAL DENTIST</p></div>
+    <div class="team-member reveal" data-d="2"><img src="assets/team-andrew.jpg" alt=""><h4>Andrew Huynh, DDS</h4><p>ORTHODONTIST</p></div>
+    <div class="team-member reveal" data-d="3"><img src="assets/team-chris.jpg" alt=""><h4>Chris Strandburg, DDS</h4><p>GENERAL DENTIST</p></div>
+    <div class="team-member reveal" data-d="3"><img src="assets/team-john.jpg" alt=""><h4>John Gonzales, DDS</h4><p>GENERAL DENTIST</p></div>
+    <div class="team-member reveal" data-d="4"><img src="assets/team-kevin-lu.jpg" alt=""><h4>Kevin Lu, DDS</h4><p>GENERAL DENTIST</p></div>
+    <div class="team-member reveal" data-d="4"><img src="assets/team-kevin-kang.jpg" alt=""><h4>Dr. Kevin Kang</h4><p>GENERAL DENTIST</p></div>
   </div>
 </section>
 
-<section class="testimonial">
-  <div class="testimonial-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
-  <blockquote>"The warmest dental office I've ever been to. From the front desk to the chair, every person made me feel cared for."</blockquote>
-  <cite>&mdash; Sarah M., Patient since 2019</cite>
+<!-- ===== LOCATIONS ===== -->
+<section class="locations" id="locations">
+  <div class="locations-head reveal">
+    <p class="section-tag">Where to find us</p>
+    <h2 class="section-title">Two LA homes</h2>
+    <p class="section-desc">Our flagship on Santa Monica Boulevard &mdash; with a second location opening soon for the families we can't yet reach.</p>
+  </div>
+  <div class="locations-grid">
+    <div class="location-card reveal" data-d="1">
+      <div class="location-img">
+        <img src="assets/location-la.jpg" alt="West LA location">
+        <span class="location-tag">Now open</span>
+      </div>
+      <div class="location-body">
+        <h3>West Los Angeles</h3>
+        <p class="addr">10700 Santa Monica Blvd, Suite 100<br>Los Angeles, CA 90025</p>
+        <div class="hours">
+          <div><strong>Mon &ndash; Fri</strong>8:00am &ndash; 6:00pm</div>
+          <div><strong>Sat</strong>By appointment</div>
+        </div>
+        <a href="#" class="loc-link">Get directions &rarr;</a>
+      </div>
+    </div>
+    <div class="location-card reveal" data-d="2">
+      <div class="location-img">
+        <img src="assets/location-future.jpg" alt="Future location">
+        <span class="location-tag future">Opening 2026</span>
+      </div>
+      <div class="location-body">
+        <h3>South Bay</h3>
+        <p class="addr">A second home, designed with the same warmth.<br>Coming soon.</p>
+        <div class="hours">
+          <div><strong>Stay in touch</strong>Be the first to know</div>
+        </div>
+        <a href="#" class="loc-link">Join the waitlist &rarr;</a>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- ===== FAQ ===== -->
+<section class="faq">
+  <div class="faq-wrap">
+    <div class="reveal">
+      <p class="section-tag">Good to know</p>
+      <h2 class="section-title">Questions, answered.</h2>
+      <p class="section-desc" style="margin-top:20px;">If we missed yours, give us a call. A real human will pick up.</p>
+    </div>
+    <div class="faq-list reveal" data-d="1">
+      <details class="faq-item" open>
+        <summary>Do you accept new patients?</summary>
+        <div class="faq-item-body">Yes &mdash; we'd love to meet you. New-patient visits include a full exam, a thorough cleaning, and time to talk through anything that's on your mind. No pressure on follow-up treatment.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What insurance do you accept?</summary>
+        <div class="faq-item-body">We work with most major dental insurance plans including Delta Dental, MetLife, Cigna, Aetna, and Guardian. If your plan isn't listed, we'll still help you understand your benefits.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do you offer payment plans?</summary>
+        <div class="faq-item-body">We offer flexible in-house financing and partner with CareCredit for longer-term plans. We'll always walk you through the full cost up front &mdash; no surprises.</div>
+      </details>
+      <details class="faq-item">
+        <summary>I'm anxious about dental visits. Can you help?</summary>
+        <div class="faq-item-body">Absolutely. We have years of experience working with anxious patients and offer multiple sedation options. The chair adjusts, the lights dim, and we go at your pace.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How do I book my first visit?</summary>
+        <div class="faq-item-body">Call us at (213) 555-0100 or use our online form. We'll send a short intake before your appointment so the visit itself can focus on you, not paperwork.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ARTICLES ===== -->
+<section class="articles" id="articles">
+  <div class="articles-head reveal">
+    <div>
+      <p class="section-tag">From our journal</p>
+      <h2 class="section-title">Reading for the<br>curious patient</h2>
+    </div>
+    <p class="section-desc">Honest, plainly-written notes on dental health &mdash; from our chair to your inbox.</p>
+  </div>
+  <div class="articles-grid">
+    <article class="article-card reveal" data-d="1">
+      <div class="article-img"><img src="assets/blog-1.jpg" alt=""></div>
+      <div class="article-body">
+        <div class="article-meta"><span>Wellness</span><span>5 min read</span></div>
+        <h3>The quiet link between your mouth and your heart</h3>
+        <p>Why oral health isn't just about your teeth &mdash; and what the research actually says about the gum-disease &amp; heart-disease connection.</p>
+        <a href="#" class="article-link">Read more &rarr;</a>
+      </div>
+    </article>
+    <article class="article-card reveal" data-d="2">
+      <div class="article-img"><img src="assets/blog-2.jpg" alt=""></div>
+      <div class="article-body">
+        <div class="article-meta"><span>Daily care</span><span>4 min read</span></div>
+        <h3>The two-minute habits that actually move the needle</h3>
+        <p>What we'd tell our own families about brushing, flossing, and rinsing &mdash; minus the marketing.</p>
+        <a href="#" class="article-link">Read more &rarr;</a>
+      </div>
+    </article>
+    <article class="article-card reveal" data-d="3">
+      <div class="article-img"><img src="assets/blog-3.jpg" alt=""></div>
+      <div class="article-body">
+        <div class="article-meta"><span>Nutrition</span><span>6 min read</span></div>
+        <h3>Foods that quietly support your smile</h3>
+        <p>A short list of everyday foods that strengthen enamel and feed the bacteria you actually want in your mouth.</p>
+        <a href="#" class="article-link">Read more &rarr;</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
 <section class="cta-section">
-  <h2>Ready to experience<br>the difference?</h2>
-  <p>Book your visit today and see what thoughtful dental care feels like.</p>
-  <a href="#" class="btn-white">Schedule Your Visit</a>
+  <p class="section-tag reveal">Ready when you are</p>
+  <h2 class="reveal" data-d="1">Come find us on<br>Santa Monica Boulevard</h2>
+  <p class="reveal" data-d="2">Book a visit, send us a question, or stop by for a tour. A real human picks up the phone &mdash; usually on the first ring.</p>
+  <div class="cta-actions reveal" data-d="3">
+    <a href="#" class="btn-white">Schedule Your Visit &rarr;</a>
+    <a href="tel:2135550100" class="btn-ghost-light">Call (213) 555-0100</a>
+  </div>
 </section>
 
+<!-- ===== FOOTER ===== -->
 <footer class="footer">
-  <div>
-    <p class="footer-logo">Vision Dental</p>
-    <p style="margin-top:6px;">10700 Santa Monica Blvd, Suite 100, Los Angeles, CA 90025</p>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <p class="footer-brand-name">Vision Dental</p>
+      <p>A neighborhood dental practice on Santa Monica Boulevard. Honest care, served with warmth, since 2008.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Practice</h5>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#team">Our team</a></li>
+        <li><a href="#articles">Journal</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Visit</h5>
+      <ul>
+        <li><a href="#locations">West Los Angeles</a></li>
+        <li><a href="#locations">South Bay (2026)</a></li>
+        <li><a href="#">Hours</a></li>
+        <li><a href="#">Insurance &amp; pricing</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="tel:2135550100">(213) 555-0100</a></li>
+        <li><a href="mailto:hello@visiondental.com">hello@visiondental.com</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Google reviews</a></li>
+      </ul>
+    </div>
   </div>
-  <div class="footer-links">
-    <a href="#">Services</a>
-    <a href="#">About</a>
-    <a href="#">Team</a>
-    <a href="#">Contact</a>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Vision Dental. Made warmly in Los Angeles.</span>
+    <span>Privacy &middot; Terms &middot; Accessibility</span>
   </div>
 </footer>
+
+<script>
+  // Scroll reveal
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) || !els.length) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
 
 </body>
 </html>
