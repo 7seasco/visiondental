@@ -1367,17 +1367,22 @@ document.querySelectorAll('.mockup[data-src]').forEach(mockup => {
   const MIN = 0.2, MAX = 8, STEP = 1.2;
   let scale = 1, tx = 0, ty = 0, fitScale = 1;
 
-  function apply() { stage.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`; }
+  function apply() {
+    img.style.width = (SVG_W * scale) + 'px';
+    stage.style.transform = `translate(${tx}px, ${ty}px)`;
+  }
 
   function fit() {
     const vw = viewer.clientWidth, vh = viewer.clientHeight;
     if (!img.naturalWidth) return;
-    /* Anchor top-left of content with small padding, zoom up so content grows to the right/down. */
-    fitScale = Math.min(vw / CONTENT.w, vh / CONTENT.h) * 2.0;
+    /* Fit content inside viewer with padding, then center. */
+    const PAD = 24;
+    fitScale = Math.min((vw - PAD * 2) / CONTENT.w, (vh - PAD * 2) / CONTENT.h) * 0.89;
     scale = fitScale;
-    const PAD = 32;
-    tx = -CONTENT.x * scale + PAD;
-    ty = -CONTENT.y * scale + PAD;
+    const renderedW = CONTENT.w * scale;
+    const renderedH = CONTENT.h * scale;
+    tx = (vw - renderedW) / 2 - CONTENT.x * scale;
+    ty = (vh - renderedH) / 2 - CONTENT.y * scale;
     apply();
   }
 
